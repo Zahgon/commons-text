@@ -55,11 +55,6 @@ public class LongestCommonSubsequenceDistance implements EditDistance<Integer> {
      */
     @Override
     public Integer apply(final CharSequence left, final CharSequence right) {
-        // Quick return for invalid inputs
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("Inputs must not be null");
-        }
-        return left.length() + right.length() - 2 * LongestCommonSubsequence.INSTANCE.apply(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

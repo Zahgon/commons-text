@@ -106,28 +106,44 @@ final class ParsedDecimal {
         boolean isSignedZero();
     }
 
-    /** Minus sign character. */
+    /**
+     * Minus sign character.
+     */
     private static final char MINUS_CHAR = '-';
 
-    /** Decimal separator character. */
+    /**
+     * Decimal separator character.
+     */
     private static final char DECIMAL_SEP_CHAR = '.';
 
-    /** Exponent character. */
+    /**
+     * Exponent character.
+     */
     private static final char EXPONENT_CHAR = 'E';
 
-    /** Zero digit character. */
+    /**
+     * Zero digit character.
+     */
     private static final char ZERO_CHAR = '0';
 
-    /** Number of characters in thousands groupings. */
+    /**
+     * Number of characters in thousands groupings.
+     */
     private static final int THOUSANDS_GROUP_SIZE = 3;
 
-    /** Radix for decimal numbers. */
+    /**
+     * Radix for decimal numbers.
+     */
     private static final int DECIMAL_RADIX = 10;
 
-    /** Center value used when rounding. */
+    /**
+     * Center value used when rounding.
+     */
     private static final int ROUND_CENTER = DECIMAL_RADIX / 2;
 
-    /** Number that exponents in engineering format must be a multiple of. */
+    /**
+     * Number that exponents in engineering format must be a multiple of.
+     */
     private static final int ENG_EXPONENT_MOD = 3;
 
     /**
@@ -149,65 +165,7 @@ final class ParsedDecimal {
      * @throws IllegalArgumentException if {@code d} is {@code NaN} or infinite.
      */
     public static ParsedDecimal from(final double d) {
-        if (!Double.isFinite(d)) {
-            throw new IllegalArgumentException("Double is not finite");
-        }
-
-        // Get the canonical string representation of the double value and parse
-        // it to extract the components of the decimal value. From the documentation
-        // of Double.toString() and the fact that d is finite, we are guaranteed the
-        // following:
-        // - the string will not be empty
-        // - it will contain exactly one decimal point character
-        // - all digit characters are in the ASCII range
-        final char[] strChars = Double.toString(d).toCharArray();
-
-        final boolean negative = strChars[0] == MINUS_CHAR;
-        final int digitStartIdx = negative ? 1 : 0;
-
-        final int[] digits = new int[strChars.length - digitStartIdx - 1];
-
-        boolean foundDecimalPoint = false;
-        int digitCount = 0;
-        int significantDigitCount = 0;
-        int decimalPos = 0;
-
-        int i;
-        for (i = digitStartIdx; i < strChars.length; ++i) {
-            final char ch = strChars[i];
-
-            if (ch == DECIMAL_SEP_CHAR) {
-                foundDecimalPoint = true;
-                decimalPos = digitCount;
-            } else if (ch == EXPONENT_CHAR) {
-                // no more mantissa digits
-                break;
-            } else if (ch != ZERO_CHAR || digitCount > 0) {
-                // this is either the first non-zero digit or one after it
-                final int val = digitValue(ch);
-                digits[digitCount++] = val;
-
-                if (val > 0) {
-                    significantDigitCount = digitCount;
-                }
-            } else if (foundDecimalPoint) {
-                // leading zero in a fraction; adjust the decimal position
-                --decimalPos;
-            }
-        }
-
-        if (digitCount > 0) {
-            // determine the exponent
-            final int explicitExponent = i < strChars.length
-                    ? parseExponent(strChars, i + 1)
-                    : 0;
-            final int exponent = explicitExponent + decimalPos - significantDigitCount;
-
-            return new ParsedDecimal(negative, digits, significantDigitCount, exponent);
-        }
-
-        // no non-zero digits, so value is zero
-        return new ParsedDecimal(negative, new int[] {0}, 1, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -224,31 +182,41 @@ final class ParsedDecimal {
         if (neg) {
             ++i;
         }
-
         int exp = 0;
         for (; i < chars.length; ++i) {
             exp = exp * DECIMAL_RADIX + digitValue(chars[i]);
         }
-
         return neg ? -exp : exp;
     }
 
-    /** True if the value is negative. */
+    /**
+     * True if the value is negative.
+     */
     final boolean negative;
 
-    /** Array containing the significant decimal digits for the value. */
+    /**
+     * Array containing the significant decimal digits for the value.
+     */
     final int[] digits;
 
-    /** Number of digits used in the digits array; not necessarily equal to the length. */
+    /**
+     * Number of digits used in the digits array; not necessarily equal to the length.
+     */
     int digitCount;
 
-    /** Exponent for the value. */
+    /**
+     * Exponent for the value.
+     */
     int exponent;
 
-    /** Output buffer for use in creating string representations. */
+    /**
+     * Output buffer for use in creating string representations.
+     */
     private char[] outputChars;
 
-    /** Output buffer index. */
+    /**
+     * Output buffer index.
+     */
     private int outputIdx;
 
     /**
@@ -259,8 +227,7 @@ final class ParsedDecimal {
      * @param digitCount number of digits used from the {@code digits} array.
      * @param exponent exponent value.
      */
-    private ParsedDecimal(final boolean negative, final int[] digits, final int digitCount,
-            final int exponent) {
+    private ParsedDecimal(final boolean negative, final int[] digits, final int digitCount, final int exponent) {
         this.negative = negative;
         this.digits = digits;
         this.digitCount = digitCount;
@@ -297,15 +264,12 @@ final class ParsedDecimal {
     private void appendFraction(final int zeroCount, final int startIdx, final FormatOptions opts) {
         final char[] localizedDigits = opts.getDigits();
         final char localizedZero = localizedDigits[0];
-
         if (startIdx < digitCount) {
             append(opts.getDecimalSeparator());
-
             // add the zero prefix
             for (int i = 0; i < zeroCount; ++i) {
                 append(localizedZero);
             }
-
             // add the fraction digits
             for (int i = startIdx; i < digitCount; ++i) {
                 appendLocalizedDigit(digits[i], localizedDigits);
@@ -338,25 +302,20 @@ final class ParsedDecimal {
         if (shouldIncludeMinus(opts)) {
             append(opts.getMinusSign());
         }
-
         final char[] localizedDigits = opts.getDigits();
         final char localizedZero = localizedDigits[0];
-
         final int significantDigitCount = Math.max(0, Math.min(wholeCount, digitCount));
-
         if (significantDigitCount > 0) {
             int i;
             for (i = 0; i < significantDigitCount; ++i) {
                 appendLocalizedDigit(digits[i], localizedDigits);
             }
-
             for (; i < wholeCount; ++i) {
                 append(localizedZero);
             }
         } else {
             append(localizedZero);
         }
-
         return significantDigitCount;
     }
 
@@ -372,13 +331,10 @@ final class ParsedDecimal {
         if (shouldIncludeMinus(opts)) {
             append(opts.getMinusSign());
         }
-
         final char[] localizedDigits = opts.getDigits();
         final char localizedZero = localizedDigits[0];
         final char groupingChar = opts.getGroupingSeparator();
-
         final int appendCount = Math.max(0, Math.min(wholeCount, digitCount));
-
         if (appendCount > 0) {
             int i;
             int pos = wholeCount;
@@ -388,7 +344,6 @@ final class ParsedDecimal {
                     append(groupingChar);
                 }
             }
-
             for (; i < wholeCount; ++i, --pos) {
                 append(localizedZero);
                 if (requiresGroupingSeparatorAfterPosition(pos)) {
@@ -398,7 +353,6 @@ final class ParsedDecimal {
         } else {
             append(localizedZero);
         }
-
         return appendCount;
     }
 
@@ -431,7 +385,6 @@ final class ParsedDecimal {
             // add decimal point
             size += 1;
         }
-
         return size;
     }
 
@@ -441,7 +394,7 @@ final class ParsedDecimal {
      * @return exponent value.
      */
     public int getExponent() {
-        return exponent;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -453,12 +406,10 @@ final class ParsedDecimal {
      */
     private int getPlainStringSize(final int decimalPos, final FormatOptions opts) {
         int size = getDigitStringSize(decimalPos, opts);
-
         // adjust for groupings if needed
         if (opts.isGroupThousands() && decimalPos > 0) {
             size += (decimalPos - 1) / THOUSANDS_GROUP_SIZE;
         }
-
         return size;
     }
 
@@ -469,7 +420,7 @@ final class ParsedDecimal {
      * @return the exponent that would be used when representing this number in scientific notation.
      */
     public int getScientificExponent() {
-        return digitCount + exponent - 1;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -479,7 +430,7 @@ final class ParsedDecimal {
      * @return {@code true} if the value is equal to zero.
      */
     boolean isZero() {
-        return digits[0] == 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -490,13 +441,7 @@ final class ParsedDecimal {
      * @param precision maximum number of significant digits to include.
      */
     public void maxPrecision(final int precision) {
-        if (precision > 0 && precision < digitCount) {
-            if (shouldRoundUp(precision)) {
-                roundUp(precision);
-            } else {
-                truncate(precision);
-            }
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -537,20 +482,7 @@ final class ParsedDecimal {
      * @param roundExponent exponent defining the decimal place to round to.
      */
     public void round(final int roundExponent) {
-        if (roundExponent > exponent) {
-            final int max = digitCount + exponent;
-
-            if (roundExponent < max) {
-                // rounding to a decimal place less than the max; set max precision
-                maxPrecision(max - roundExponent);
-            } else if (roundExponent == max && shouldRoundUp(0)) {
-                // rounding up directly on the max decimal place
-                setSingleDigitValue(1, roundExponent);
-            } else {
-                // change to zero
-                setSingleDigitValue(0, 0);
-            }
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -563,7 +495,6 @@ final class ParsedDecimal {
         int i;
         for (i = count - 1; i >= 0; --i) {
             final int d = digits[i] + 1;
-
             if (d < DECIMAL_RADIX) {
                 // value did not carry over; done adding
                 digits[i] = d;
@@ -573,7 +504,6 @@ final class ParsedDecimal {
             // which we will ignore by shortening the digit count
             ++removedDigits;
         }
-
         if (i < 0) {
             // all values carried over
             setSingleDigitValue(1, exponent + removedDigits);
@@ -630,9 +560,7 @@ final class ParsedDecimal {
         // 3. The digit after the last digit is 5, there are no additional digits afterward,
         //      and the last digit is odd (half-even rounding).
         final int digitAfterLast = digits[count];
-
-        return digitAfterLast > ROUND_CENTER || digitAfterLast == ROUND_CENTER
-                && (count < digitCount - 1 || digits[count - 1] % 2 != 0);
+        return digitAfterLast > ROUND_CENTER || digitAfterLast == ROUND_CENTER && (count < digitCount - 1 || digits[count - 1] % 2 != 0);
     }
 
     /**
@@ -653,8 +581,7 @@ final class ParsedDecimal {
      * @return value in engineering format.
      */
     public String toEngineeringString(final FormatOptions opts) {
-        final int decimalPos = 1 + Math.floorMod(getScientificExponent(), ENG_EXPONENT_MOD);
-        return toScientificString(decimalPos, opts);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -673,20 +600,7 @@ final class ParsedDecimal {
      * @return value in plain format.
      */
     public String toPlainString(final FormatOptions opts) {
-        final int decimalPos = digitCount + exponent;
-        final int fractionZeroCount = decimalPos < 1
-                ? Math.abs(decimalPos)
-                : 0;
-
-        prepareOutput(getPlainStringSize(decimalPos, opts));
-
-        final int fractionStartIdx = opts.isGroupThousands()
-                ? appendWholeGrouped(decimalPos, opts)
-                : appendWhole(decimalPos, opts);
-
-        appendFraction(fractionZeroCount, fractionStartIdx, opts);
-
-        return outputString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -706,7 +620,7 @@ final class ParsedDecimal {
      * @return value in scientific format.
      */
     public String toScientificString(final FormatOptions opts) {
-        return toScientificString(1, opts);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -721,36 +635,27 @@ final class ParsedDecimal {
         final int absTargetExponent = Math.abs(targetExponent);
         final boolean includeExponent = shouldIncludeExponent(targetExponent, opts);
         final boolean negativeExponent = targetExponent < 0;
-
         // determine the size of the full formatted string, including the number of
         // characters needed for the exponent digits
         int size = getDigitStringSize(decimalPos, opts);
         int exponentDigitCount = 0;
         if (includeExponent) {
-            exponentDigitCount = absTargetExponent > 0
-                    ? (int) Math.floor(Math.log10(absTargetExponent)) + 1
-                    : 1;
-
+            exponentDigitCount = absTargetExponent > 0 ? (int) Math.floor(Math.log10(absTargetExponent)) + 1 : 1;
             size += opts.getExponentSeparatorChars().length + exponentDigitCount;
             if (negativeExponent) {
                 ++size;
             }
         }
-
         prepareOutput(size);
-
         // append the portion before the exponent field
         final int fractionStartIdx = appendWhole(decimalPos, opts);
         appendFraction(0, fractionStartIdx, opts);
-
         if (includeExponent) {
             // append the exponent field
             append(opts.getExponentSeparatorChars());
-
             if (negativeExponent) {
                 append(opts.getMinusSign());
             }
-
             // append the exponent digits themselves; compute the
             // string representation directly and add it to the output
             // buffer to avoid the overhead of Integer.toString()
@@ -762,7 +667,6 @@ final class ParsedDecimal {
             }
             outputIdx = size;
         }
-
         return outputString();
     }
 
@@ -775,9 +679,7 @@ final class ParsedDecimal {
         // trim all trailing zero digits, making sure to leave
         // at least one digit left
         int nonZeroCount = count;
-        for (int i = count - 1;
-                i > 0 && digits[i] == 0;
-                --i) {
+        for (int i = count - 1; i > 0 && digits[i] == 0; --i) {
             --nonZeroCount;
         }
         exponent += digitCount - nonZeroCount;

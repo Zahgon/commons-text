@@ -113,7 +113,6 @@ public enum DoubleFormat {
      * </pre>
      */
     PLAIN(PlainDoubleFormat::new),
-
     /**
      * Number format that uses exponents and contains a single digit to the left of the decimal point.
      * <p>
@@ -129,7 +128,6 @@ public enum DoubleFormat {
      * </pre>
      */
     SCIENTIFIC(ScientificDoubleFormat::new),
-
     /**
      * Number format similar to {@link #SCIENTIFIC scientific format} but adjusted so that the exponent value is always a multiple of 3, allowing easier
      * alignment with SI prefixes.
@@ -146,7 +144,6 @@ public enum DoubleFormat {
      * </pre>
      */
     ENGINEERING(EngineeringDoubleFormat::new),
-
     /**
      * Number format that uses {@link #PLAIN plain format} for small numbers and {@link #SCIENTIFIC scientific format} for large numbers. The number thresholds
      * can be configured through the {@link Builder#plainFormatMinDecimalExponent(int) plainFormatMinDecimalExponent} and
@@ -170,46 +167,74 @@ public enum DoubleFormat {
      */
     private abstract static class AbstractDoubleFormat implements DoubleFunction<String>, ParsedDecimal.FormatOptions {
 
-        /** Maximum precision; 0 indicates no limit. */
+        /**
+         * Maximum precision; 0 indicates no limit.
+         */
         private final int maxPrecision;
 
-        /** Minimum decimal exponent. */
+        /**
+         * Minimum decimal exponent.
+         */
         private final int minDecimalExponent;
 
-        /** String representing positive infinity. */
+        /**
+         * String representing positive infinity.
+         */
         private final String positiveInfinity;
 
-        /** String representing negative infinity. */
+        /**
+         * String representing negative infinity.
+         */
         private final String negativeInfinity;
 
-        /** String representing NaN. */
+        /**
+         * String representing NaN.
+         */
         private final String nan;
 
-        /** Flag determining if fraction placeholders should be used. */
+        /**
+         * Flag determining if fraction placeholders should be used.
+         */
         private final boolean fractionPlaceholder;
 
-        /** Flag determining if signed zero strings are allowed. */
+        /**
+         * Flag determining if signed zero strings are allowed.
+         */
         private final boolean signedZero;
 
-        /** String containing the digits 0-9. */
+        /**
+         * String containing the digits 0-9.
+         */
         private final char[] digits;
 
-        /** Decimal separator character. */
+        /**
+         * Decimal separator character.
+         */
         private final char decimalSeparator;
 
-        /** Thousands grouping separator. */
+        /**
+         * Thousands grouping separator.
+         */
         private final char groupingSeparator;
 
-        /** Flag indicating if thousands should be grouped. */
+        /**
+         * Flag indicating if thousands should be grouped.
+         */
         private final boolean groupThousands;
 
-        /** Minus sign character. */
+        /**
+         * Minus sign character.
+         */
         private final char minusSign;
 
-        /** Exponent separator character. */
+        /**
+         * Exponent separator character.
+         */
         private final char[] exponentSeparatorChars;
 
-        /** Flag indicating if exponent values should always be included, even if zero. */
+        /**
+         * Flag indicating if exponent values should always be included, even if zero.
+         */
         private final boolean alwaysIncludeExponent;
 
         /**
@@ -220,11 +245,9 @@ public enum DoubleFormat {
         AbstractDoubleFormat(final Builder builder) {
             this.maxPrecision = builder.maxPrecision;
             this.minDecimalExponent = builder.minDecimalExponent;
-
             this.positiveInfinity = builder.infinity;
             this.negativeInfinity = builder.minusSign + builder.infinity;
             this.nan = builder.nan;
-
             this.fractionPlaceholder = builder.fractionPlaceholder;
             this.signedZero = builder.signedZero;
             this.digits = builder.digits.toCharArray();
@@ -236,16 +259,12 @@ public enum DoubleFormat {
             this.alwaysIncludeExponent = builder.alwaysIncludeExponent;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String apply(final double d) {
-            if (Double.isFinite(d)) {
-                return applyFinite(d);
-            }
-            if (Double.isInfinite(d)) {
-                return d > 0.0 ? positiveInfinity : negativeInfinity;
-            }
-            return nan;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -255,13 +274,11 @@ public enum DoubleFormat {
          */
         private String applyFinite(final double d) {
             final ParsedDecimal n = ParsedDecimal.from(d);
-
             int roundExponent = Math.max(n.getExponent(), minDecimalExponent);
             if (maxPrecision > 0) {
                 roundExponent = Math.max(n.getScientificExponent() - maxPrecision + 1, roundExponent);
             }
             n.round(roundExponent);
-
             return applyFiniteInternal(n);
         }
 
@@ -273,58 +290,76 @@ public enum DoubleFormat {
          */
         protected abstract String applyFiniteInternal(ParsedDecimal val);
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public char getDecimalSeparator() {
-            return decimalSeparator;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public char[] getDigits() {
-            return digits;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public char[] getExponentSeparatorChars() {
-            return exponentSeparatorChars;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public char getGroupingSeparator() {
-            return groupingSeparator;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public char getMinusSign() {
-            return minusSign;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean isAlwaysIncludeExponent() {
-            return alwaysIncludeExponent;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean isGroupThousands() {
-            return groupThousands;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean isIncludeFractionPlaceholder() {
-            return fractionPlaceholder;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean isSignedZero() {
-            return signedZero;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -333,13 +368,19 @@ public enum DoubleFormat {
      */
     public static final class Builder implements Supplier<DoubleFunction<String>> {
 
-        /** Default value for the plain format max decimal exponent. */
+        /**
+         * Default value for the plain format max decimal exponent.
+         */
         private static final int DEFAULT_PLAIN_FORMAT_MAX_DECIMAL_EXPONENT = 6;
 
-        /** Default value for the plain format min decimal exponent. */
+        /**
+         * Default value for the plain format min decimal exponent.
+         */
         private static final int DEFAULT_PLAIN_FORMAT_MIN_DECIMAL_EXPONENT = -3;
 
-        /** Default decimal digit characters. */
+        /**
+         * Default decimal digit characters.
+         */
         private static final String DEFAULT_DECIMAL_DIGITS = "0123456789";
 
         /**
@@ -351,61 +392,91 @@ public enum DoubleFormat {
          */
         private static String getDigitString(final DecimalFormatSymbols symbols) {
             final int zeroDelta = symbols.getZeroDigit() - DEFAULT_DECIMAL_DIGITS.charAt(0);
-
             final char[] digitChars = new char[DEFAULT_DECIMAL_DIGITS.length()];
             for (int i = 0; i < DEFAULT_DECIMAL_DIGITS.length(); ++i) {
                 digitChars[i] = (char) (DEFAULT_DECIMAL_DIGITS.charAt(i) + zeroDelta);
             }
-
             return String.valueOf(digitChars);
         }
 
-        /** Function used to construct format instances. */
+        /**
+         * Function used to construct format instances.
+         */
         private final Function<Builder, DoubleFunction<String>> factory;
 
-        /** Maximum number of significant decimal digits in formatted strings. */
+        /**
+         * Maximum number of significant decimal digits in formatted strings.
+         */
         private int maxPrecision;
 
-        /** Minimum decimal exponent. */
+        /**
+         * Minimum decimal exponent.
+         */
         private int minDecimalExponent = Integer.MIN_VALUE;
 
-        /** Max decimal exponent to use with plain formatting with the mixed format type. */
+        /**
+         * Max decimal exponent to use with plain formatting with the mixed format type.
+         */
         private int plainFormatMaxDecimalExponent = DEFAULT_PLAIN_FORMAT_MAX_DECIMAL_EXPONENT;
 
-        /** Min decimal exponent to use with plain formatting with the mixed format type. */
+        /**
+         * Min decimal exponent to use with plain formatting with the mixed format type.
+         */
         private int plainFormatMinDecimalExponent = DEFAULT_PLAIN_FORMAT_MIN_DECIMAL_EXPONENT;
 
-        /** String representing infinity. */
+        /**
+         * String representing infinity.
+         */
         private String infinity = "Infinity";
 
-        /** String representing NaN. */
+        /**
+         * String representing NaN.
+         */
         private String nan = "NaN";
 
-        /** Flag determining if fraction placeholders should be used. */
+        /**
+         * Flag determining if fraction placeholders should be used.
+         */
         private boolean fractionPlaceholder = true;
 
-        /** Flag determining if signed zero strings are allowed. */
+        /**
+         * Flag determining if signed zero strings are allowed.
+         */
         private boolean signedZero = true;
 
-        /** String of digit characters 0-9. */
+        /**
+         * String of digit characters 0-9.
+         */
         private String digits = DEFAULT_DECIMAL_DIGITS;
 
-        /** Decimal separator character. */
+        /**
+         * Decimal separator character.
+         */
         private char decimalSeparator = '.';
 
-        /** Character used to separate groups of thousands. */
+        /**
+         * Character used to separate groups of thousands.
+         */
         private char groupingSeparator = ',';
 
-        /** If {@code true}, thousands groups will be separated by the grouping separator. */
+        /**
+         * If {@code true}, thousands groups will be separated by the grouping separator.
+         */
         private boolean groupThousands;
 
-        /** Minus sign character. */
+        /**
+         * Minus sign character.
+         */
         private char minusSign = '-';
 
-        /** Exponent separator character. */
+        /**
+         * Exponent separator character.
+         */
         private String exponentSeparator = "E";
 
-        /** Flag indicating if the exponent value should always be included, even if zero. */
+        /**
+         * Flag indicating if the exponent value should always be included, even if zero.
+         */
         private boolean alwaysIncludeExponent;
 
         /**
@@ -427,8 +498,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder allowSignedZero(final boolean signedZero) {
-            this.signedZero = signedZero;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -440,8 +510,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder alwaysIncludeExponent(final boolean alwaysIncludeExponent) {
-            this.alwaysIncludeExponent = alwaysIncludeExponent;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -463,8 +532,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder decimalSeparator(final char decimalSeparator) {
-            this.decimalSeparator = decimalSeparator;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -476,13 +544,7 @@ public enum DoubleFormat {
          * @throws IllegalArgumentException if the argument does not have a length of exactly 10.
          */
         public Builder digits(final String digits) {
-            Objects.requireNonNull(digits, "digits");
-            if (digits.length() != DEFAULT_DECIMAL_DIGITS.length()) {
-                throw new IllegalArgumentException("Digits string must contain exactly " + DEFAULT_DECIMAL_DIGITS.length() + " characters.");
-            }
-
-            this.digits = digits;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -494,8 +556,7 @@ public enum DoubleFormat {
          * @throws NullPointerException if the argument is {@code null}.
          */
         public Builder exponentSeparator(final String exponentSeparator) {
-            this.exponentSeparator = Objects.requireNonNull(exponentSeparator, "exponentSeparator");
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -517,10 +578,7 @@ public enum DoubleFormat {
          * @throws NullPointerException if the argument is {@code null}.
          */
         public Builder formatSymbols(final DecimalFormatSymbols symbols) {
-            Objects.requireNonNull(symbols, "symbols");
-
-            return digits(getDigitString(symbols)).decimalSeparator(symbols.getDecimalSeparator()).groupingSeparator(symbols.getGroupingSeparator())
-                    .minusSign(symbols.getMinusSign()).exponentSeparator(symbols.getExponentSeparator()).infinity(symbols.getInfinity()).nan(symbols.getNaN());
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -530,7 +588,7 @@ public enum DoubleFormat {
          */
         @Override
         public DoubleFunction<String> get() {
-            return factory.apply(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -541,8 +599,7 @@ public enum DoubleFormat {
          * @see #groupThousands(boolean)
          */
         public Builder groupingSeparator(final char groupingSeparator) {
-            this.groupingSeparator = groupingSeparator;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -555,8 +612,7 @@ public enum DoubleFormat {
          * @see #groupingSeparator(char)
          */
         public Builder groupThousands(final boolean groupThousands) {
-            this.groupThousands = groupThousands;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -569,8 +625,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder includeFractionPlaceholder(final boolean fractionPlaceholder) {
-            this.fractionPlaceholder = fractionPlaceholder;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -581,8 +636,7 @@ public enum DoubleFormat {
          * @throws NullPointerException if the argument is {@code null}.
          */
         public Builder infinity(final String infinity) {
-            this.infinity = Objects.requireNonNull(infinity, "infinity");
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -593,8 +647,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder maxPrecision(final int maxPrecision) {
-            this.maxPrecision = maxPrecision;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -607,8 +660,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder minDecimalExponent(final int minDecimalExponent) {
-            this.minDecimalExponent = minDecimalExponent;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -618,8 +670,7 @@ public enum DoubleFormat {
          * @return {@code this} instance.
          */
         public Builder minusSign(final char minusSign) {
-            this.minusSign = minusSign;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -630,8 +681,7 @@ public enum DoubleFormat {
          * @throws NullPointerException if the argument is {@code null}.
          */
         public Builder nan(final String nan) {
-            this.nan = Objects.requireNonNull(nan, "nan");
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -655,8 +705,7 @@ public enum DoubleFormat {
          * @see #plainFormatMinDecimalExponent(int)
          */
         public Builder plainFormatMaxDecimalExponent(final int plainFormatMaxDecimalExponent) {
-            this.plainFormatMaxDecimalExponent = plainFormatMaxDecimalExponent;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -680,8 +729,7 @@ public enum DoubleFormat {
          * @see #plainFormatMinDecimalExponent(int)
          */
         public Builder plainFormatMinDecimalExponent(final int plainFormatMinDecimalExponent) {
-            this.plainFormatMinDecimalExponent = plainFormatMinDecimalExponent;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -699,10 +747,12 @@ public enum DoubleFormat {
             super(builder);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String applyFiniteInternal(final ParsedDecimal val) {
-            return val.toEngineeringString(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -712,10 +762,14 @@ public enum DoubleFormat {
      */
     private static final class MixedDoubleFormat extends AbstractDoubleFormat {
 
-        /** Max decimal exponent for plain format. */
+        /**
+         * Max decimal exponent for plain format.
+         */
         private final int plainMaxExponent;
 
-        /** Min decimal exponent for plain format. */
+        /**
+         * Min decimal exponent for plain format.
+         */
         private final int plainMinExponent;
 
         /**
@@ -725,19 +779,16 @@ public enum DoubleFormat {
          */
         MixedDoubleFormat(final Builder builder) {
             super(builder);
-
             this.plainMaxExponent = builder.plainFormatMaxDecimalExponent;
             this.plainMinExponent = builder.plainFormatMinDecimalExponent;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         protected String applyFiniteInternal(final ParsedDecimal val) {
-            final int sciExp = val.getScientificExponent();
-            if (sciExp <= plainMaxExponent && sciExp >= plainMinExponent) {
-                return val.toPlainString(this);
-            }
-            return val.toScientificString(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -760,7 +811,7 @@ public enum DoubleFormat {
          */
         @Override
         protected String applyFiniteInternal(final ParsedDecimal val) {
-            return val.toPlainString(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -778,14 +829,18 @@ public enum DoubleFormat {
             super(builder);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String applyFiniteInternal(final ParsedDecimal val) {
-            return val.toScientificString(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /** Function used to construct instances for this format type. */
+    /**
+     * Function used to construct instances for this format type.
+     */
     private final Function<Builder, DoubleFunction<String>> factory;
 
     /**
@@ -803,6 +858,6 @@ public enum DoubleFormat {
      * @return builder instance
      */
     public Builder builder() {
-        return new Builder(factory);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

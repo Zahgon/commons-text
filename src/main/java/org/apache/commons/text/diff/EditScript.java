@@ -46,13 +46,19 @@ import java.util.List;
  */
 public class EditScript<T> {
 
-    /** Container for the commands. */
+    /**
+     * Container for the commands.
+     */
     private final List<EditCommand<T>> commands;
 
-    /** Length of the longest common subsequence. */
+    /**
+     * Length of the longest common subsequence.
+     */
     private int lcsLength;
 
-    /** Number of modifications. */
+    /**
+     * Number of modifications.
+     */
     private int modifications;
 
     /**
@@ -70,8 +76,7 @@ public class EditScript<T> {
      * @param command  command to add.
      */
     public void append(final DeleteCommand<T> command) {
-        commands.add(command);
-        ++modifications;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -80,8 +85,7 @@ public class EditScript<T> {
      * @param command  command to add.
      */
     public void append(final InsertCommand<T> command) {
-        commands.add(command);
-        ++modifications;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -90,8 +94,7 @@ public class EditScript<T> {
      * @param command  command to add.
      */
     public void append(final KeepCommand<T> command) {
-        commands.add(command);
-        ++lcsLength;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -102,7 +105,7 @@ public class EditScript<T> {
      * @return length of the Longest Common Subsequence.
      */
     public int getLCSLength() {
-        return lcsLength;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -113,7 +116,7 @@ public class EditScript<T> {
      * @return number of effective modifications.
      */
     public int getModifications() {
-        return modifications;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -126,7 +129,6 @@ public class EditScript<T> {
      * @param visitor  the visitor that will visit all commands in turn.
      */
     public void visit(final CommandVisitor<T> visitor) {
-        commands.forEach(command -> command.accept(visitor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

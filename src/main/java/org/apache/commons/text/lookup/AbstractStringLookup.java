@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,14 +39,14 @@ abstract class AbstractStringLookup implements StringLookup {
      * Creates a lookup key for a given file and key.
      */
     static String toLookupKey(final String left, final String right) {
-        return toLookupKey(left, SPLIT_STR, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Creates a lookup key for a given file and key.
      */
     static String toLookupKey(final String left, final String separator, final String right) {
-        return left + separator + right;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -88,5 +87,4 @@ abstract class AbstractStringLookup implements StringLookup {
     protected String substringAfterLast(final String value, final char ch) {
         return StringUtils.substringAfterLast(value, ch);
     }
-
 }

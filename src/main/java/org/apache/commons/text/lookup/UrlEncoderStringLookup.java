@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.io.UnsupportedEncodingException;
@@ -47,21 +46,11 @@ final class UrlEncoderStringLookup extends AbstractStringLookup {
     }
 
     String encode(final String key, final String enc) throws UnsupportedEncodingException {
-        return URLEncoder.encode(key, enc);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String enc = StandardCharsets.UTF_8.name();
-        try {
-            return encode(key, enc);
-        } catch (final UnsupportedEncodingException e) {
-            // Can't happen since UTF-8 is required by the Java specification.
-            throw IllegalArgumentExceptions.format(e, "%s: source=%s, encoding=%s", e, key, enc);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

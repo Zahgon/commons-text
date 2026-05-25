@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.io;
 
 import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
-
 import org.apache.commons.text.StringSubstitutor;
 import org.apache.commons.text.TextStringBuilder;
 import org.apache.commons.text.matcher.StringMatcher;
@@ -41,25 +39,39 @@ import org.apache.commons.text.matcher.StringMatcherFactory;
  */
 public class StringSubstitutorReader extends FilterReader {
 
-    /** The end-of-stream character marker. */
+    /**
+     * The end-of-stream character marker.
+     */
     private static final int EOS = -1;
 
-    /** Our internal buffer. */
+    /**
+     * Our internal buffer.
+     */
     private final TextStringBuilder buffer = new TextStringBuilder();
 
-    /** End-of-Stream flag. */
+    /**
+     * End-of-Stream flag.
+     */
     private boolean eos;
 
-    /** Matches escaped variable starts. */
+    /**
+     * Matches escaped variable starts.
+     */
     private final StringMatcher prefixEscapeMatcher;
 
-    /** Internal buffer for {@link #read()} method. */
-    private final char[] read1CharBuffer = {0};
+    /**
+     * Internal buffer for {@link #read()} method.
+     */
+    private final char[] read1CharBuffer = { 0 };
 
-    /** The underlying StringSubstitutor. */
+    /**
+     * The underlying StringSubstitutor.
+     */
     private final StringSubstitutor stringSubstitutor;
 
-    /** We don't always want to drain the whole buffer. */
+    /**
+     * We don't always want to drain the whole buffer.
+     */
     private int toDrain;
 
     /**
@@ -73,8 +85,7 @@ public class StringSubstitutorReader extends FilterReader {
     public StringSubstitutorReader(final Reader reader, final StringSubstitutor stringSubstitutor) {
         super(reader);
         this.stringSubstitutor = new StringSubstitutor(stringSubstitutor);
-        this.prefixEscapeMatcher = StringMatcherFactory.INSTANCE.charMatcher(stringSubstitutor.getEscapeChar())
-            .andThen(stringSubstitutor.getVariablePrefixMatcher());
+        this.prefixEscapeMatcher = StringMatcherFactory.INSTANCE.charMatcher(stringSubstitutor.getEscapeChar()).andThen(stringSubstitutor.getVariablePrefixMatcher());
     }
 
     /**
@@ -90,8 +101,7 @@ public class StringSubstitutorReader extends FilterReader {
      * Reads a requested number of chars from the underlying reader into the buffer. On EOS, set the state is DRAINING,
      * drain, and return a drain count, otherwise, returns the actual read count.
      */
-    private int bufferOrDrainOnEos(final int requestReadCount, final char[] target, final int targetIndex,
-        final int targetLength) throws IOException {
+    private int bufferOrDrainOnEos(final int requestReadCount, final char[] target, final int targetIndex, final int targetLength) throws IOException {
         final int actualReadCount = buffer(requestReadCount);
         return drainOnEos(actualReadCount, target, targetIndex, targetLength);
     }
@@ -114,8 +124,7 @@ public class StringSubstitutorReader extends FilterReader {
      * Drains from the buffer to the target only if we are at EOS per the input count. If input count is EOS, drain and
      * returns the drain count, otherwise return the input count. If draining, the state is set to DRAINING.
      */
-    private int drainOnEos(final int readCountOrEos, final char[] target, final int targetIndex,
-        final int targetLength) {
+    private int drainOnEos(final int readCountOrEos, final char[] target, final int targetIndex, final int targetLength) {
         if (readCountOrEos == EOS) {
             // At EOS, drain.
             if (buffer.isNotEmpty()) {
@@ -149,16 +158,7 @@ public class StringSubstitutorReader extends FilterReader {
      */
     @Override
     public int read() throws IOException {
-        int count = 0;
-        // ask until we get a char or EOS
-        do {
-            count = read(read1CharBuffer, 0, 1);
-            if (count == EOS) {
-                return EOS;
-            }
-            // keep on buffering
-        } while (count < 1);
-        return read1CharBuffer[0];
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -172,135 +172,7 @@ public class StringSubstitutorReader extends FilterReader {
      */
     @Override
     public int read(final char[] target, final int targetIndexIn, final int targetLengthIn) throws IOException {
-        // The whole thing is inefficient because we must look for a balanced suffix to match the starting prefix
-        // Trying to substitute an incomplete expression can perform replacements when it should not.
-        // At a high level:
-        // - if draining, drain until empty or target length hit
-        // - copy to target until we find a variable start
-        // - buffer until a balanced suffix is read, then substitute.
-        if (eos && buffer.isEmpty()) {
-            return EOS;
-        }
-        if (targetLengthIn <= 0) {
-            // short-circuit: ask nothing, give nothing
-            return 0;
-        }
-        // drain check
-        int targetIndex = targetIndexIn;
-        int targetLength = targetLengthIn;
-        if (isDraining()) {
-            // drain as much as possible
-            final int drainCount = drain(target, targetIndex, Math.min(toDrain, targetLength));
-            if (drainCount == targetLength) {
-                // drained length requested, target is full, can only do more in the next invocation
-                return targetLength;
-            }
-            // drained less than requested, target not full.
-            targetIndex += drainCount;
-            targetLength -= drainCount;
-        }
-        // BUFFER from the underlying reader
-        final int minReadLenPrefix = prefixEscapeMatcher.size();
-        // READ enough to test for an [optionally escaped] variable start
-        int readCount = buffer(readCount(minReadLenPrefix, 0));
-        if (buffer.length() < minReadLenPrefix && targetLength < minReadLenPrefix) {
-            // read less than minReadLenPrefix, no variable possible
-            final int drainCount = drain(target, targetIndex, targetLength);
-            targetIndex += drainCount;
-            final int targetSize = targetIndex - targetIndexIn;
-            return eos && targetSize <= 0 ? EOS : targetSize;
-        }
-        if (eos) {
-            // EOS
-            stringSubstitutor.replaceIn(buffer);
-            toDrain = buffer.size();
-            final int drainCount = drain(target, targetIndex, targetLength);
-            targetIndex += drainCount;
-            final int targetSize = targetIndex - targetIndexIn;
-            return eos && targetSize <= 0 ? EOS : targetSize;
-        }
-        // PREFIX
-        // buffer and drain until we find a variable start, escaped or plain.
-        int balance = 0;
-        final StringMatcher prefixMatcher = stringSubstitutor.getVariablePrefixMatcher();
-        int pos = 0;
-        while (targetLength > 0) {
-            if (isBufferMatchAt(prefixMatcher, 0)) {
-                balance = 1;
-                pos = prefixMatcher.size();
-                break;
-            }
-            if (isBufferMatchAt(prefixEscapeMatcher, 0)) {
-                balance = 1;
-                pos = prefixEscapeMatcher.size();
-                break;
-            }
-            // drain first char
-            final int drainCount = drain(target, targetIndex, 1);
-            targetIndex += drainCount;
-            targetLength -= drainCount;
-            if (buffer.size() < minReadLenPrefix) {
-                readCount = bufferOrDrainOnEos(minReadLenPrefix, target, targetIndex, targetLength);
-                if (eos || isDraining()) {
-                    // if draining, readCount is a drain count
-                    if (readCount != EOS) {
-                        targetIndex += readCount;
-                        targetLength -= readCount;
-                    }
-                    final int actual = targetIndex - targetIndexIn;
-                    return actual > 0 ? actual : EOS;
-                }
-            }
-        }
-        // we found a variable start
-        if (targetLength <= 0) {
-            // no more room in target
-            return targetLengthIn;
-        }
-        // SUFFIX
-        // buffer more to find a balanced suffix
-        final StringMatcher suffixMatcher = stringSubstitutor.getVariableSuffixMatcher();
-        final int minReadLenSuffix = Math.max(minReadLenPrefix, suffixMatcher.size());
-        readCount = buffer(readCount(minReadLenSuffix, pos));
-        if (eos) {
-            // EOS
-            stringSubstitutor.replaceIn(buffer);
-            toDrain = buffer.size();
-            final int drainCount = drain(target, targetIndex, targetLength);
-            return targetIndex + drainCount - targetIndexIn;
-        }
-        // buffer and break out when we find the end or a balanced suffix
-        while (true) {
-            if (isBufferMatchAt(suffixMatcher, pos)) {
-                balance--;
-                pos++;
-                if (balance == 0) {
-                    break;
-                }
-            } else if (isBufferMatchAt(prefixMatcher, pos)) {
-                balance++;
-                pos += prefixMatcher.size();
-            } else if (isBufferMatchAt(prefixEscapeMatcher, pos)) {
-                balance++;
-                pos += prefixEscapeMatcher.size();
-            } else {
-                pos++;
-            }
-            readCount = buffer(readCount(minReadLenSuffix, pos));
-            if (readCount == EOS && pos >= buffer.size()) {
-                break;
-            }
-        }
-        // substitute
-        final int endPos = pos + 1;
-        final int leftover = Math.max(0, buffer.size() - pos);
-        stringSubstitutor.replaceIn(buffer, 0, Math.min(buffer.size(), endPos));
-        pos = buffer.size() - leftover;
-        final int drainLen = Math.min(targetLength, pos);
-        // only drain up to what we've substituted
-        toDrain = pos;
-        drain(target, targetIndex, drainLen);
-        return targetIndex - targetIndexIn + drainLen;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -311,5 +183,4 @@ public class StringSubstitutorReader extends FilterReader {
         final int avail = buffer.size() - pos;
         return avail >= count ? 0 : count - avail;
     }
-
 }

@@ -58,8 +58,7 @@ public class LevenshteinResults {
      * @param deleteCount delete character count.
      * @param substituteCount substitute character count.
      */
-    public LevenshteinResults(final Integer distance, final Integer insertCount, final Integer deleteCount,
-            final Integer substituteCount) {
+    public LevenshteinResults(final Integer distance, final Integer insertCount, final Integer deleteCount, final Integer substituteCount) {
         this.distance = distance;
         this.insertCount = insertCount;
         this.deleteCount = deleteCount;
@@ -68,16 +67,7 @@ public class LevenshteinResults {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final LevenshteinResults result = (LevenshteinResults) o;
-        return Objects.equals(distance, result.distance) && Objects.equals(insertCount, result.insertCount)
-                && Objects.equals(deleteCount, result.deleteCount)
-                && Objects.equals(substituteCount, result.substituteCount);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -86,7 +76,7 @@ public class LevenshteinResults {
      * @return delete character count.
      */
     public Integer getDeleteCount() {
-        return deleteCount;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -95,7 +85,7 @@ public class LevenshteinResults {
      * @return distance between two character sequence.
      */
     public Integer getDistance() {
-        return distance;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -104,7 +94,7 @@ public class LevenshteinResults {
      * @return insert character count.
      */
     public Integer getInsertCount() {
-        return insertCount;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -113,17 +103,16 @@ public class LevenshteinResults {
      * @return substitute character count.
      */
     public Integer getSubstituteCount() {
-        return substituteCount;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(distance, insertCount, deleteCount, substituteCount);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return "Distance: " + distance + ", Insert: " + insertCount + ", Delete: " + deleteCount + ", Substitute: "
-                + substituteCount;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

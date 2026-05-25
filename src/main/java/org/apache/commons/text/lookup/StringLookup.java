@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.util.function.UnaryOperator;
@@ -63,7 +62,7 @@ public interface StringLookup extends UnaryOperator<String> {
      */
     @Override
     default String apply(final String key) {
-        return lookup(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

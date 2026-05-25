@@ -61,7 +61,7 @@ public class HammingDistance implements EditDistance<Integer> {
      */
     @Override
     public Integer apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -91,19 +91,6 @@ public class HammingDistance implements EditDistance<Integer> {
      * @since 1.13.0
      */
     public <E> Integer apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("SimilarityInput must not be null");
-        }
-        if (left.length() != right.length()) {
-            throw new IllegalArgumentException("SimilarityInput must have the same length");
-        }
-        int distance = 0;
-        for (int i = 0; i < left.length(); i++) {
-            if (!left.at(i).equals(right.at(i))) {
-                distance++;
-            }
-        }
-        return distance;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

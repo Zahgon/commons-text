@@ -41,13 +41,19 @@ final class InterpolatorStringLookup extends AbstractStringLookup {
      */
     static final AbstractStringLookup INSTANCE = new InterpolatorStringLookup();
 
-    /** Constant for the prefix separator. */
+    /**
+     * Constant for the prefix separator.
+     */
     private static final char PREFIX_SEPARATOR = ':';
 
-    /** The default string lookup. */
+    /**
+     * The default string lookup.
+     */
     private final StringLookup defaultStringLookup;
 
-    /** The map of String lookups keyed by prefix. */
+    /**
+     * The map of String lookups keyed by prefix.
+     */
     private final Map<String, StringLookup> stringLookupMap;
 
     /**
@@ -67,8 +73,7 @@ final class InterpolatorStringLookup extends AbstractStringLookup {
      * @param defaultStringLookup the default string lookup.
      * @param addDefaultLookups whether the default lookups should be used.
      */
-    InterpolatorStringLookup(final Map<String, StringLookup> stringLookupMap, final StringLookup defaultStringLookup,
-            final boolean addDefaultLookups) {
+    InterpolatorStringLookup(final Map<String, StringLookup> stringLookupMap, final StringLookup defaultStringLookup, final boolean addDefaultLookups) {
         this.defaultStringLookup = defaultStringLookup;
         this.stringLookupMap = stringLookupMap.entrySet().stream().collect(Collectors.toMap(e -> StringLookupFactory.toKey(e.getKey()), Entry::getValue));
         if (addDefaultLookups) {
@@ -104,7 +109,7 @@ final class InterpolatorStringLookup extends AbstractStringLookup {
      * @return The lookup map.
      */
     public Map<String, StringLookup> getStringLookupMap() {
-        return stringLookupMap;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -118,34 +123,11 @@ final class InterpolatorStringLookup extends AbstractStringLookup {
      */
     @Override
     public String lookup(String key) {
-        if (key == null) {
-            return null;
-        }
-
-        final int prefixPos = key.indexOf(PREFIX_SEPARATOR);
-        if (prefixPos >= 0) {
-            final String prefix = StringLookupFactory.toKey(key.substring(0, prefixPos));
-            final String name = key.substring(prefixPos + 1);
-            final StringLookup lookup = stringLookupMap.get(prefix);
-            String value = null;
-            if (lookup != null) {
-                value = lookup.apply(name);
-            }
-
-            if (value != null) {
-                return value;
-            }
-            key = key.substring(prefixPos + 1);
-        }
-        if (defaultStringLookup != null) {
-            return defaultStringLookup.apply(key);
-        }
-        return null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return super.toString() + " [stringLookupMap=" + stringLookupMap + ", defaultStringLookup="
-            + defaultStringLookup + "]";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

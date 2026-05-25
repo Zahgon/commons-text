@@ -37,10 +37,14 @@ public class CompositeFormat extends Format {
      */
     private static final long serialVersionUID = -4329119827877627683L;
 
-    /** The parser to use. */
+    /**
+     * The parser to use.
+     */
     private final Format parser;
 
-    /** The formatter to use. */
+    /**
+     * The formatter to use.
+     */
     private final Format formatter;
 
     /**
@@ -64,10 +68,10 @@ public class CompositeFormat extends Format {
      * @return {@code toAppendTo}.
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
-    @Override // Therefore has to use StringBuffer
-    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
-            final FieldPosition pos) {
-        return formatter.format(obj, toAppendTo, pos);
+    // Therefore has to use StringBuffer
+    @Override
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -76,7 +80,7 @@ public class CompositeFormat extends Format {
      * @return formatter Format implementation
      */
     public Format getFormatter() {
-        return this.formatter;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -85,7 +89,7 @@ public class CompositeFormat extends Format {
      * @return parser Format implementation
      */
     public Format getParser() {
-        return this.parser;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -98,7 +102,7 @@ public class CompositeFormat extends Format {
      */
     @Override
     public Object parseObject(final String source, final ParsePosition pos) {
-        return parser.parseObject(source, pos);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -109,7 +113,6 @@ public class CompositeFormat extends Format {
      * @throws ParseException thrown by parseObject(String) call.
      */
     public String reformat(final String input) throws ParseException {
-        return format(parseObject(input));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

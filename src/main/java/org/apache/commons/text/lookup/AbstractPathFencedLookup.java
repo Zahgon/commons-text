@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.nio.file.Path;
@@ -46,6 +45,6 @@ abstract class AbstractPathFencedLookup extends AbstractStringLookup {
      * @throws IllegalArgumentException if the file name is not without our fence.
      */
     protected Path getPath(final String fileName) {
-        return fence.apply(fileName);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

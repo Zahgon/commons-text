@@ -41,7 +41,7 @@ final class BiFunctionStringLookup<P, R> implements BiStringLookup<P> {
      * @return a new instance backed by the given function.
      */
     static <U, T> BiFunctionStringLookup<U, T> on(final BiFunction<String, U, T> biFunction) {
-        return new BiFunctionStringLookup<>(biFunction);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -52,7 +52,7 @@ final class BiFunctionStringLookup<P, R> implements BiStringLookup<P> {
      * @return a new instance backed by the given map.
      */
     static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map) {
-        return on((key, u) -> map.get(key));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -71,7 +71,7 @@ final class BiFunctionStringLookup<P, R> implements BiStringLookup<P> {
 
     @Override
     public String lookup(final String key) {
-        return lookup(key, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -86,23 +86,11 @@ final class BiFunctionStringLookup<P, R> implements BiStringLookup<P> {
      */
     @Override
     public String lookup(final String key, final P object) {
-        if (biFunction == null) {
-            return null;
-        }
-        final R obj;
-        try {
-            obj = biFunction.apply(key, object);
-        } catch (final SecurityException | NullPointerException | IllegalArgumentException e) {
-            // Squelched. All lookup(String) will return null.
-            // Could be a ConcurrentHashMap and a null key request
-            return null;
-        }
-        return Objects.toString(obj, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return super.toString() + " [function=" + biFunction + "]";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

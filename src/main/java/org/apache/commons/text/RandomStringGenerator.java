@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntUnaryOperator;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -163,17 +162,7 @@ public final class RandomStringGenerator {
          * @return {@code this} instance.
          */
         public Builder filteredBy(final CharacterPredicate... predicates) {
-            if (ArrayUtils.isEmpty(predicates)) {
-                inclusivePredicates = null;
-                return this;
-            }
-            if (inclusivePredicates == null) {
-                inclusivePredicates = new HashSet<>();
-            } else {
-                inclusivePredicates.clear();
-            }
-            Collections.addAll(inclusivePredicates, predicates);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -184,7 +173,7 @@ public final class RandomStringGenerator {
          */
         @Override
         public RandomStringGenerator get() {
-            return new RandomStringGenerator(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         private void initCharList() {
@@ -206,13 +195,7 @@ public final class RandomStringGenerator {
          * @since 1.2
          */
         public Builder selectFrom(final char... chars) {
-            initCharList();
-            if (chars != null) {
-                for (final char c : chars) {
-                    characterSet.add(c);
-                }
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -235,8 +218,7 @@ public final class RandomStringGenerator {
          * @since 1.14.0
          */
         public Builder setAccumulate(final boolean accumulate) {
-            this.accumulate = accumulate;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -266,8 +248,7 @@ public final class RandomStringGenerator {
          * @since 1.14.0
          */
         public Builder usingRandom(final IntUnaryOperator random) {
-            this.random = random;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -296,8 +277,7 @@ public final class RandomStringGenerator {
          * @return {@code this} instance.
          */
         public Builder usingRandom(final TextRandomProvider random) {
-            this.random = random;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -317,22 +297,8 @@ public final class RandomStringGenerator {
          * @return {@code this} instance.
          */
         public Builder withinRange(final char[]... pairs) {
-            initCharList();
-            if (pairs != null) {
-                for (final char[] pair : pairs) {
-                    Validate.isTrue(pair.length == 2, "Each pair must contain minimum and maximum code point");
-                    final int minimumCodePoint = pair[0];
-                    final int maximumCodePoint = pair[1];
-                    Validate.isTrue(minimumCodePoint <= maximumCodePoint, "Minimum code point %d is larger than maximum code point %d", minimumCodePoint,
-                            maximumCodePoint);
-                    for (int index = minimumCodePoint; index <= maximumCodePoint; index++) {
-                        characterSet.add((char) index);
-                    }
-                }
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
 
         /**
          * Sets the minimum and maximum code points allowed in the generated string.
@@ -345,13 +311,7 @@ public final class RandomStringGenerator {
          * @throws IllegalArgumentException if {@code minimumCodePoint > maximumCodePoint}.
          */
         public Builder withinRange(final int minimumCodePoint, final int maximumCodePoint) {
-            Validate.isTrue(minimumCodePoint <= maximumCodePoint, "Minimum code point %d is larger than maximum code point %d", minimumCodePoint,
-                    maximumCodePoint);
-            Validate.isTrue(minimumCodePoint >= 0, "Minimum code point %d is negative", minimumCodePoint);
-            Validate.isTrue(maximumCodePoint <= Character.MAX_CODE_POINT, "Value %d is larger than Character.MAX_CODE_POINT.", maximumCodePoint);
-            this.minimumCodePoint = minimumCodePoint;
-            this.maximumCodePoint = maximumCodePoint;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -362,7 +322,7 @@ public final class RandomStringGenerator {
      * @since 1.11.0
      */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -424,42 +384,7 @@ public final class RandomStringGenerator {
      * @throws IllegalArgumentException if {@code length < 0}.
      */
     public String generate(final int length) {
-        if (length == 0) {
-            return StringUtils.EMPTY;
-        }
-        Validate.isTrue(length > 0, "Length %d is smaller than zero.", length);
-        final StringBuilder builder = new StringBuilder(length);
-        long remaining = length;
-        do {
-            final int codePoint;
-            if (characterList != null && !characterList.isEmpty()) {
-                codePoint = generateRandomNumber(characterList);
-            } else {
-                codePoint = generateRandomNumber(minimumCodePoint, maximumCodePoint);
-            }
-            switch (Character.getType(codePoint)) {
-            case Character.UNASSIGNED:
-            case Character.PRIVATE_USE:
-            case Character.SURROGATE:
-                continue;
-            default:
-            }
-            if (inclusivePredicates != null) {
-                boolean matchedFilter = false;
-                for (final CharacterPredicate predicate : inclusivePredicates) {
-                    if (predicate.test(codePoint)) {
-                        matchedFilter = true;
-                        break;
-                    }
-                }
-                if (!matchedFilter) {
-                    continue;
-                }
-            }
-            builder.appendCodePoint(codePoint);
-            remaining--;
-        } while (remaining != 0);
-        return builder.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -473,10 +398,7 @@ public final class RandomStringGenerator {
      * @since 1.2
      */
     public String generate(final int minLengthInclusive, final int maxLengthInclusive) {
-        Validate.isTrue(minLengthInclusive >= 0, "Minimum length %d is smaller than zero.", minLengthInclusive);
-        Validate.isTrue(minLengthInclusive <= maxLengthInclusive, "Maximum length %d is smaller than minimum length %d.", maxLengthInclusive,
-                minLengthInclusive);
-        return generate(generateRandomNumber(minLengthInclusive, maxLengthInclusive));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

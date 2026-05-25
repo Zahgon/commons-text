@@ -50,6 +50,6 @@ public class DeleteCommand<T> extends EditCommand<T> {
      */
     @Override
     public void accept(final CommandVisitor<T> visitor) {
-        visitor.visitDeleteCommand(getObject());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

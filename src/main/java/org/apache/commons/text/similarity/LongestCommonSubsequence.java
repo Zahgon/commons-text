@@ -82,7 +82,6 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
             final int[] temp = dpRows[0];
             dpRows[0] = dpRows[1];
             dpRows[1] = temp;
-
             for (int j = 1; j <= n; j++) {
                 if (left.charAt(i - 1) == right.charAt(j - 1)) {
                     dpRows[1][j] = dpRows[0][j - 1] + 1;
@@ -111,7 +110,8 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
         final int m = left.length();
         final int n = right.length();
         final StringBuilder out = new StringBuilder();
-        if (m == 1) { // Handle trivial cases, as per the paper
+        if (m == 1) {
+            // Handle trivial cases, as per the paper
             final char leftCh = left.charAt(0);
             for (int j = 0; j < n; j++) {
                 if (leftCh == right.charAt(j)) {
@@ -120,7 +120,8 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
                 }
             }
         } else if (n > 0 && m > 1) {
-            final int mid = m / 2; // Find the middle point
+            // Find the middle point
+            final int mid = m / 2;
             final CharSequence leftFirstPart = left.subSequence(0, mid);
             final CharSequence leftSecondPart = left.subSequence(mid, m);
             // Step 3 of the algorithm: two calls to Algorithm B
@@ -140,7 +141,6 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
             out.append(algorithmC(leftFirstPart, right.subSequence(0, k)));
             out.append(algorithmC(leftSecondPart, right.subSequence(k, n)));
         }
-
         return out.toString();
     }
 
@@ -179,22 +179,7 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
      */
     @Override
     public Integer apply(final CharSequence left, final CharSequence right) {
-        // Quick return for invalid inputs
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("Inputs must not be null");
-        }
-        // Find lengths of two strings
-        final int leftSz = left.length();
-        final int rightSz = right.length();
-        // Check if we can avoid calling algorithmB which involves heap space allocation
-        if (leftSz == 0 || rightSz == 0) {
-            return 0;
-        }
-        // Check if we can save even more space
-        if (leftSz < rightSz) {
-            return algorithmB(right, left)[leftSz];
-        }
-        return algorithmB(left, right)[rightSz];
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -235,7 +220,6 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
      * has linear space complexity.
      * </p>
      *
-     *
      * <p>
      * Note, a substring and subsequence are not necessarily the same thing. Indeed, {@code abcxyzqrs} and
      * {@code xyzghfm} have both the same common substring and subsequence, namely {@code xyz}. However,
@@ -256,24 +240,7 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
      * @since 1.2
      */
     public CharSequence longestCommonSubsequence(final CharSequence left, final CharSequence right) {
-        // Quick return
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("Inputs must not be null");
-        }
-        // Find lengths of two strings
-        final int leftSz = left.length();
-        final int rightSz = right.length();
-
-        // Check if we can avoid calling algorithmC which involves heap space allocation
-        if (leftSz == 0 || rightSz == 0) {
-            return "";
-        }
-
-        // Check if we can save even more space
-        if (leftSz < rightSz) {
-            return algorithmC(right, left);
-        }
-        return algorithmC(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -308,5 +275,4 @@ public class LongestCommonSubsequence implements SimilarityScore<Integer> {
         }
         return lcsLengthArray;
     }
-
 }

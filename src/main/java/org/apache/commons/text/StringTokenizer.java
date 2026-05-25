@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.matcher.StringMatcher;
@@ -93,28 +92,20 @@ import org.apache.commons.text.matcher.StringMatcherFactory;
  */
 public class StringTokenizer implements ListIterator<String>, Cloneable {
 
-    /** Comma separated values tokenizer internal variable. */
+    /**
+     * Comma separated values tokenizer internal variable.
+     */
     // @formatter:off
-    private static final StringTokenizer CSV_TOKENIZER_PROTOTYPE = new StringTokenizer()
-            .setDelimiterMatcher(StringMatcherFactory.INSTANCE.commaMatcher())
-            .setQuoteMatcher(StringMatcherFactory.INSTANCE.doubleQuoteMatcher())
-            .setIgnoredMatcher(StringMatcherFactory.INSTANCE.noneMatcher())
-            .setTrimmerMatcher(StringMatcherFactory.INSTANCE.trimMatcher())
-            .setEmptyTokenAsNull(false)
-            .setIgnoreEmptyTokens(false);
-    // @formatter:on
+    private static final StringTokenizer CSV_TOKENIZER_PROTOTYPE = new StringTokenizer().setDelimiterMatcher(StringMatcherFactory.INSTANCE.commaMatcher()).setQuoteMatcher(StringMatcherFactory.INSTANCE.doubleQuoteMatcher()).setIgnoredMatcher(StringMatcherFactory.INSTANCE.noneMatcher()).setTrimmerMatcher(StringMatcherFactory.INSTANCE.trimMatcher()).setEmptyTokenAsNull(false).setIgnoreEmptyTokens(false);
 
-    /** Tab separated values tokenizer internal variable. */
+    // @formatter:on
+    /**
+     * Tab separated values tokenizer internal variable.
+     */
     // @formatter:off
-    private static final StringTokenizer TSV_TOKENIZER_PROTOTYPE = new StringTokenizer()
-            .setDelimiterMatcher(StringMatcherFactory.INSTANCE.tabMatcher())
-            .setQuoteMatcher(StringMatcherFactory.INSTANCE.doubleQuoteMatcher())
-            .setIgnoredMatcher(StringMatcherFactory.INSTANCE.noneMatcher())
-            .setTrimmerMatcher(StringMatcherFactory.INSTANCE.trimMatcher())
-            .setEmptyTokenAsNull(false)
-            .setIgnoreEmptyTokens(false);
-    // @formatter:on
+    private static final StringTokenizer TSV_TOKENIZER_PROTOTYPE = new StringTokenizer().setDelimiterMatcher(StringMatcherFactory.INSTANCE.tabMatcher()).setQuoteMatcher(StringMatcherFactory.INSTANCE.doubleQuoteMatcher()).setIgnoredMatcher(StringMatcherFactory.INSTANCE.noneMatcher()).setTrimmerMatcher(StringMatcherFactory.INSTANCE.trimMatcher()).setEmptyTokenAsNull(false).setIgnoreEmptyTokens(false);
 
+    // @formatter:on
     /**
      * Returns a clone of {@code CSV_TOKENIZER_PROTOTYPE}.
      *
@@ -135,7 +126,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Comma Separated Value strings.
      */
     public static StringTokenizer getCSVInstance() {
-        return getCSVClone();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -146,7 +137,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Comma Separated Value strings.
      */
     public static StringTokenizer getCSVInstance(final char[] input) {
-        return getCSVClone().reset(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -157,7 +148,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Comma Separated Value strings.
      */
     public static StringTokenizer getCSVInstance(final String input) {
-        return getCSVClone().reset(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -179,7 +170,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StringTokenizer getTSVInstance() {
-        return getTSVClone();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -190,7 +181,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StringTokenizer getTSVInstance(final char[] input) {
-        return getTSVClone().reset(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -201,34 +192,52 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StringTokenizer getTSVInstance(final String input) {
-        return getTSVClone().reset(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /** The text to work on. */
+    /**
+     * The text to work on.
+     */
     private char[] chars;
 
-    /** The parsed tokens. */
+    /**
+     * The parsed tokens.
+     */
     private String[] tokens;
 
-    /** The current iteration position. */
+    /**
+     * The current iteration position.
+     */
     private int tokenPos;
 
-    /** The delimiter matcher. */
+    /**
+     * The delimiter matcher.
+     */
     private StringMatcher delimMatcher = StringMatcherFactory.INSTANCE.splitMatcher();
 
-    /** The quote matcher. */
+    /**
+     * The quote matcher.
+     */
     private StringMatcher quoteMatcher = StringMatcherFactory.INSTANCE.noneMatcher();
 
-    /** The ignored matcher. */
+    /**
+     * The ignored matcher.
+     */
     private StringMatcher ignoredMatcher = StringMatcherFactory.INSTANCE.noneMatcher();
 
-    /** The trimmer matcher. */
+    /**
+     * The trimmer matcher.
+     */
     private StringMatcher trimmerMatcher = StringMatcherFactory.INSTANCE.noneMatcher();
 
-    /** Whether to return empty tokens as null. */
+    /**
+     * Whether to return empty tokens as null.
+     */
     private boolean emptyAsNull;
 
-    /** Whether to ignore empty tokens. */
+    /**
+     * Whether to ignore empty tokens.
+     */
     private boolean ignoreEmptyTokens = true;
 
     /**
@@ -381,7 +390,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public void add(final String obj) {
-        throw new UnsupportedOperationException("add() is unsupported");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -426,11 +435,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public Object clone() {
-        try {
-            return cloneReset();
-        } catch (final CloneNotSupportedException ex) {
-            return null;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -440,13 +445,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     Object cloneReset() throws CloneNotSupportedException {
-        // this method exists to enable 100% test coverage
-        final StringTokenizer cloned = (StringTokenizer) super.clone();
-        if (cloned.chars != null) {
-            cloned.chars = cloned.chars.clone();
-        }
-        cloned.reset();
-        return cloned;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -455,10 +454,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The string content being parsed.
      */
     public String getContent() {
-        if (chars == null) {
-            return null;
-        }
-        return new String(chars);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -467,7 +463,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The delimiter matcher in use.
      */
     public StringMatcher getDelimiterMatcher() {
-        return this.delimMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -479,7 +475,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The ignored matcher in use.
      */
     public StringMatcher getIgnoredMatcher() {
-        return ignoredMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -491,7 +487,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The quote matcher in use.
      */
     public StringMatcher getQuoteMatcher() {
-        return quoteMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -500,8 +496,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The tokens as a String array.
      */
     public String[] getTokenArray() {
-        checkTokenized();
-        return tokens.clone();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -510,8 +505,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The tokens as a String list.
      */
     public List<String> getTokenList() {
-        checkTokenized();
-        return new ArrayList<>(Arrays.asList(tokens));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -523,7 +517,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The trimmer matcher in use.
      */
     public StringMatcher getTrimmerMatcher() {
-        return trimmerMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -533,8 +527,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public boolean hasNext() {
-        checkTokenized();
-        return tokenPos < tokens.length;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -544,8 +537,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public boolean hasPrevious() {
-        checkTokenized();
-        return tokenPos > 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -554,7 +546,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return true if empty tokens are returned as null.
      */
     public boolean isEmptyTokenAsNull() {
-        return this.emptyAsNull;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -563,7 +555,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return true if empty tokens are not returned.
      */
     public boolean isIgnoreEmptyTokens() {
-        return ignoreEmptyTokens;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -593,10 +585,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public String next() {
-        if (hasNext()) {
-            return tokens[tokenPos++];
-        }
-        throw new NoSuchElementException();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -606,7 +595,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public int nextIndex() {
-        return tokenPos;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -616,10 +605,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The next sequential token, or null when no more tokens are found.
      */
     public String nextToken() {
-        if (hasNext()) {
-            return tokens[tokenPos++];
-        }
-        return null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -629,10 +615,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public String previous() {
-        if (hasPrevious()) {
-            return tokens[--tokenPos];
-        }
-        throw new NoSuchElementException();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -642,7 +625,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public int previousIndex() {
-        return tokenPos - 1;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -651,10 +634,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The previous sequential token, or null when no more tokens are found.
      */
     public String previousToken() {
-        if (hasPrevious()) {
-            return tokens[--tokenPos];
-        }
-        return null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -667,33 +647,27 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @param tokenList the list of parsed tokens.
      * @return The starting position of the next field (the character immediately after the delimiter), or -1 if end of string found.
      */
-    private int readNextToken(final char[] srcChars, int start, final int len, final TextStringBuilder workArea,
-            final List<String> tokenList) {
+    private int readNextToken(final char[] srcChars, int start, final int len, final TextStringBuilder workArea, final List<String> tokenList) {
         // skip all leading whitespace, unless it is the
         // field delimiter or the quote character
         while (start < len) {
-            final int removeLen = Math.max(getIgnoredMatcher().isMatch(srcChars, start, start, len),
-                    getTrimmerMatcher().isMatch(srcChars, start, start, len));
-            if (removeLen == 0 || getDelimiterMatcher().isMatch(srcChars, start, start, len) > 0
-                    || getQuoteMatcher().isMatch(srcChars, start, start, len) > 0) {
+            final int removeLen = Math.max(getIgnoredMatcher().isMatch(srcChars, start, start, len), getTrimmerMatcher().isMatch(srcChars, start, start, len));
+            if (removeLen == 0 || getDelimiterMatcher().isMatch(srcChars, start, start, len) > 0 || getQuoteMatcher().isMatch(srcChars, start, start, len) > 0) {
                 break;
             }
             start += removeLen;
         }
-
         // handle reaching end
         if (start >= len) {
             addToken(tokenList, StringUtils.EMPTY);
             return -1;
         }
-
         // handle empty token
         final int delimLen = getDelimiterMatcher().isMatch(srcChars, start, start, len);
         if (delimLen > 0) {
             addToken(tokenList, StringUtils.EMPTY);
             return start + delimLen;
         }
-
         // handle found token
         final int quoteLen = getQuoteMatcher().isMatch(srcChars, start, start, len);
         if (quoteLen > 0) {
@@ -714,22 +688,19 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @param quoteLen   the length of the matched quote, 0 if no quoting.
      * @return The starting position of the next field (the character immediately after the delimiter, or if end of string found, then the length of string.
      */
-    private int readWithQuotes(final char[] srcChars, final int start, final int len, final TextStringBuilder workArea,
-            final List<String> tokenList, final int quoteStart, final int quoteLen) {
+    private int readWithQuotes(final char[] srcChars, final int start, final int len, final TextStringBuilder workArea, final List<String> tokenList, final int quoteStart, final int quoteLen) {
         // Loop until we've found the end of the quoted
         // string or the end of the input
         workArea.clear();
         int pos = start;
         boolean quoting = quoteLen > 0;
         int trimStart = 0;
-
         while (pos < len) {
             // quoting mode can occur several times throughout a string
             // we must switch between quoting and non-quoting until we
             // encounter a non-quoted delimiter, or end of string
             if (quoting) {
                 // In quoting mode
-
                 // If we've found a quote character, see if it's
                 // followed by a second quote. If so, then we need
                 // to actually put the quote character into the token
@@ -742,16 +713,13 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
                         trimStart = workArea.size();
                         continue;
                     }
-
                     // end of quoting
                     quoting = false;
                     pos += quoteLen;
                     continue;
                 }
-
             } else {
                 // Not in quoting mode
-
                 // check for delimiter, and thus end of token
                 final int delimLen = getDelimiterMatcher().isMatch(srcChars, pos, start, len);
                 if (delimLen > 0) {
@@ -759,21 +727,18 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
                     addToken(tokenList, workArea.substring(0, trimStart));
                     return pos + delimLen;
                 }
-
                 // check for quote, and thus back into quoting mode
                 if (quoteLen > 0 && isQuote(srcChars, pos, len, quoteStart, quoteLen)) {
                     quoting = true;
                     pos += quoteLen;
                     continue;
                 }
-
                 // check for ignored (outside quotes), and ignore
                 final int ignoredLen = getIgnoredMatcher().isMatch(srcChars, pos, start, len);
                 if (ignoredLen > 0) {
                     pos += ignoredLen;
                     continue;
                 }
-
                 // check for trimmed character
                 // don't yet know if its at the end, so copy to workArea
                 // use trimStart to keep track of trim at the end
@@ -788,7 +753,6 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
             workArea.append(srcChars[pos++]);
             trimStart = workArea.size();
         }
-
         // return condition when end of string found
         addToken(tokenList, workArea.substring(0, trimStart));
         return -1;
@@ -801,7 +765,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public void remove() {
-        throw new UnsupportedOperationException("remove() is unsupported");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -813,9 +777,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer reset() {
-        tokenPos = 0;
-        tokens = null;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -825,9 +787,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer reset(final char[] input) {
-        reset();
-        this.chars = input != null ? input.clone() : null;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -837,9 +797,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer reset(final String input) {
-        reset();
-        this.chars = input != null ? input.toCharArray() : null;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -850,7 +808,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public void set(final String obj) {
-        throw new UnsupportedOperationException("set() is unsupported");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -860,7 +818,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setDelimiterChar(final char delim) {
-        return setDelimiterMatcher(StringMatcherFactory.INSTANCE.charMatcher(delim));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -873,8 +831,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setDelimiterMatcher(final StringMatcher delim) {
-        this.delimMatcher = delim == null ? StringMatcherFactory.INSTANCE.noneMatcher() : delim;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -884,7 +841,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setDelimiterString(final String delim) {
-        return setDelimiterMatcher(StringMatcherFactory.INSTANCE.stringMatcher(delim));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -894,8 +851,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setEmptyTokenAsNull(final boolean emptyAsNull) {
-        this.emptyAsNull = emptyAsNull;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -908,7 +864,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setIgnoredChar(final char ignored) {
-        return setIgnoredMatcher(StringMatcherFactory.INSTANCE.charMatcher(ignored));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -921,10 +877,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setIgnoredMatcher(final StringMatcher ignored) {
-        if (ignored != null) {
-            this.ignoredMatcher = ignored;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -934,8 +887,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setIgnoreEmptyTokens(final boolean ignoreEmptyTokens) {
-        this.ignoreEmptyTokens = ignoreEmptyTokens;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -948,7 +900,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setQuoteChar(final char quote) {
-        return setQuoteMatcher(StringMatcherFactory.INSTANCE.charMatcher(quote));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -961,10 +913,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setQuoteMatcher(final StringMatcher quote) {
-        if (quote != null) {
-            this.quoteMatcher = quote;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -976,10 +925,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return {@code this} instance.
      */
     public StringTokenizer setTrimmerMatcher(final StringMatcher trimmer) {
-        if (trimmer != null) {
-            this.trimmerMatcher = trimmer;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -988,8 +934,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The number of matched tokens.
      */
     public int size() {
-        checkTokenized();
-        return tokens.length;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1012,22 +957,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      * @return The modifiable list of String tokens, unmodifiable if null array or zero count.
      */
     protected List<String> tokenize(final char[] srcChars, final int offset, final int count) {
-        if (srcChars == null || count == 0) {
-            return Collections.emptyList();
-        }
-        final TextStringBuilder buf = new TextStringBuilder();
-        final List<String> tokenList = new ArrayList<>();
-        int pos = offset;
-        // loop around the entire buffer
-        while (pos >= 0 && pos < count) {
-            // find next token
-            pos = readNextToken(srcChars, pos, count, buf, tokenList);
-            // handle case where end of string is a delimiter
-            if (pos >= count) {
-                addToken(tokenList, StringUtils.EMPTY);
-            }
-        }
-        return tokenList;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1037,9 +967,6 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
      */
     @Override
     public String toString() {
-        if (tokens == null) {
-            return "StringTokenizer[not tokenized yet]";
-        }
-        return "StringTokenizer" + getTokenList();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

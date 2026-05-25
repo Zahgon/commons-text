@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.similarity;
 
 import java.util.Arrays;
@@ -46,8 +45,7 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
      * @param swapped tells whether the value for left character sequence and right character sequence were swapped to save memory.
      * @return result object containing the count of insert, delete and substitute and total count needed.
      */
-    private static <E> LevenshteinResults findDetailedResults(final SimilarityInput<E> left, final SimilarityInput<E> right, final int[][] matrix,
-            final boolean swapped) {
+    private static <E> LevenshteinResults findDetailedResults(final SimilarityInput<E> left, final SimilarityInput<E> right, final int[][] matrix, final boolean swapped) {
         int delCount = 0;
         int addCount = 0;
         int subCount = 0;
@@ -89,7 +87,8 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
             // handling insert and delete cases.
             deleted = false;
             added = false;
-            if (data - 1 == dataAtLeft && data <= dataAtDiagonal && data <= dataAtTop || dataAtDiagonal == -1 && dataAtTop == -1) { // NOPMD
+            if (data - 1 == dataAtLeft && data <= dataAtDiagonal && data <= dataAtTop || dataAtDiagonal == -1 && dataAtTop == -1) {
+                // NOPMD
                 columnIndex--;
                 if (swapped) {
                     addCount++;
@@ -98,7 +97,8 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
                     delCount++;
                     deleted = true;
                 }
-            } else if (data - 1 == dataAtTop && data <= dataAtDiagonal && data <= dataAtLeft || dataAtDiagonal == -1 && dataAtLeft == -1) { // NOPMD
+            } else if (data - 1 == dataAtTop && data <= dataAtDiagonal && data <= dataAtLeft || dataAtDiagonal == -1 && dataAtLeft == -1) {
+                // NOPMD
                 rowIndex--;
                 if (swapped) {
                     delCount++;
@@ -124,7 +124,7 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
      * @return The default instace
      */
     public static LevenshteinDetailedDistance getDefaultInstance() {
-        return INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -155,11 +155,11 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
      * @param threshold the target threshold, must not be negative.
      * @return result distance, or -1.
      */
-    private static <E> LevenshteinResults limitedCompare(SimilarityInput<E> left, SimilarityInput<E> right, final int threshold) { // NOPMD
+    private static <E> LevenshteinResults limitedCompare(SimilarityInput<E> left, SimilarityInput<E> right, final int threshold) {
+        // NOPMD
         if (left == null || right == null) {
             throw new IllegalArgumentException("CharSequences must not be null");
         }
-
         /*
          * This implementation only computes the distance if it's less than or equal to the threshold value, returning -1 if it's greater. The advantage is
          * performance: unbounded distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only computing a diagonal stripe of width 2k + 1
@@ -186,8 +186,10 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
          *
          * See Algorithms on Strings, Trees and Sequences by Dan Gusfield for some discussion.
          */
-        int n = left.length(); // length of left
-        int m = right.length(); // length of right
+        // length of left
+        int n = left.length();
+        // length of right
+        int m = right.length();
         // if one string is empty, the edit distance is necessarily the length of the other
         if (n == 0) {
             return m <= threshold ? new LevenshteinResults(m, m, 0, 0) : new LevenshteinResults(-1, 0, 0, 0);
@@ -205,9 +207,12 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
             m = right.length();
             swapped = true;
         }
-        int[] p = new int[n + 1]; // 'previous' cost array, horizontally
-        int[] d = new int[n + 1]; // cost array, horizontally
-        int[] tempD; // placeholder to assist in swapping p and d
+        // 'previous' cost array, horizontally
+        int[] p = new int[n + 1];
+        // cost array, horizontally
+        int[] d = new int[n + 1];
+        // placeholder to assist in swapping p and d
+        int[] tempD;
         final int[][] matrix = new int[m + 1][n + 1];
         // filling the first row and first column values in the matrix
         for (int index = 0; index <= n; index++) {
@@ -227,7 +232,8 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
         Arrays.fill(d, Integer.MAX_VALUE);
         // iterates through t
         for (int j = 1; j <= m; j++) {
-            final E rightJ = right.at(j - 1); // jth character of right
+            // jth character of right
+            final E rightJ = right.at(j - 1);
             d[0] = j;
             // compute stripe indices, constrain to array size
             final int min = Math.max(1, j - threshold);
@@ -310,8 +316,10 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
          * Effectively, the difference between the two implementations is this one does not cause an out of memory condition when calculating the LD over two
          * very large strings.
          */
-        int n = left.length(); // length of left
-        int m = right.length(); // length of right
+        // length of left
+        int n = left.length();
+        // length of right
+        int m = right.length();
         if (n == 0) {
             return new LevenshteinResults(m, m, 0, 0);
         }
@@ -328,9 +336,12 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
             m = right.length();
             swapped = true;
         }
-        int[] p = new int[n + 1]; // 'previous' cost array, horizontally
-        int[] d = new int[n + 1]; // cost array, horizontally
-        int[] tempD; // placeholder to assist in swapping p and d
+        // 'previous' cost array, horizontally
+        int[] p = new int[n + 1];
+        // cost array, horizontally
+        int[] d = new int[n + 1];
+        // placeholder to assist in swapping p and d
+        int[] tempD;
         final int[][] matrix = new int[m + 1][n + 1];
         // filling the first row and first column values in the matrix
         for (int index = 0; index <= n; index++) {
@@ -340,10 +351,14 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
             matrix[index][0] = index;
         }
         // indexes into strings left and right
-        int i; // iterates through left
-        int j; // iterates through right
-        E rightJ; // jth character of right
-        int cost; // cost
+        // iterates through left
+        int i;
+        // iterates through right
+        int j;
+        // jth character of right
+        E rightJ;
+        // cost
+        int cost;
         for (i = 0; i <= n; i++) {
             p[i] = i;
         }
@@ -432,7 +447,7 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
      */
     @Override
     public LevenshteinResults apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -469,10 +484,7 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
      * @since 1.13.0
      */
     public <E> LevenshteinResults apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        if (threshold != null) {
-            return limitedCompare(left, right, threshold);
-        }
-        return unlimitedCompare(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -481,6 +493,6 @@ public class LevenshteinDetailedDistance implements EditDistance<LevenshteinResu
      * @return The distance threshold.
      */
     public Integer getThreshold() {
-        return threshold;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

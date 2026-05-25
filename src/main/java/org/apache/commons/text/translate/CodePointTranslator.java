@@ -36,9 +36,7 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
 
     @Override
     public final int translate(final CharSequence input, final int index, final Writer writer) throws IOException {
-        final int codePoint = Character.codePointAt(input, index);
-        final boolean consumed = translate(codePoint, writer);
-        return consumed ? 1 : 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -50,5 +48,4 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
      * @throws IOException if and only if the Writer produces an IOException.
      */
     public abstract boolean translate(int codePoint, Writer writer) throws IOException;
-
 }

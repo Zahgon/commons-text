@@ -14,14 +14,12 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -50,14 +48,16 @@ final class PropertiesStringLookup extends AbstractPathFencedLookup {
      */
     static final PropertiesStringLookup INSTANCE = new PropertiesStringLookup((Path[]) null);
 
-    /** Separates file and key. */
+    /**
+     * Separates file and key.
+     */
     static final String SEPARATOR = "::";
 
     /**
      * Creates a lookup key for a given file and key.
      */
     static String toPropertyKey(final String file, final String key) {
-        return toLookupKey(file, SEPARATOR, key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -83,27 +83,6 @@ final class PropertiesStringLookup extends AbstractPathFencedLookup {
      */
     @Override
     public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String[] keys = key.split(SEPARATOR);
-        final int keyLen = keys.length;
-        if (keyLen < 2) {
-            throw IllegalArgumentExceptions.format("Bad properties key format [%s]; expected format is %s.", key,
-                toPropertyKey("DocumentPath", "Key"));
-        }
-        final String documentPath = keys[0];
-        final String propertyKey = StringUtils.substringAfter(key, SEPARATOR);
-        try {
-            final Properties properties = new Properties();
-            try (InputStream inputStream = Files.newInputStream(getPath(documentPath))) {
-                properties.load(inputStream);
-            }
-            return properties.getProperty(propertyKey);
-        } catch (final Exception e) {
-            throw IllegalArgumentExceptions.format(e, "Error looking up properties [%s] and key [%s].", documentPath,
-                propertyKey);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

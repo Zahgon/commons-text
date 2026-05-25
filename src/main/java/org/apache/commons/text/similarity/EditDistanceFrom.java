@@ -84,7 +84,7 @@ public class EditDistanceFrom<R> {
      * @return The similarity score between two CharSequences.
      */
     public R apply(final CharSequence right) {
-        return editDistance.apply(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -93,7 +93,7 @@ public class EditDistanceFrom<R> {
      * @return The edit distance.
      */
     public EditDistance<R> getEditDistance() {
-        return editDistance;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -102,7 +102,6 @@ public class EditDistanceFrom<R> {
      * @return The left parameter.
      */
     public CharSequence getLeft() {
-        return left;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.net.InetAddress;
@@ -29,10 +28,8 @@ import java.util.Properties;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathFactory;
-
 import org.apache.commons.text.StringSubstitutor;
 
 /**
@@ -244,10 +241,9 @@ public final class StringLookupFactory {
             // empty
         }
 
-
         @Override
         public StringLookupFactory get() {
-            return new StringLookupFactory(fences);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -260,10 +256,8 @@ public final class StringLookupFactory {
          * @return {@code this} instance.
          */
         public Builder setFences(final Path... fences) {
-            this.fences = fences;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -271,7 +265,9 @@ public final class StringLookupFactory {
      */
     static final class DefaultStringLookupsHolder {
 
-        /** Singleton instance, initialized with the system properties. */
+        /**
+         * Singleton instance, initialized with the system properties.
+         */
         static final DefaultStringLookupsHolder INSTANCE = new DefaultStringLookupsHolder(System.getProperties());
 
         /**
@@ -337,7 +333,9 @@ public final class StringLookupFactory {
             return lookupMap;
         }
 
-        /** Default string lookup map. */
+        /**
+         * Default string lookup map.
+         */
         private final Map<String, StringLookup> defaultStringLookups;
 
         /**
@@ -346,9 +344,7 @@ public final class StringLookupFactory {
          * @param props initialization properties.
          */
         DefaultStringLookupsHolder(final Properties props) {
-            final Map<String, StringLookup> lookups = props.containsKey(DEFAULT_STRING_LOOKUPS_PROPERTY)
-                    ? parseStringLookups(props.getProperty(DEFAULT_STRING_LOOKUPS_PROPERTY))
-                    : createDefaultStringLookups();
+            final Map<String, StringLookup> lookups = props.containsKey(DEFAULT_STRING_LOOKUPS_PROPERTY) ? parseStringLookups(props.getProperty(DEFAULT_STRING_LOOKUPS_PROPERTY)) : createDefaultStringLookups();
             defaultStringLookups = Collections.unmodifiableMap(lookups);
         }
 
@@ -358,7 +354,7 @@ public final class StringLookupFactory {
          * @return default string lookups map.
          */
         Map<String, StringLookup> getDefaultStringLookups() {
-            return defaultStringLookups;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -398,8 +394,7 @@ public final class StringLookupFactory {
      * The examples above convert {@code "SGVsbG9Xb3JsZCE="} to {@code "HelloWorld!"}.
      * </p>
      */
-    static final FunctionStringLookup<String> INSTANCE_BASE64_DECODER = FunctionStringLookup
-            .on(key -> new String(Base64.getDecoder().decode(key), StandardCharsets.ISO_8859_1));
+    static final FunctionStringLookup<String> INSTANCE_BASE64_DECODER = FunctionStringLookup.on(key -> new String(Base64.getDecoder().decode(key), StandardCharsets.ISO_8859_1));
 
     /**
      * Encodes Base64 Strings.
@@ -422,8 +417,7 @@ public final class StringLookupFactory {
      * </p>
      * Defines the singleton for this class.
      */
-    static final FunctionStringLookup<String> INSTANCE_BASE64_ENCODER = FunctionStringLookup
-            .on(key -> Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.ISO_8859_1)));
+    static final FunctionStringLookup<String> INSTANCE_BASE64_ENCODER = FunctionStringLookup.on(key -> Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.ISO_8859_1)));
 
     /**
      * Looks up keys from environment variables.
@@ -604,7 +598,7 @@ public final class StringLookupFactory {
      * @since 1.12.0
      */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -613,7 +607,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public static void clear() {
-        ConstantStringLookup.clear();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -623,7 +617,7 @@ public final class StringLookupFactory {
      * @return string lookup map key
      */
     static String toKey(final String key) {
-        return key.toLowerCase(Locale.ROOT);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -635,7 +629,7 @@ public final class StringLookupFactory {
      * @return the given map if the input is non-null or an empty immutable map if the input is null.
      */
     static <K, V> Map<K, V> toMap(final Map<K, V> map) {
-        return map == null ? Collections.emptyMap() : map;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -669,9 +663,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public void addDefaultStringLookups(final Map<String, StringLookup> stringLookupMap) {
-        if (stringLookupMap != null) {
-            stringLookupMap.putAll(DefaultStringLookupsHolder.INSTANCE.getDefaultStringLookups());
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -698,7 +690,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup base64DecoderStringLookup() {
-        return INSTANCE_BASE64_DECODER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -725,7 +717,7 @@ public final class StringLookupFactory {
      * @since 1.6
      */
     public StringLookup base64EncoderStringLookup() {
-        return INSTANCE_BASE64_ENCODER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -767,7 +759,7 @@ public final class StringLookupFactory {
      * @since 1.9
      */
     public <R, U> BiStringLookup<U> biFunctionStringLookup(final BiFunction<String, U, R> biFunction) {
-        return BiFunctionStringLookup.on(biFunction);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -804,7 +796,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup constantStringLookup() {
-        return ConstantStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -831,7 +823,7 @@ public final class StringLookupFactory {
      * @return The DateStringLookup singleton instance.
      */
     public StringLookup dateStringLookup() {
-        return DateStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -870,7 +862,7 @@ public final class StringLookupFactory {
      * @since 1.8
      */
     public StringLookup dnsStringLookup() {
-        return DnsStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -896,7 +888,7 @@ public final class StringLookupFactory {
      * @return The EnvironmentVariableStringLookup singleton instance.
      */
     public StringLookup environmentVariableStringLookup() {
-        return INSTANCE_ENVIRONMENT_VARIABLES;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -960,7 +952,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup fileStringLookup() {
-        return fences != null ? fileStringLookup(fences) : FileStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -991,7 +983,7 @@ public final class StringLookupFactory {
      * @since 1.12.0
      */
     public StringLookup fileStringLookup(final Path... fences) {
-        return new FileStringLookup(fences);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1003,7 +995,7 @@ public final class StringLookupFactory {
      * @since 1.9
      */
     public <R> StringLookup functionStringLookup(final Function<String, R> function) {
-        return FunctionStringLookup.on(function);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1030,7 +1022,7 @@ public final class StringLookupFactory {
      * @return the default {@link InterpolatorStringLookup}.
      */
     public StringLookup interpolatorStringLookup() {
-        return InterpolatorStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1045,9 +1037,8 @@ public final class StringLookupFactory {
      * @return a new InterpolatorStringLookup.
      * @since 1.4
      */
-    public StringLookup interpolatorStringLookup(final Map<String, StringLookup> stringLookupMap, final StringLookup defaultStringLookup,
-            final boolean addDefaultLookups) {
-        return new InterpolatorStringLookup(stringLookupMap, defaultStringLookup, addDefaultLookups);
+    public StringLookup interpolatorStringLookup(final Map<String, StringLookup> stringLookupMap, final StringLookup defaultStringLookup, final boolean addDefaultLookups) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1059,7 +1050,7 @@ public final class StringLookupFactory {
      * @return a new InterpolatorStringLookup.
      */
     public <V> StringLookup interpolatorStringLookup(final Map<String, V> map) {
-        return new InterpolatorStringLookup(map);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1070,7 +1061,7 @@ public final class StringLookupFactory {
      * @return a new InterpolatorStringLookup.
      */
     public StringLookup interpolatorStringLookup(final StringLookup defaultStringLookup) {
-        return new InterpolatorStringLookup(defaultStringLookup);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1108,7 +1099,7 @@ public final class StringLookupFactory {
      * @return The JavaPlatformStringLookup singleton instance.
      */
     public StringLookup javaPlatformStringLookup() {
-        return JavaPlatformStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1140,7 +1131,7 @@ public final class StringLookupFactory {
      * @return The InetAddressStringLookup singleton instance.
      */
     public StringLookup localHostStringLookup() {
-        return InetAddressStringLookup.LOCAL_HOST;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1172,7 +1163,7 @@ public final class StringLookupFactory {
      * @return The InetAddressStringLookup singleton instance.
      */
     public StringLookup loopbackAddressStringLookup() {
-        return InetAddressStringLookup.LOOPACK_ADDRESS;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1183,7 +1174,7 @@ public final class StringLookupFactory {
      * @return a new MapStringLookup.
      */
     public <V> StringLookup mapStringLookup(final Map<String, V> map) {
-        return FunctionStringLookup.on(map);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1192,7 +1183,7 @@ public final class StringLookupFactory {
      * @return The NullStringLookup singleton instance.
      */
     public StringLookup nullStringLookup() {
-        return INSTANCE_NULL;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1266,7 +1257,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup propertiesStringLookup() {
-        return fences != null ? propertiesStringLookup(fences) : PropertiesStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1307,7 +1298,7 @@ public final class StringLookupFactory {
      * @since 1.12.0
      */
     public StringLookup propertiesStringLookup(final Path... fences) {
-        return new PropertiesStringLookup(fences);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1339,7 +1330,7 @@ public final class StringLookupFactory {
      * @return The ResourceBundleStringLookup singleton instance.
      */
     public StringLookup resourceBundleStringLookup() {
-        return ResourceBundleStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1366,7 +1357,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup resourceBundleStringLookup(final String bundleName) {
-        return new ResourceBundleStringLookup(bundleName);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1406,7 +1397,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup scriptStringLookup() {
-        return ScriptStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1433,7 +1424,7 @@ public final class StringLookupFactory {
      * @return The SystemPropertyStringLookup singleton instance.
      */
     public StringLookup systemPropertyStringLookup() {
-        return INSTANCE_SYSTEM_PROPERTIES;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1466,7 +1457,7 @@ public final class StringLookupFactory {
      * @since 1.6
      */
     public StringLookup urlDecoderStringLookup() {
-        return UrlDecoderStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1499,7 +1490,7 @@ public final class StringLookupFactory {
      * @since 1.6
      */
     public StringLookup urlEncoderStringLookup() {
-        return UrlEncoderStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1542,7 +1533,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup urlStringLookup() {
-        return UrlStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1575,7 +1566,7 @@ public final class StringLookupFactory {
      * @since 1.11.0
      */
     public StringLookup xmlDecoderStringLookup() {
-        return XmlDecoderStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1608,7 +1599,7 @@ public final class StringLookupFactory {
      * @since 1.11.0
      */
     public StringLookup xmlEncoderStringLookup() {
-        return XmlEncoderStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1652,7 +1643,7 @@ public final class StringLookupFactory {
      * @since 1.5
      */
     public StringLookup xmlStringLookup() {
-        return fences != null ? xmlStringLookup(XmlStringLookup.DEFAULT_XPATH_FEATURES, fences) : XmlStringLookup.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1699,7 +1690,7 @@ public final class StringLookupFactory {
      * @since 1.11.0
      */
     public StringLookup xmlStringLookup(final Map<String, Boolean> factoryFeatures) {
-        return xmlStringLookup(factoryFeatures, fences);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1754,6 +1745,6 @@ public final class StringLookupFactory {
      * @since 1.12.0
      */
     public StringLookup xmlStringLookup(final Map<String, Boolean> factoryFeatures, final Path... fences) {
-        return new XmlStringLookup(factoryFeatures, factoryFeatures, fences);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

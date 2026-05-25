@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -42,7 +41,6 @@ final class XmlDecoderStringLookup extends AbstractStringLookup {
 
     @Override
     public String lookup(final String key) {
-        return StringEscapeUtils.unescapeXml(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

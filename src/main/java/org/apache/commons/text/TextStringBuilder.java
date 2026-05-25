@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.matcher.StringMatcher;
@@ -81,10 +80,14 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     final class TextStringBuilderReader extends Reader {
 
-        /** The last mark position. */
+        /**
+         * The last mark position.
+         */
         private int mark;
 
-        /** The current stream position. */
+        /**
+         * The current stream position.
+         */
         private int pos;
 
         /**
@@ -93,73 +96,68 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         TextStringBuilderReader() {
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void close() {
-            // do nothing
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void mark(final int readAheadLimit) {
-            mark = pos;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean markSupported() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int read() {
-            return ready() ? charAt(pos++) : -1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int read(final char[] b, final int off, int len) {
-            if (off < 0 || len < 0 || off > b.length || off + len > b.length || off + len < 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            if (len == 0) {
-                return 0;
-            }
-            if (pos >= size()) {
-                return -1;
-            }
-            if (pos + len > size()) {
-                len = size() - pos;
-            }
-            TextStringBuilder.this.getChars(pos, pos + len, b, off);
-            pos += len;
-            return len;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean ready() {
-            return pos < size();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void reset() {
-            pos = mark;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public long skip(long n) {
-            if (pos + n > size()) {
-                n = size() - pos;
-            }
-            if (n < 0) {
-                return 0;
-            }
-            pos = Math.addExact(pos, Math.toIntExact(n));
-            return n;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -174,20 +172,20 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         TextStringBuilderTokenizer() {
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String getContent() {
-            final String str = super.getContent();
-            return str != null ? str : TextStringBuilder.this.toString();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         protected List<String> tokenize(final char[] chars, final int offset, final int count) {
-            if (chars == null) {
-                return super.tokenize(getBuffer(), 0, TextStringBuilder.this.size());
-            }
-            return super.tokenize(chars, offset, count);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -202,50 +200,66 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
         TextStringBuilderWriter() {
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void close() {
-            // do nothing
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void flush() {
-            // do nothing
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void write(final char[] cbuf) {
-            TextStringBuilder.this.append(cbuf);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void write(final char[] cbuf, final int off, final int len) {
-            TextStringBuilder.this.append(cbuf, off, len);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void write(final int c) {
-            TextStringBuilder.this.append((char) c);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void write(final String str) {
-            TextStringBuilder.this.append(str);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void write(final String str, final int off, final int len) {
-            TextStringBuilder.this.append(str, off, len);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /** The space character. */
+    /**
+     * The space character.
+     */
     private static final char SPACE = ' ';
 
     /**
@@ -322,8 +336,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public static TextStringBuilder wrap(final char[] initialBuffer) {
-        Objects.requireNonNull(initialBuffer, "initialBuffer");
-        return new TextStringBuilder(initialBuffer, initialBuffer.length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -338,10 +351,12 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public static TextStringBuilder wrap(final char[] initialBuffer, final int length) {
-        return new TextStringBuilder(initialBuffer, length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /** Internal data storage. */
+    /**
+     * Internal data storage.
+     */
     private char[] buffer;
 
     /**
@@ -349,13 +364,19 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     private String newLine;
 
-    /** The null text. */
+    /**
+     * The null text.
+     */
     private String nullText;
 
-    /** Incremented when the buffer is reallocated. */
+    /**
+     * Incremented when the buffer is reallocated.
+     */
     private int reallocations;
 
-    /** Current size of the buffer. */
+    /**
+     * Current size of the buffer.
+     */
     private int size;
 
     /**
@@ -423,14 +444,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final boolean value) {
-        if (value) {
-            ensureCapacityInternal(size + TRUE_STRING_SIZE);
-            appendTrue(size);
-        } else {
-            ensureCapacityInternal(size + FALSE_STRING_SIZE);
-            appendFalse(size);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -441,10 +455,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public TextStringBuilder append(final char ch) {
-        final int len = length();
-        ensureCapacityInternal(len + 1);
-        buffer[size++] = ch;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -454,17 +465,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final char[] chars) {
-        if (chars == null) {
-            return appendNull();
-        }
-        final int strLen = chars.length;
-        if (strLen > 0) {
-            final int len = length();
-            ensureCapacityInternal(len + strLen);
-            System.arraycopy(chars, 0, buffer, len, strLen);
-            size += strLen;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -479,22 +480,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws StringIndexOutOfBoundsException if {@code startIndex + length > chars.length}.
      */
     public TextStringBuilder append(final char[] chars, final int startIndex, final int length) {
-        if (chars == null) {
-            return appendNull();
-        }
-        if (startIndex < 0 || startIndex > chars.length) {
-            throw new StringIndexOutOfBoundsException("Invalid startIndex: " + startIndex);
-        }
-        if (length < 0 || startIndex + length > chars.length) {
-            throw new StringIndexOutOfBoundsException("Invalid length: " + length);
-        }
-        if (length > 0) {
-            final int len = length();
-            ensureCapacityInternal(len + length);
-            System.arraycopy(chars, startIndex, buffer, len, length);
-            size += length;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -504,7 +490,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final CharBuffer str) {
-        return append(str, 0, StringUtils.length(str));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -516,25 +502,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final CharBuffer buf, final int startIndex, final int length) {
-        if (buf == null) {
-            return appendNull();
-        }
-        if (buf.hasArray()) {
-            final int totalLength = buf.remaining();
-            if (startIndex < 0 || startIndex > totalLength) {
-                throw new StringIndexOutOfBoundsException("startIndex must be valid");
-            }
-            if (length < 0 || startIndex + length > totalLength) {
-                throw new StringIndexOutOfBoundsException("length must be valid");
-            }
-            final int len = length();
-            ensureCapacityInternal(len + length);
-            System.arraycopy(buf.array(), buf.arrayOffset() + buf.position() + startIndex, buffer, len, length);
-            size += length;
-        } else {
-            append(buf.toString(), startIndex, length);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -545,22 +513,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public TextStringBuilder append(final CharSequence seq) {
-        if (seq == null) {
-            return appendNull();
-        }
-        if (seq instanceof TextStringBuilder) {
-            return append((TextStringBuilder) seq);
-        }
-        if (seq instanceof StringBuilder) {
-            return append((StringBuilder) seq);
-        }
-        if (seq instanceof StringBuffer) {
-            return append((StringBuffer) seq);
-        }
-        if (seq instanceof CharBuffer) {
-            return append((CharBuffer) seq);
-        }
-        return append(seq.toString());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -573,16 +526,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public TextStringBuilder append(final CharSequence seq, final int startIndex, final int endIndex) {
-        if (seq == null) {
-            return appendNull();
-        }
-        if (endIndex <= 0) {
-            throw new StringIndexOutOfBoundsException("endIndex must be valid");
-        }
-        if (startIndex >= endIndex) {
-            throw new StringIndexOutOfBoundsException("endIndex must be greater than startIndex");
-        }
-        return append(seq.toString(), startIndex, endIndex - startIndex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -592,7 +536,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final double value) {
-        return append(String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -602,7 +546,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final float value) {
-        return append(String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -612,7 +556,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final int value) {
-        return append(String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -622,7 +566,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final long value) {
-        return append(String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -632,13 +576,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final Object obj) {
-        if (obj == null) {
-            return appendNull();
-        }
-        if (obj instanceof CharSequence) {
-            return append((CharSequence) obj);
-        }
-        return append(obj.toString());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -648,7 +586,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final String str) {
-        return append(str, 0, StringUtils.length(str));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -663,22 +601,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws StringIndexOutOfBoundsException if {@code startIndex + length > str.length()}.
      */
     public TextStringBuilder append(final String str, final int startIndex, final int length) {
-        if (str == null) {
-            return appendNull();
-        }
-        if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
-        }
-        if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
-        }
-        if (length > 0) {
-            final int len = length();
-            ensureCapacityInternal(len + length);
-            str.getChars(startIndex, startIndex + length, buffer, len);
-            size += length;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -690,7 +613,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see String#format(String, Object...)
      */
     public TextStringBuilder append(final String format, final Object... objs) {
-        return append(String.format(format, objs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -700,7 +623,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final StringBuffer str) {
-        return append(str, 0, StringUtils.length(str));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -712,22 +635,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final StringBuffer str, final int startIndex, final int length) {
-        if (str == null) {
-            return appendNull();
-        }
-        if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
-        }
-        if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
-        }
-        if (length > 0) {
-            final int len = length();
-            ensureCapacityInternal(len + length);
-            str.getChars(startIndex, startIndex + length, buffer, len);
-            size += length;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -737,7 +645,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final StringBuilder str) {
-        return append(str, 0, StringUtils.length(str));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -749,22 +657,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final StringBuilder str, final int startIndex, final int length) {
-        if (str == null) {
-            return appendNull();
-        }
-        if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
-        }
-        if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
-        }
-        if (length > 0) {
-            final int len = length();
-            ensureCapacityInternal(len + length);
-            str.getChars(startIndex, startIndex + length, buffer, len);
-            size += length;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -774,7 +667,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final TextStringBuilder str) {
-        return append(str, 0, StringUtils.length(str));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -786,22 +679,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder append(final TextStringBuilder str, final int startIndex, final int length) {
-        if (str == null) {
-            return appendNull();
-        }
-        if (startIndex < 0 || startIndex > str.length()) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
-        }
-        if (length < 0 || startIndex + length > str.length()) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
-        }
-        if (length > 0) {
-            final int len = length();
-            ensureCapacityInternal(len + length);
-            str.getChars(startIndex, startIndex + length, buffer, len);
-            size += length;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -812,10 +690,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendAll(final Iterable<?> iterable) {
-        if (iterable != null) {
-            iterable.forEach(this::append);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -826,10 +701,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendAll(final Iterator<?> it) {
-        if (it != null) {
-            it.forEachRemaining(this::append);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -841,20 +713,12 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public <T> TextStringBuilder appendAll(@SuppressWarnings("unchecked") final T... array) {
-        /*
-         * @SuppressWarnings used to hide warning about vararg usage. We cannot use @SafeVarargs, since this method is
-         * not final. Using @SuppressWarnings is fine, because it isn't inherited by subclasses, so each subclass must
-         * vouch for itself whether its use of 'array' is safe.
-         */
-        if (array != null && array.length > 0) {
-            for (final Object element : array) {
-                append(element);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /** Appends {@code "false"}. */
+    /**
+     * Appends {@code "false"}.
+     */
     private void appendFalse(int index) {
         buffer[index++] = 'f';
         buffer[index++] = 'a';
@@ -874,7 +738,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendFixedWidthPadLeft(final int value, final int width, final char padChar) {
-        return appendFixedWidthPadLeft(String.valueOf(value), width, padChar);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -887,24 +751,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar) {
-        if (width > 0) {
-            ensureCapacityInternal(size + width);
-            String str = Objects.toString(obj, getNullText());
-            if (str == null) {
-                str = StringUtils.EMPTY;
-            }
-            final int strLen = str.length();
-            if (strLen >= width) {
-                str.getChars(strLen - width, strLen, buffer, size);
-            } else {
-                final int padLen = width - strLen;
-                final int toIndex = size + padLen;
-                Arrays.fill(buffer, size, toIndex, padChar);
-                str.getChars(0, strLen, buffer, toIndex);
-            }
-            size += width;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -917,7 +764,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendFixedWidthPadRight(final int value, final int width, final char padChar) {
-        return appendFixedWidthPadRight(String.valueOf(value), width, padChar);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -930,23 +777,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar) {
-        if (width > 0) {
-            ensureCapacityInternal(size + width);
-            String str = Objects.toString(obj, getNullText());
-            if (str == null) {
-                str = StringUtils.EMPTY;
-            }
-            final int strLen = str.length();
-            if (strLen >= width) {
-                str.getChars(0, width, buffer, size);
-            } else {
-                str.getChars(0, strLen, buffer, size);
-                final int fromIndex = size + strLen;
-                Arrays.fill(buffer, fromIndex, fromIndex + width - strLen, padChar);
-            }
-            size += width;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -956,7 +787,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final boolean value) {
-        return append(value).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -966,7 +797,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final char ch) {
-        return append(ch).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -977,7 +808,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final char[] chars) {
-        return append(chars).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -990,7 +821,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final char[] chars, final int startIndex, final int length) {
-        return append(chars, startIndex, length).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1000,7 +831,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final double value) {
-        return append(value).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1010,7 +841,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final float value) {
-        return append(value).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1020,7 +851,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final int value) {
-        return append(value).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1030,7 +861,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final long value) {
-        return append(value).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1040,7 +871,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final Object obj) {
-        return append(obj).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1050,7 +881,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final String str) {
-        return append(str).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1063,7 +894,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final String str, final int startIndex, final int length) {
-        return append(str, startIndex, length).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1075,7 +906,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see String#format(String, Object...)
      */
     public TextStringBuilder appendln(final String format, final Object... objs) {
-        return append(format, objs).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1086,7 +917,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final StringBuffer str) {
-        return append(str).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1099,7 +930,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final StringBuffer str, final int startIndex, final int length) {
-        return append(str, startIndex, length).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1110,7 +941,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final StringBuilder str) {
-        return append(str).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1123,7 +954,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final StringBuilder str, final int startIndex, final int length) {
-        return append(str, startIndex, length).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1134,7 +965,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final TextStringBuilder str) {
-        return append(str).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1147,7 +978,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendln(final TextStringBuilder str, final int startIndex, final int length) {
-        return append(str, startIndex, length).appendNewLine();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1165,7 +996,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #setNewLineText(String)
      */
     public TextStringBuilder appendNewLine() {
-        return append(newLine == null ? System.lineSeparator() : newLine);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1174,7 +1005,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendNull() {
-        return nullText != null ? append(nullText) : this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1185,13 +1016,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendPadding(final int length, final char padChar) {
-        if (length >= 0) {
-            ensureCapacityInternal(size + length);
-            for (int i = 0; i < length; i++) {
-                buffer[size++] = padChar;
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1215,7 +1040,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendSeparator(final char separator) {
-        return isEmpty() ? this : append(separator);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1230,7 +1055,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendSeparator(final char standard, final char defaultIfEmpty) {
-        return append(isEmpty() ? defaultIfEmpty : standard);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1256,7 +1081,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendSeparator(final char separator, final int loopIndex) {
-        return loopIndex > 0 ? append(separator) : this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1281,7 +1106,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendSeparator(final String separator) {
-        return appendSeparator(separator, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1307,7 +1132,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendSeparator(final String separator, final int loopIndex) {
-        return separator != null && loopIndex > 0 ? append(separator) : this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1338,8 +1163,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendSeparator(final String standard, final String defaultIfEmpty) {
-        final String str = isEmpty() ? defaultIfEmpty : standard;
-        return str != null ? append(str) : this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1353,20 +1177,12 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #readFrom(Readable)
      */
     public void appendTo(final Appendable appendable) throws IOException {
-        if (appendable instanceof Writer) {
-            ((Writer) appendable).write(buffer, 0, size);
-        } else if (appendable instanceof StringBuilder) {
-            ((StringBuilder) appendable).append(buffer, 0, size);
-        } else if (appendable instanceof StringBuffer) {
-            ((StringBuffer) appendable).append(buffer, 0, size);
-        } else if (appendable instanceof CharBuffer) {
-            ((CharBuffer) appendable).put(buffer, 0, size);
-        } else {
-            appendable.append(this);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /** Appends {@code "true"}. */
+    /**
+     * Appends {@code "true"}.
+     */
     private void appendTrue(int index) {
         buffer[index++] = 't';
         buffer[index++] = 'r';
@@ -1384,10 +1200,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendWithSeparators(final Iterable<?> iterable, final String separator) {
-        if (iterable != null) {
-            appendWithSeparators(iterable.iterator(), separator);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1399,16 +1212,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendWithSeparators(final Iterator<?> it, final String separator) {
-        if (it != null) {
-            final String sep = Objects.toString(separator, StringUtils.EMPTY);
-            while (it.hasNext()) {
-                append(it.next());
-                if (it.hasNext()) {
-                    append(sep);
-                }
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1420,14 +1224,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder appendWithSeparators(final Object[] array, final String separator) {
-        if (array != null && array.length > 0) {
-            final String sep = Objects.toString(separator, StringUtils.EMPTY);
-            append(array[0]);
-            for (int i = 1; i < array.length; i++) {
-                append(sep).append(array[i]);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1450,7 +1247,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return a reader that reads from this builder.
      */
     public Reader asReader() {
-        return new TextStringBuilderReader();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1489,7 +1286,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return a tokenizer that is linked to this builder.
      */
     public StringTokenizer asTokenizer() {
-        return new TextStringBuilderTokenizer();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1513,7 +1310,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return a writer that populates this builder.
      */
     public Writer asWriter() {
-        return new TextStringBuilderWriter();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1535,7 +1332,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The capacity.
      */
     public int capacity() {
-        return buffer.length;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1549,8 +1346,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public char charAt(final int index) {
-        validateIndex(index);
-        return buffer[index];
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1567,8 +1363,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder clear() {
-        size = 0;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1578,13 +1373,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the builder contains the character.
      */
     public boolean contains(final char ch) {
-        final char[] thisBuf = buffer;
-        for (int i = 0; i < this.size; i++) {
-            if (thisBuf[i] == ch) {
-                return true;
-            }
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1594,7 +1383,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the builder contains the string.
      */
     public boolean contains(final String str) {
-        return indexOf(str, 0) >= 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1608,7 +1397,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the matcher finds a match in the builder.
      */
     public boolean contains(final StringMatcher matcher) {
-        return indexOf(matcher, 0) >= 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1620,12 +1409,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder delete(final int startIndex, final int endIndex) {
-        final int actualEndIndex = validateRange(startIndex, endIndex);
-        final int len = actualEndIndex - startIndex;
-        if (len > 0) {
-            deleteImpl(startIndex, actualEndIndex, len);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1635,20 +1419,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder deleteAll(final char ch) {
-        for (int i = 0; i < size; i++) {
-            if (buffer[i] == ch) {
-                final int start = i;
-                while (++i < size) {
-                    if (buffer[i] != ch) {
-                        break;
-                    }
-                }
-                final int len = i - start;
-                deleteImpl(start, i, len);
-                i -= len;
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1658,15 +1429,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder deleteAll(final String str) {
-        final int len = str == null ? 0 : str.length();
-        if (len > 0) {
-            int index = indexOf(str, 0);
-            while (index >= 0) {
-                deleteImpl(index, index + len, len);
-                index = indexOf(str, index);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1680,7 +1443,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder deleteAll(final StringMatcher matcher) {
-        return replace(matcher, null, 0, size, -1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1693,9 +1456,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #setCharAt(int, char)
      */
     public TextStringBuilder deleteCharAt(final int index) {
-        validateIndex(index);
-        deleteImpl(index, index + 1, 1);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1705,13 +1466,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder deleteFirst(final char ch) {
-        for (int i = 0; i < size; i++) {
-            if (buffer[i] == ch) {
-                deleteImpl(i, i + 1, 1);
-                break;
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1721,14 +1476,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder deleteFirst(final String str) {
-        final int len = str == null ? 0 : str.length();
-        if (len > 0) {
-            final int index = indexOf(str, 0);
-            if (index >= 0) {
-                deleteImpl(index, index + len, len);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1742,7 +1490,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder deleteFirst(final StringMatcher matcher) {
-        return replace(matcher, null, 0, size, 1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1769,10 +1517,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #deleteCharAt(int)
      */
     public char drainChar(final int index) {
-        validateIndex(index);
-        final char c = buffer[index];
-        deleteCharAt(index);
-        return c;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1787,14 +1532,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public int drainChars(final int startIndex, final int endIndex, final char[] target, final int targetIndex) {
-        final int length = endIndex - startIndex;
-        if (isEmpty() || length == 0 || target.length == 0) {
-            return 0;
-        }
-        final int actualLen = Math.min(Math.min(size, length), target.length - targetIndex);
-        getChars(startIndex, actualLen, target, targetIndex);
-        delete(startIndex, actualLen);
-        return actualLen;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1807,23 +1545,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the builder ends with the string.
      */
     public boolean endsWith(final String str) {
-        if (str == null) {
-            return false;
-        }
-        final int len = str.length();
-        if (len == 0) {
-            return true;
-        }
-        if (len > size) {
-            return false;
-        }
-        int pos = size - len;
-        for (int i = 0; i < len; i++, pos++) {
-            if (buffer[pos] != str.charAt(i)) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1840,10 +1562,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws OutOfMemoryError if the capacity cannot be allocated.
      */
     public TextStringBuilder ensureCapacity(final int capacity) {
-        if (capacity > 0) {
-            ensureCapacityInternal(capacity);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1875,7 +1594,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public boolean equals(final Object obj) {
-        return obj instanceof TextStringBuilder && equals((TextStringBuilder) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1885,25 +1604,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the builders contain the same characters in the same order.
      */
     public boolean equals(final TextStringBuilder other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null) {
-            return false;
-        }
-        if (this.size != other.size) {
-            return false;
-        }
-        // Be aware not to use Arrays.equals(buffer, other.buffer) for equals() method
-        // as length of the buffers may be different (TEXT-211)
-        final char[] thisBuf = this.buffer;
-        final char[] otherBuf = other.buffer;
-        for (int i = size - 1; i >= 0; i--) {
-            if (thisBuf[i] != otherBuf[i]) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1914,22 +1615,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the builders contain the same characters in the same order.
      */
     public boolean equalsIgnoreCase(final TextStringBuilder other) {
-        if (this == other) {
-            return true;
-        }
-        if (this.size != other.size) {
-            return false;
-        }
-        final char[] thisBuf = this.buffer;
-        final char[] otherBuf = other.buffer;
-        for (int i = size - 1; i >= 0; i--) {
-            final char c1 = thisBuf[i];
-            final char c2 = otherBuf[i];
-            if (c1 != c2 && Character.toUpperCase(c1) != Character.toUpperCase(c2)) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1941,14 +1627,14 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public String get() {
-        return toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Gets a direct reference to internal storage, not for public consumption.
      */
     char[] getBuffer() {
-        return buffer;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1958,12 +1644,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The input array, unless that was null or too small.
      */
     public char[] getChars(char[] target) {
-        final int len = length();
-        if (target == null || target.length < len) {
-            target = new char[len];
-        }
-        System.arraycopy(buffer, 0, target, 0, len);
-        return target;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1977,16 +1658,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if any index is invalid.
      */
     public void getChars(final int startIndex, final int endIndex, final char[] target, final int targetIndex) {
-        if (startIndex < 0) {
-            throw new StringIndexOutOfBoundsException(startIndex);
-        }
-        if (endIndex < 0 || endIndex > length()) {
-            throw new StringIndexOutOfBoundsException(endIndex);
-        }
-        if (startIndex > endIndex) {
-            throw new StringIndexOutOfBoundsException("end < start");
-        }
-        System.arraycopy(buffer, startIndex, target, targetIndex, endIndex - startIndex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1995,7 +1667,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The new line text, {@code null} means use the system default from {@link System#lineSeparator()}.
      */
     public String getNewLineText() {
-        return newLine;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2004,7 +1676,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The null text, null means no append.
      */
     public String getNullText() {
-        return nullText;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2014,13 +1686,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public int hashCode() {
-        // no allocation
-        final char[] buf = buffer;
-        int result = 0;
-        for (int i = 0; i < size; i++) {
-            result = 31 * result + buf[i];
-        }
-        return result;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2030,7 +1696,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The first index of the character, or -1 if not found.
      */
     public int indexOf(final char ch) {
-        return indexOf(ch, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2041,17 +1707,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The first index of the character, or -1 if not found.
      */
     public int indexOf(final char ch, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final char[] thisBuf = buffer;
-        for (int i = startIndex; i < size; i++) {
-            if (thisBuf[i] == ch) {
-                return i;
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2064,7 +1720,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The first index of the string, or -1 if not found.
      */
     public int indexOf(final String str) {
-        return indexOf(str, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2079,32 +1735,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The first index of the string, or -1 if not found.
      */
     public int indexOf(final String str, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (str == null || startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final int strLen = str.length();
-        if (strLen == 1) {
-            return indexOf(str.charAt(0), startIndex);
-        }
-        if (strLen == 0) {
-            return startIndex;
-        }
-        if (strLen > size) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final char[] thisBuf = buffer;
-        final int searchLen = size - strLen + 1;
-        for (int i = startIndex; i < searchLen; i++) {
-            boolean found = true;
-            for (int j = 0; j < strLen && found; j++) {
-                found = str.charAt(j) == thisBuf[i + j];
-            }
-            if (found) {
-                return i;
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2118,7 +1749,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The first index matched, or -1 if not found.
      */
     public int indexOf(final StringMatcher matcher) {
-        return indexOf(matcher, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2133,18 +1764,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The first index matched, or -1 if not found.
      */
     public int indexOf(final StringMatcher matcher, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (matcher == null || startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final int len = size;
-        final char[] buf = buffer;
-        for (int i = startIndex; i < len; i++) {
-            if (matcher.isMatch(buf, i, startIndex, len) > 0) {
-                return i;
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2156,17 +1776,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final boolean value) {
-        validateRange(index, size);
-        if (value) {
-            ensureCapacityInternal(size + TRUE_STRING_SIZE);
-            System.arraycopy(buffer, index, buffer, index + TRUE_STRING_SIZE, size - index);
-            appendTrue(index);
-        } else {
-            ensureCapacityInternal(size + FALSE_STRING_SIZE);
-            System.arraycopy(buffer, index, buffer, index + FALSE_STRING_SIZE, size - index);
-            appendFalse(index);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2178,12 +1788,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final char value) {
-        validateRange(index, size);
-        ensureCapacityInternal(size + 1);
-        System.arraycopy(buffer, index, buffer, index + 1, size - index);
-        buffer[index] = value;
-        size++;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2195,18 +1800,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final char[] chars) {
-        validateRange(index, size);
-        if (chars == null) {
-            return insert(index, nullText);
-        }
-        final int len = chars.length;
-        if (len > 0) {
-            ensureCapacityInternal(size + len);
-            System.arraycopy(buffer, index, buffer, index + len, size - index);
-            System.arraycopy(chars, 0, buffer, index, len);
-            size += len;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2220,23 +1814,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if any index is invalid.
      */
     public TextStringBuilder insert(final int index, final char[] chars, final int offset, final int length) {
-        validateRange(index, size);
-        if (chars == null) {
-            return insert(index, nullText);
-        }
-        if (offset < 0 || offset > chars.length) {
-            throw new StringIndexOutOfBoundsException("Invalid offset: " + offset);
-        }
-        if (length < 0 || offset + length > chars.length) {
-            throw new StringIndexOutOfBoundsException("Invalid length: " + length);
-        }
-        if (length > 0) {
-            ensureCapacityInternal(size + length);
-            System.arraycopy(buffer, index, buffer, index + length, size - index);
-            System.arraycopy(chars, offset, buffer, index, length);
-            size += length;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2248,7 +1826,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final double value) {
-        return insert(index, String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2260,7 +1838,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final float value) {
-        return insert(index, String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2272,7 +1850,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final int value) {
-        return insert(index, String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2284,7 +1862,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final long value) {
-        return insert(index, String.valueOf(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2297,7 +1875,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, final Object obj) {
-        return insert(index, Objects.toString(obj, nullText));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2309,21 +1887,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder insert(final int index, String str) {
-        validateRange(index, size);
-        if (str == null) {
-            str = nullText;
-        }
-        if (str != null) {
-            final int strLen = str.length();
-            if (strLen > 0) {
-                final int newSize = size + strLen;
-                ensureCapacityInternal(newSize);
-                System.arraycopy(buffer, index, buffer, index + strLen, size - index);
-                size = newSize;
-                str.getChars(0, strLen, buffer, index);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2335,7 +1899,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code true} if the size is {@code 0}.
      */
     public boolean isEmpty() {
-        return size == 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2348,7 +1912,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public boolean isNotEmpty() {
-        return size != 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2358,7 +1922,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public boolean isReallocated() {
-        return reallocations > 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2368,7 +1932,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The last index of the character, or -1 if not found.
      */
     public int lastIndexOf(final char ch) {
-        return lastIndexOf(ch, size - 1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2379,16 +1943,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The last index of the character, or -1 if not found.
      */
     public int lastIndexOf(final char ch, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-            if (buffer[i] == ch) {
-                return i;
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2401,7 +1956,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The last index of the string, or -1 if not found.
      */
     public int lastIndexOf(final String str) {
-        return lastIndexOf(str, size - 1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2416,30 +1971,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The last index of the string, or -1 if not found.
      */
     public int lastIndexOf(final String str, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (str == null || startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final int strLen = str.length();
-        if (strLen == 0) {
-            return startIndex;
-        }
-        if (strLen > size) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        if (strLen == 1) {
-            return lastIndexOf(str.charAt(0), startIndex);
-        }
-        for (int i = startIndex - strLen + 1; i >= 0; i--) {
-            boolean found = true;
-            for (int j = 0; j < strLen && found; j++) {
-                found = str.charAt(j) == buffer[i + j];
-            }
-            if (found) {
-                return i;
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2453,7 +1985,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The last index matched, or -1 if not found.
      */
     public int lastIndexOf(final StringMatcher matcher) {
-        return lastIndexOf(matcher, size);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2468,18 +2000,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The last index matched, or -1 if not found.
      */
     public int lastIndexOf(final StringMatcher matcher, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final char[] buf = buffer;
-        final int endIndex = startIndex + 1;
-        for (int i = startIndex; i >= 0; i--) {
-            if (matcher.isMatch(buf, i, 0, endIndex) > 0) {
-                return i;
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2493,13 +2014,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The new string.
      */
     public String leftString(final int length) {
-        if (length <= 0) {
-            return StringUtils.EMPTY;
-        }
-        if (length >= size) {
-            return new String(buffer, 0, size);
-        }
-        return new String(buffer, 0, length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2509,7 +2024,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public int length() {
-        return size;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2526,16 +2041,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The new string.
      */
     public String midString(int index, final int length) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (length <= 0 || index >= size) {
-            return StringUtils.EMPTY;
-        }
-        if (size <= index + length) {
-            return new String(buffer, index, size - index);
-        }
-        return new String(buffer, index, length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2544,10 +2050,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder minimizeCapacity() {
-        if (buffer.length > size) {
-            reallocate(size);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2560,12 +2063,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public int readFrom(final CharBuffer charBuffer) {
-        final int oldSize = size;
-        final int remaining = charBuffer.remaining();
-        ensureCapacityInternal(size + remaining);
-        charBuffer.get(buffer, size, remaining);
-        size += remaining;
-        return size - oldSize;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2578,23 +2076,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #appendTo(Appendable)
      */
     public int readFrom(final Readable readable) throws IOException {
-        if (readable instanceof Reader) {
-            return readFrom((Reader) readable);
-        }
-        if (readable instanceof CharBuffer) {
-            return readFrom((CharBuffer) readable);
-        }
-        final int oldSize = size;
-        while (true) {
-            ensureCapacityInternal(size + 1);
-            final CharBuffer buf = CharBuffer.wrap(buffer, size, buffer.length - size);
-            final int read = readable.read(buf);
-            if (read == EOS) {
-                break;
-            }
-            size += read;
-        }
-        return size - oldSize;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2608,18 +2090,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public int readFrom(final Reader reader) throws IOException {
-        final int oldSize = size;
-        ensureCapacityInternal(size + 1);
-        int readCount = reader.read(buffer, size, buffer.length - size);
-        if (readCount == EOS) {
-            return EOS;
-        }
-        do {
-            size += readCount;
-            ensureCapacityInternal(size + 1);
-            readCount = reader.read(buffer, size, buffer.length - size);
-        } while (readCount != EOS);
-        return size - oldSize;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2633,22 +2104,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @since 1.9
      */
     public int readFrom(final Reader reader, final int count) throws IOException {
-        if (count <= 0) {
-            return 0;
-        }
-        final int oldSize = size;
-        ensureCapacityInternal(size + count);
-        int target = count;
-        int readCount = reader.read(buffer, size, target);
-        if (readCount == EOS) {
-            return EOS;
-        }
-        do {
-            target -= readCount;
-            size += readCount;
-            readCount = reader.read(buffer, size, target);
-        } while (target > 0 && readCount != EOS);
-        return size - oldSize;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2671,10 +2127,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public TextStringBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
-        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2692,10 +2145,8 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      * @throws IndexOutOfBoundsException if start index is invalid.
      */
-    public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,
-        int endIndex, final int replaceCount) {
-        endIndex = validateRange(startIndex, endIndex);
-        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
+    public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex, int endIndex, final int replaceCount) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2706,14 +2157,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder replaceAll(final char search, final char replace) {
-        if (search != replace) {
-            for (int i = 0; i < size; i++) {
-                if (buffer[i] == search) {
-                    buffer[i] = replace;
-                }
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2724,16 +2168,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder replaceAll(final String searchStr, final String replaceStr) {
-        final int searchLen = searchStr == null ? 0 : searchStr.length();
-        if (searchLen > 0) {
-            final int replaceLen = replaceStr == null ? 0 : replaceStr.length();
-            int index = indexOf(searchStr, 0);
-            while (index >= 0) {
-                replaceImpl(index, index + searchLen, searchLen, replaceStr, replaceLen);
-                index = indexOf(searchStr, index + replaceLen);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2748,7 +2183,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder replaceAll(final StringMatcher matcher, final String replaceStr) {
-        return replace(matcher, replaceStr, 0, size, -1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2759,15 +2194,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder replaceFirst(final char search, final char replace) {
-        if (search != replace) {
-            for (int i = 0; i < size; i++) {
-                if (buffer[i] == search) {
-                    buffer[i] = replace;
-                    break;
-                }
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2778,15 +2205,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder replaceFirst(final String searchStr, final String replaceStr) {
-        final int searchLen = searchStr == null ? 0 : searchStr.length();
-        if (searchLen > 0) {
-            final int index = indexOf(searchStr, 0);
-            if (index >= 0) {
-                final int replaceLen = replaceStr == null ? 0 : replaceStr.length();
-                replaceImpl(index, index + searchLen, searchLen, replaceStr, replaceLen);
-            }
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2801,7 +2220,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder replaceFirst(final StringMatcher matcher, final String replaceStr) {
-        return replace(matcher, replaceStr, 0, size, 1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2814,8 +2233,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @param insertLen the length of the insert string, must be valid.
      * @throws IndexOutOfBoundsException if any index is invalid.
      */
-    private void replaceImpl(final int startIndex, final int endIndex, final int removeLen, final String insertStr,
-        final int insertLen) {
+    private void replaceImpl(final int startIndex, final int endIndex, final int removeLen, final String insertStr, final int insertLen) {
         final int newSize = size - removeLen + insertLen;
         if (insertLen != removeLen) {
             ensureCapacityInternal(newSize);
@@ -2842,8 +2260,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      * @throws IndexOutOfBoundsException if any index is invalid.
      */
-    private TextStringBuilder replaceImpl(final StringMatcher matcher, final String replaceStr, final int from, int to,
-        int replaceCount) {
+    private TextStringBuilder replaceImpl(final StringMatcher matcher, final String replaceStr, final int from, int to, int replaceCount) {
         if (matcher == null || size == 0) {
             return this;
         }
@@ -2888,17 +2305,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder reverse() {
-        if (size == 0) {
-            return this;
-        }
-        final int half = size / 2;
-        final char[] buf = buffer;
-        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++, rightIdx--) {
-            final char swap = buf[leftIdx];
-            buf[leftIdx] = buf[rightIdx];
-            buf[rightIdx] = swap;
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2912,13 +2319,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The new string.
      */
     public String rightString(final int length) {
-        if (length <= 0) {
-            return StringUtils.EMPTY;
-        }
-        if (length >= size) {
-            return new String(buffer, 0, size);
-        }
-        return new String(buffer, size - length, length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2931,7 +2332,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #deleteCharAt(int)
      */
     public TextStringBuilder set(final CharSequence str) {
-        return clear().append(str);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2945,9 +2346,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @see #deleteCharAt(int)
      */
     public TextStringBuilder setCharAt(final int index, final char ch) {
-        validateIndex(index);
-        buffer[index] = ch;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2958,18 +2357,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the length is negative.
      */
     public TextStringBuilder setLength(final int length) {
-        if (length < 0) {
-            throw new StringIndexOutOfBoundsException(length);
-        }
-        if (length < size) {
-            size = length;
-        } else if (length > size) {
-            ensureCapacityInternal(length);
-            final int oldEnd = size;
-            size = length;
-            Arrays.fill(buffer, oldEnd, length, '\0');
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2979,8 +2367,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder setNewLineText(final String newLine) {
-        this.newLine = newLine;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2990,11 +2377,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder setNullText(String nullText) {
-        if (nullText != null && nullText.isEmpty()) {
-            nullText = null;
-        }
-        this.nullText = nullText;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3006,7 +2389,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The length.
      */
     public int size() {
-        return size;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3019,22 +2402,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return true if the builder starts with the string.
      */
     public boolean startsWith(final String str) {
-        if (str == null) {
-            return false;
-        }
-        final int len = str.length();
-        if (len == 0) {
-            return true;
-        }
-        if (len > size) {
-            return false;
-        }
-        for (int i = 0; i < len; i++) {
-            if (buffer[i] != str.charAt(i)) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3042,16 +2410,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public CharSequence subSequence(final int startIndex, final int endIndex) {
-        if (startIndex < 0) {
-            throw new StringIndexOutOfBoundsException(startIndex);
-        }
-        if (endIndex > size) {
-            throw new StringIndexOutOfBoundsException(endIndex);
-        }
-        if (startIndex > endIndex) {
-            throw new StringIndexOutOfBoundsException(endIndex - startIndex);
-        }
-        return substring(startIndex, endIndex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3062,7 +2421,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public String substring(final int start) {
-        return substring(start, size);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3078,8 +2437,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public String substring(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3088,7 +2446,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return a new array that represents the contents of the builder.
      */
     public char[] toCharArray() {
-        return size == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOf(buffer, size);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3100,9 +2458,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException if startIndex is invalid, or if endIndex is invalid (but endIndex greater than size is valid).
      */
     public char[] toCharArray(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        return len == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOfRange(buffer, startIndex, endIndex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3115,7 +2471,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      */
     @Override
     public String toString() {
-        return new String(buffer, 0, size);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3124,7 +2480,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The builder as a StringBuffer.
      */
     public StringBuffer toStringBuffer() {
-        return new StringBuffer(size).append(buffer, 0, size);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3133,7 +2489,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return The builder as a StringBuilder.
      */
     public StringBuilder toStringBuilder() {
-        return new StringBuilder(size).append(buffer, 0, size);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3142,25 +2498,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @return {@code this} instance.
      */
     public TextStringBuilder trim() {
-        if (size == 0) {
-            return this;
-        }
-        int len = size;
-        final char[] buf = buffer;
-        int pos = 0;
-        while (pos < len && buf[pos] <= SPACE) {
-            pos++;
-        }
-        while (pos < len && buf[len - 1] <= SPACE) {
-            len--;
-        }
-        if (len < size) {
-            delete(len, size);
-        }
-        if (pos > 0) {
-            delete(0, pos);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3170,9 +2508,7 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws IndexOutOfBoundsException Thrown when the index is not the range {@code 0 <= index < size}.
      */
     protected void validateIndex(final int index) {
-        if (index < 0 || index >= size) {
-            throw new StringIndexOutOfBoundsException(index);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3184,16 +2520,6 @@ public class TextStringBuilder implements CharSequence, Appendable, Serializable
      * @throws StringIndexOutOfBoundsException if the index is invalid.
      */
     protected int validateRange(final int startIndex, int endIndex) {
-        if (startIndex < 0) {
-            throw new StringIndexOutOfBoundsException(startIndex);
-        }
-        if (endIndex > size) {
-            endIndex = size;
-        }
-        if (startIndex > endIndex) {
-            throw new StringIndexOutOfBoundsException("end < start");
-        }
-        return endIndex;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

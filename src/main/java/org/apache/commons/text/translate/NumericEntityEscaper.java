@@ -18,7 +18,6 @@ package org.apache.commons.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
-
 import org.apache.commons.lang3.Range;
 
 /**
@@ -35,7 +34,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @return The newly created {@code NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper above(final int codePoint) {
-        return outsideOf(0, codePoint);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -45,7 +44,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @return The newly created {@code NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -56,7 +55,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @return The newly created {@code NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh) {
-        return new NumericEntityEscaper(codePointLow, codePointHigh, true);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -67,13 +66,17 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @return The newly created {@code NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh) {
-        return new NumericEntityEscaper(codePointLow, codePointHigh, false);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /** Whether to escape between the boundaries or outside them. */
+    /**
+     * Whether to escape between the boundaries or outside them.
+     */
     private final boolean between;
 
-    /** Range from lowest code point to highest code point. */
+    /**
+     * Range from lowest code point to highest code point.
+     */
     private final Range<Integer> range;
 
     /**
@@ -103,12 +106,6 @@ public class NumericEntityEscaper extends CodePointTranslator {
      */
     @Override
     public boolean translate(final int codePoint, final Writer writer) throws IOException {
-        if (this.between != this.range.contains(codePoint)) {
-            return false;
-        }
-        writer.write("&#");
-        writer.write(Integer.toString(codePoint, 10));
-        writer.write(';');
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

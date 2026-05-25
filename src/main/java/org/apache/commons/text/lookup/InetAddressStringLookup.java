@@ -19,7 +19,6 @@ package org.apache.commons.text.lookup;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Objects;
-
 import org.apache.commons.lang3.function.FailableSupplier;
 
 /**
@@ -79,22 +78,6 @@ final class InetAddressStringLookup extends AbstractStringLookup {
      */
     @Override
     public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        try {
-            switch (key) {
-            case InetAddressKeys.KEY_NAME:
-                return getInetAddress().getHostName();
-            case InetAddressKeys.KEY_CANONICAL_NAME:
-                return getInetAddress().getCanonicalHostName();
-            case InetAddressKeys.KEY_ADDRESS:
-                return getInetAddress().getHostAddress();
-            default:
-                throw new IllegalArgumentException(key);
-            }
-        } catch (final UnknownHostException e) {
-            return null;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

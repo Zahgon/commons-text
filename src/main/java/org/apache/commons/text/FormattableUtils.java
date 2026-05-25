@@ -17,10 +17,8 @@
 package org.apache.commons.text;
 
 import static java.util.FormattableFlags.LEFT_JUSTIFY;
-
 import java.util.Formattable;
 import java.util.Formatter;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -51,9 +49,8 @@ public class FormattableUtils {
      * @param precision the precision of the output, see {@code Formattable}.
      * @return The {@code formatter} instance, not null.
      */
-    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
-            final int precision) {
-        return append(seq, formatter, flags, width, precision, ' ', null);
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width, final int precision) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -67,9 +64,8 @@ public class FormattableUtils {
      * @param padChar   the pad character to use.
      * @return The {@code formatter} instance, not null.
      */
-    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
-            final int precision, final char padChar) {
-        return append(seq, formatter, flags, width, precision, padChar, null);
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width, final int precision, final char padChar) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -85,29 +81,8 @@ public class FormattableUtils {
      * @return The {@code formatter} instance, not null.
      * @throws IllegalArgumentException if {@code ellipsis.length() > precision}, given that {@code ellipsis} is not null and {@code precision >= 0}.
      */
-    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
-            final int precision, final char padChar, final CharSequence truncateEllipsis) {
-        if (!(truncateEllipsis == null || precision < 0 || truncateEllipsis.length() <= precision)) {
-            throw new IllegalArgumentException(
-                    String.format("Specified ellipsis '%s' exceeds precision of %s",
-                            truncateEllipsis,
-                            precision));
-        }
-        final StringBuilder buf = new StringBuilder(seq);
-        if (precision >= 0 && precision < seq.length()) {
-            final CharSequence ellipsis;
-            if (truncateEllipsis == null) {
-                ellipsis = StringUtils.EMPTY;
-            } else {
-                ellipsis = truncateEllipsis;
-            }
-            buf.replace(precision - ellipsis.length(), seq.length(), ellipsis.toString());
-        }
-        final boolean leftJustify = (flags & LEFT_JUSTIFY) == LEFT_JUSTIFY;
-        for (int i = buf.length(); i < width; i++) {
-            buf.insert(leftJustify ? i : 0, padChar);
-        }
-        return formatter.format(SIMPLEST_FORMAT, buf.toString());
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width, final int precision, final char padChar, final CharSequence truncateEllipsis) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -122,9 +97,8 @@ public class FormattableUtils {
      * @return The {@code formatter} instance, not null
      * @throws IllegalArgumentException if {@code ellipsis.length() > precision}, given that {@code ellipsis} is not null and {@code precision >= 0}.
      */
-    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width, final int precision,
-            final CharSequence ellipsis) {
-        return append(seq, formatter, flags, width, precision, ' ', ellipsis);
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width, final int precision, final CharSequence ellipsis) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -134,7 +108,7 @@ public class FormattableUtils {
      * @return The resulting string, not null.
      */
     public static String toString(final Formattable formattable) {
-        return String.format(SIMPLEST_FORMAT, formattable);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -146,5 +120,4 @@ public class FormattableUtils {
      */
     public FormattableUtils() {
     }
-
 }

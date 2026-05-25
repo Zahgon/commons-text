@@ -50,6 +50,6 @@ public class KeepCommand<T> extends EditCommand<T> {
      */
     @Override
     public void accept(final CommandVisitor<T> visitor) {
-        visitor.visitKeepCommand(getObject());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

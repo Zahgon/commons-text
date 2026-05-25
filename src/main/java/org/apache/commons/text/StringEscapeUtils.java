@@ -21,7 +21,6 @@ import java.io.Writer;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.translate.AggregateTranslator;
 import org.apache.commons.text.translate.CharSequenceTranslator;
@@ -53,7 +52,6 @@ import org.apache.commons.text.translate.UnicodeUnpairedSurrogateRemover;
 public class StringEscapeUtils {
 
     /* ESCAPE TRANSLATORS */
-
     /**
      * Convenience wrapper for {@link StringBuilder} providing escape methods.
      *
@@ -97,8 +95,7 @@ public class StringEscapeUtils {
          * @return {@code this}, to enable chaining
          */
         public Builder append(final String input) {
-            sb.append(input);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -108,8 +105,7 @@ public class StringEscapeUtils {
          * @return {@code this}, to enable chaining
          */
         public Builder escape(final String input) {
-            sb.append(translator.translate(input));
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -119,7 +115,7 @@ public class StringEscapeUtils {
          */
         @Override
         public String toString() {
-            return sb.toString();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -135,31 +131,7 @@ public class StringEscapeUtils {
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {
-
-            if (index != 0) {
-                throw new IllegalStateException("XsiUnescaper should never reach the [1] index");
-            }
-
-            final String s = input.toString();
-
-            int segmentStart = 0;
-            int searchOffset = 0;
-            while (true) {
-                final int pos = s.indexOf(BACKSLASH, searchOffset);
-                if (pos == -1) {
-                    if (segmentStart < s.length()) {
-                        writer.write(s.substring(segmentStart));
-                    }
-                    break;
-                }
-                if (pos > segmentStart) {
-                    writer.write(s.substring(segmentStart, pos));
-                }
-                segmentStart = pos + 1;
-                searchOffset = pos + 2;
-            }
-
-            return Character.codePointCount(input, 0, input.length());
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -170,15 +142,12 @@ public class StringEscapeUtils {
      * custom translator.
      */
     public static final CharSequenceTranslator ESCAPE_JAVA;
+
     static {
         final Map<CharSequence, CharSequence> escapeJavaMap = new HashMap<>();
         escapeJavaMap.put("\"", "\\\"");
         escapeJavaMap.put("\\", "\\\\");
-        ESCAPE_JAVA = new AggregateTranslator(
-                new LookupTranslator(Collections.unmodifiableMap(escapeJavaMap)),
-                new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE),
-                JavaUnicodeEscaper.outsideOf(32, 0x7f)
-        );
+        ESCAPE_JAVA = new AggregateTranslator(new LookupTranslator(Collections.unmodifiableMap(escapeJavaMap)), new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE), JavaUnicodeEscaper.outsideOf(32, 0x7f));
     }
 
     /**
@@ -188,17 +157,14 @@ public class StringEscapeUtils {
      * foundation for a custom translator.
      */
     public static final CharSequenceTranslator ESCAPE_ECMASCRIPT;
+
     static {
         final Map<CharSequence, CharSequence> escapeEcmaScriptMap = new HashMap<>();
         escapeEcmaScriptMap.put("'", "\\'");
         escapeEcmaScriptMap.put("\"", "\\\"");
         escapeEcmaScriptMap.put("\\", "\\\\");
         escapeEcmaScriptMap.put("/", "\\/");
-        ESCAPE_ECMASCRIPT = new AggregateTranslator(
-                new LookupTranslator(Collections.unmodifiableMap(escapeEcmaScriptMap)),
-                new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE),
-                JavaUnicodeEscaper.outsideOf(32, 0x7f)
-        );
+        ESCAPE_ECMASCRIPT = new AggregateTranslator(new LookupTranslator(Collections.unmodifiableMap(escapeEcmaScriptMap)), new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE), JavaUnicodeEscaper.outsideOf(32, 0x7f));
     }
 
     /**
@@ -208,16 +174,13 @@ public class StringEscapeUtils {
      * custom translator.
      */
     public static final CharSequenceTranslator ESCAPE_JSON;
+
     static {
         final Map<CharSequence, CharSequence> escapeJsonMap = new HashMap<>();
         escapeJsonMap.put("\"", "\\\"");
         escapeJsonMap.put("\\", "\\\\");
         escapeJsonMap.put("/", "\\/");
-        ESCAPE_JSON = new AggregateTranslator(
-                new LookupTranslator(Collections.unmodifiableMap(escapeJsonMap)),
-                new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE),
-                JavaUnicodeEscaper.outsideOf(32, 0x7e)
-        );
+        ESCAPE_JSON = new AggregateTranslator(new LookupTranslator(Collections.unmodifiableMap(escapeJsonMap)), new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE), JavaUnicodeEscaper.outsideOf(32, 0x7e));
     }
 
     /**
@@ -227,6 +190,7 @@ public class StringEscapeUtils {
      * custom translator.
      */
     public static final CharSequenceTranslator ESCAPE_XML10;
+
     static {
         final Map<CharSequence, CharSequence> escapeXml10Map = new HashMap<>();
         escapeXml10Map.put("\u0000", StringUtils.EMPTY);
@@ -260,14 +224,7 @@ public class StringEscapeUtils {
         escapeXml10Map.put("\u001f", StringUtils.EMPTY);
         escapeXml10Map.put("\ufffe", StringUtils.EMPTY);
         escapeXml10Map.put("\uffff", StringUtils.EMPTY);
-        ESCAPE_XML10 = new AggregateTranslator(
-                new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-                new LookupTranslator(EntityArrays.APOS_ESCAPE),
-                new LookupTranslator(Collections.unmodifiableMap(escapeXml10Map)),
-                NumericEntityEscaper.between(0x7f, 0x84),
-                NumericEntityEscaper.between(0x86, 0x9f),
-                new UnicodeUnpairedSurrogateRemover()
-        );
+        ESCAPE_XML10 = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_ESCAPE), new LookupTranslator(EntityArrays.APOS_ESCAPE), new LookupTranslator(Collections.unmodifiableMap(escapeXml10Map)), NumericEntityEscaper.between(0x7f, 0x84), NumericEntityEscaper.between(0x86, 0x9f), new UnicodeUnpairedSurrogateRemover());
     }
 
     /**
@@ -286,16 +243,7 @@ public class StringEscapeUtils {
         escapeXml11Map.put("\u000c", "&#12;");
         escapeXml11Map.put("\ufffe", StringUtils.EMPTY);
         escapeXml11Map.put("\uffff", StringUtils.EMPTY);
-        ESCAPE_XML11 = new AggregateTranslator(
-                new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-                new LookupTranslator(EntityArrays.APOS_ESCAPE),
-                new LookupTranslator(Collections.unmodifiableMap(escapeXml11Map)),
-                NumericEntityEscaper.between(0x1, 0x8),
-                NumericEntityEscaper.between(0xe, 0x1f),
-                NumericEntityEscaper.between(0x7f, 0x84),
-                NumericEntityEscaper.between(0x86, 0x9f),
-                new UnicodeUnpairedSurrogateRemover()
-        );
+        ESCAPE_XML11 = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_ESCAPE), new LookupTranslator(EntityArrays.APOS_ESCAPE), new LookupTranslator(Collections.unmodifiableMap(escapeXml11Map)), NumericEntityEscaper.between(0x1, 0x8), NumericEntityEscaper.between(0xe, 0x1f), NumericEntityEscaper.between(0x7f, 0x84), NumericEntityEscaper.between(0x86, 0x9f), new UnicodeUnpairedSurrogateRemover());
     }
 
     /**
@@ -305,11 +253,7 @@ public class StringEscapeUtils {
      * object allows the HTML escaping functionality to be used
      * as the foundation for a custom translator.
      */
-    public static final CharSequenceTranslator ESCAPE_HTML3 =
-            new AggregateTranslator(
-                    new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-                    new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE)
-            );
+    public static final CharSequenceTranslator ESCAPE_HTML3 = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_ESCAPE), new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE));
 
     /**
      * Translator object for escaping HTML version 4.0.
@@ -318,12 +262,7 @@ public class StringEscapeUtils {
      * object allows the HTML escaping functionality to be used
      * as the foundation for a custom translator.
      */
-    public static final CharSequenceTranslator ESCAPE_HTML4 =
-            new AggregateTranslator(
-                    new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-                    new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE),
-                    new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE)
-            );
+    public static final CharSequenceTranslator ESCAPE_HTML4 = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_ESCAPE), new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE), new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE));
 
     /**
      * Translator object for escaping individual Comma Separated Values.
@@ -335,13 +274,13 @@ public class StringEscapeUtils {
     public static final CharSequenceTranslator ESCAPE_CSV = new CsvTranslators.CsvEscaper();
 
     /* UNESCAPE TRANSLATORS */
-
     /**
      * Translator object for escaping Shell command language.
      *
      * @see <a href="https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html">Shell Command Language</a>
      */
     public static final CharSequenceTranslator ESCAPE_XSI;
+
     static {
         final Map<CharSequence, CharSequence> escapeXsiMap = new HashMap<>();
         escapeXsiMap.put("|", "\\|");
@@ -367,9 +306,7 @@ public class StringEscapeUtils {
         escapeXsiMap.put("~", "\\~");
         escapeXsiMap.put("=", "\\=");
         escapeXsiMap.put("%", "\\%");
-        ESCAPE_XSI = new LookupTranslator(
-                Collections.unmodifiableMap(escapeXsiMap)
-        );
+        ESCAPE_XSI = new LookupTranslator(Collections.unmodifiableMap(escapeXsiMap));
     }
 
     /**
@@ -387,12 +324,8 @@ public class StringEscapeUtils {
         unescapeJavaMap.put("\\\"", "\"");
         unescapeJavaMap.put("\\'", "'");
         unescapeJavaMap.put("\\", StringUtils.EMPTY);
-        UNESCAPE_JAVA = new AggregateTranslator(
-                new OctalUnescaper(),     // .between('\1', '\377'),
-                new UnicodeUnescaper(),
-                new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_UNESCAPE),
-                new LookupTranslator(Collections.unmodifiableMap(unescapeJavaMap))
-        );
+        UNESCAPE_JAVA = new AggregateTranslator(// .between('\1', '\377'),
+        new OctalUnescaper(), new UnicodeUnescaper(), new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_UNESCAPE), new LookupTranslator(Collections.unmodifiableMap(unescapeJavaMap)));
     }
 
     /**
@@ -420,12 +353,7 @@ public class StringEscapeUtils {
      * object allows the HTML unescaping functionality to be used
      * as the foundation for a custom translator.
      */
-    public static final CharSequenceTranslator UNESCAPE_HTML3 =
-            new AggregateTranslator(
-                    new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
-                    new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE),
-                    new NumericEntityUnescaper()
-            );
+    public static final CharSequenceTranslator UNESCAPE_HTML3 = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_UNESCAPE), new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE), new NumericEntityUnescaper());
 
     /**
      * Translator object for unescaping escaped HTML 4.0.
@@ -434,13 +362,7 @@ public class StringEscapeUtils {
      * object allows the HTML unescaping functionality to be used
      * as the foundation for a custom translator.
      */
-    public static final CharSequenceTranslator UNESCAPE_HTML4 =
-            new AggregateTranslator(
-                    new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
-                    new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE),
-                    new LookupTranslator(EntityArrays.HTML40_EXTENDED_UNESCAPE),
-                    new NumericEntityUnescaper()
-            );
+    public static final CharSequenceTranslator UNESCAPE_HTML4 = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_UNESCAPE), new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE), new LookupTranslator(EntityArrays.HTML40_EXTENDED_UNESCAPE), new NumericEntityUnescaper());
 
     /**
      * Translator object for unescaping escaped XML.
@@ -449,12 +371,7 @@ public class StringEscapeUtils {
      * object allows the XML unescaping functionality to be used
      * as the foundation for a custom translator.
      */
-    public static final CharSequenceTranslator UNESCAPE_XML =
-            new AggregateTranslator(
-                    new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
-                    new LookupTranslator(EntityArrays.APOS_UNESCAPE),
-                    new NumericEntityUnescaper()
-            );
+    public static final CharSequenceTranslator UNESCAPE_XML = new AggregateTranslator(new LookupTranslator(EntityArrays.BASIC_UNESCAPE), new LookupTranslator(EntityArrays.APOS_UNESCAPE), new NumericEntityUnescaper());
 
     /**
      * Translator object for unescaping escaped Comma Separated Value entries.
@@ -466,7 +383,6 @@ public class StringEscapeUtils {
     public static final CharSequenceTranslator UNESCAPE_CSV = new CsvTranslators.CsvUnescaper();
 
     /* Helper functions */
-
     /**
      * Translator object for unescaping escaped XSI Value entries.
      *
@@ -483,7 +399,7 @@ public class StringEscapeUtils {
      * @return {@link Builder}
      */
     public static StringEscapeUtils.Builder builder(final CharSequenceTranslator translator) {
-        return new Builder(translator);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -508,7 +424,7 @@ public class StringEscapeUtils {
      * @return The input String, enclosed in double quotes if the value contains a comma, newline or double quote, {@code null} if null string input.
      */
     public static String escapeCsv(final String input) {
-        return ESCAPE_CSV.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -549,7 +465,7 @@ public class StringEscapeUtils {
      * @return String with escaped values, {@code null} if null string input.
      */
     public static String escapeEcmaScript(final String input) {
-        return ESCAPE_ECMASCRIPT.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -561,7 +477,7 @@ public class StringEscapeUtils {
      * @return a new escaped {@code String}, {@code null} if null string input.
      */
     public static String escapeHtml3(final String input) {
-        return ESCAPE_HTML3.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -589,7 +505,7 @@ public class StringEscapeUtils {
      * @see <a href="https://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
      */
     public static String escapeHtml4(final String input) {
-        return ESCAPE_HTML4.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -620,7 +536,7 @@ public class StringEscapeUtils {
      * @return String with escaped values, {@code null} if null string input.
      */
     public static String escapeJava(final String input) {
-        return ESCAPE_JAVA.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -655,7 +571,7 @@ public class StringEscapeUtils {
      * @return String with escaped values, {@code null} if null string input.
      */
     public static String escapeJson(final String input) {
-        return ESCAPE_JSON.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -692,7 +608,7 @@ public class StringEscapeUtils {
      * @see #unescapeXml(String)
      */
     public static String escapeXml10(final String input) {
-        return ESCAPE_XML10.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -728,7 +644,7 @@ public class StringEscapeUtils {
      * @see #unescapeXml(String)
      */
     public static String escapeXml11(final String input) {
-        return ESCAPE_XML11.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -753,7 +669,7 @@ public class StringEscapeUtils {
      * @see <a href="https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html">Shell Command Language</a>
      */
     public static String escapeXSI(final String input) {
-        return ESCAPE_XSI.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -777,7 +693,7 @@ public class StringEscapeUtils {
      * @return The input String, with enclosing double quotes removed and embedded double quotes unescaped, {@code null} if null string input.
      */
     public static String unescapeCsv(final String input) {
-        return UNESCAPE_CSV.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -792,7 +708,7 @@ public class StringEscapeUtils {
      * @see #unescapeJava(String)
      */
     public static String unescapeEcmaScript(final String input) {
-        return UNESCAPE_ECMASCRIPT.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -803,7 +719,7 @@ public class StringEscapeUtils {
      * @return a new unescaped {@code String}, {@code null} if null string input.
      */
     public static String unescapeHtml3(final String input) {
-        return UNESCAPE_HTML3.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -822,7 +738,7 @@ public class StringEscapeUtils {
      * @return a new unescaped {@code String}, {@code null} if null string input.
      */
     public static String unescapeHtml4(final String input) {
-        return UNESCAPE_HTML4.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -833,7 +749,7 @@ public class StringEscapeUtils {
      * @return a new unescaped {@code String}, {@code null} if null string input.
      */
     public static String unescapeJava(final String input) {
-        return UNESCAPE_JAVA.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -848,7 +764,7 @@ public class StringEscapeUtils {
      * @see #unescapeJava(String)
      */
     public static String unescapeJson(final String input) {
-        return UNESCAPE_JSON.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -868,7 +784,7 @@ public class StringEscapeUtils {
      * @see #escapeXml11(String)
      */
     public static String unescapeXml(final String input) {
-        return UNESCAPE_XML.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -879,7 +795,7 @@ public class StringEscapeUtils {
      * @see StringEscapeUtils#escapeXSI(String)
      */
     public static String unescapeXSI(final String input) {
-        return UNESCAPE_XSI.translate(input);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -899,5 +815,4 @@ public class StringEscapeUtils {
      */
     public StringEscapeUtils() {
     }
-
 }

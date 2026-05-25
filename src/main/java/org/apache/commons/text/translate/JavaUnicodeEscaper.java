@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.translate;
 
 /**
@@ -31,7 +30,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static JavaUnicodeEscaper above(final int codePoint) {
-        return outsideOf(0, codePoint);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -41,7 +40,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static JavaUnicodeEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -52,7 +51,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
-        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -63,7 +62,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
-        return new JavaUnicodeEscaper(codePointLow, codePointHigh, false);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -86,7 +85,6 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      */
     @Override
     protected String toUtf16Escape(final int codePoint) {
-        final char[] surrogatePair = Character.toChars(codePoint);
-        return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

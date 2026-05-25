@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.matcher;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -35,8 +34,7 @@ public final class StringMatcherFactory {
     /**
      * Matches the double quote character.
      */
-    private static final AbstractStringMatcher.CharMatcher DOUBLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher(
-        '"');
+    private static final AbstractStringMatcher.CharMatcher DOUBLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher('"');
 
     /**
      * Defines the singleton for this class.
@@ -51,14 +49,12 @@ public final class StringMatcherFactory {
     /**
      * Matches the single or double quote character.
      */
-    private static final AbstractStringMatcher.CharSetMatcher QUOTE_MATCHER = new AbstractStringMatcher.CharSetMatcher(
-        "'\"".toCharArray());
+    private static final AbstractStringMatcher.CharSetMatcher QUOTE_MATCHER = new AbstractStringMatcher.CharSetMatcher("'\"".toCharArray());
 
     /**
      * Matches the double quote character.
      */
-    private static final AbstractStringMatcher.CharMatcher SINGLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher(
-        '\'');
+    private static final AbstractStringMatcher.CharMatcher SINGLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher('\'');
 
     /**
      * Matches the space character.
@@ -68,8 +64,7 @@ public final class StringMatcherFactory {
     /**
      * Matches the same characters as StringTokenizer, namely space, tab, newline, form feed.
      */
-    private static final AbstractStringMatcher.CharSetMatcher SPLIT_MATCHER = new AbstractStringMatcher.CharSetMatcher(
-        " \t\n\r\f".toCharArray());
+    private static final AbstractStringMatcher.CharSetMatcher SPLIT_MATCHER = new AbstractStringMatcher.CharSetMatcher(" \t\n\r\f".toCharArray());
 
     /**
      * Matches the tab character.
@@ -96,14 +91,7 @@ public final class StringMatcherFactory {
      * @since 1.9
      */
     public StringMatcher andMatcher(final StringMatcher... stringMatchers) {
-        final int len = ArrayUtils.getLength(stringMatchers);
-        if (len == 0) {
-            return NONE_MATCHER;
-        }
-        if (len == 1) {
-            return stringMatchers[0];
-        }
-        return new AbstractStringMatcher.AndStringMatcher(stringMatchers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -113,7 +101,7 @@ public final class StringMatcherFactory {
      * @return a new Matcher for the given char.
      */
     public StringMatcher charMatcher(final char ch) {
-        return new AbstractStringMatcher.CharMatcher(ch);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -123,14 +111,7 @@ public final class StringMatcherFactory {
      * @return a new matcher for the given char[].
      */
     public StringMatcher charSetMatcher(final char... chars) {
-        final int len = ArrayUtils.getLength(chars);
-        if (len == 0) {
-            return NONE_MATCHER;
-        }
-        if (len == 1) {
-            return new AbstractStringMatcher.CharMatcher(chars[0]);
-        }
-        return new AbstractStringMatcher.CharSetMatcher(chars);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -140,14 +121,7 @@ public final class StringMatcherFactory {
      * @return a new Matcher for the given characters.
      */
     public StringMatcher charSetMatcher(final String chars) {
-        final int len = StringUtils.length(chars);
-        if (len == 0) {
-            return NONE_MATCHER;
-        }
-        if (len == 1) {
-            return new AbstractStringMatcher.CharMatcher(chars.charAt(0));
-        }
-        return new AbstractStringMatcher.CharSetMatcher(chars.toCharArray());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -156,7 +130,7 @@ public final class StringMatcherFactory {
      * @return a matcher for a comma.
      */
     public StringMatcher commaMatcher() {
-        return COMMA_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -165,7 +139,7 @@ public final class StringMatcherFactory {
      * @return a matcher for a double quote.
      */
     public StringMatcher doubleQuoteMatcher() {
-        return DOUBLE_QUOTE_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -174,7 +148,7 @@ public final class StringMatcherFactory {
      * @return a matcher that matches nothing.
      */
     public StringMatcher noneMatcher() {
-        return NONE_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -183,7 +157,7 @@ public final class StringMatcherFactory {
      * @return a matcher for a single or double quote.
      */
     public StringMatcher quoteMatcher() {
-        return QUOTE_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -192,7 +166,7 @@ public final class StringMatcherFactory {
      * @return a matcher for a single quote.
      */
     public StringMatcher singleQuoteMatcher() {
-        return SINGLE_QUOTE_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -201,7 +175,7 @@ public final class StringMatcherFactory {
      * @return a matcher for a space.
      */
     public StringMatcher spaceMatcher() {
-        return SPACE_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -210,7 +184,7 @@ public final class StringMatcherFactory {
      * @return The split matcher.
      */
     public StringMatcher splitMatcher() {
-        return SPLIT_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -221,10 +195,7 @@ public final class StringMatcherFactory {
      * @since 1.9
      */
     public StringMatcher stringMatcher(final char... chars) {
-        final int length = ArrayUtils.getLength(chars);
-        return length == 0 ? NONE_MATCHER
-            : length == 1 ? new AbstractStringMatcher.CharMatcher(chars[0])
-                : new AbstractStringMatcher.CharArrayMatcher(chars);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -234,7 +205,7 @@ public final class StringMatcherFactory {
      * @return a new Matcher for the given String.
      */
     public StringMatcher stringMatcher(final String str) {
-        return StringUtils.isEmpty(str) ? NONE_MATCHER : stringMatcher(str.toCharArray());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -243,7 +214,7 @@ public final class StringMatcherFactory {
      * @return a matcher for a tab.
      */
     public StringMatcher tabMatcher() {
-        return TAB_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -252,7 +223,6 @@ public final class StringMatcherFactory {
      * @return The trim matcher.
      */
     public StringMatcher trimMatcher() {
-        return TRIM_MATCHER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

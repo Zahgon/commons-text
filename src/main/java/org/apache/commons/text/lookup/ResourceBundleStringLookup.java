@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.util.MissingResourceException;
@@ -66,12 +65,11 @@ final class ResourceBundleStringLookup extends AbstractStringLookup {
     }
 
     ResourceBundle getBundle(final String keyBundleName) {
-        // The ResourceBundle class caches bundles, no need to cache here.
-        return ResourceBundle.getBundle(keyBundleName);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     String getString(final String keyBundleName, final String bundleKey) {
-        return getBundle(keyBundleName).getString(bundleKey);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -87,37 +85,11 @@ final class ResourceBundleStringLookup extends AbstractStringLookup {
      */
     @Override
     public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String[] keys = key.split(SPLIT_STR);
-        final int keyLen = keys.length;
-        final boolean anyBundle = bundleName == null;
-        if (anyBundle && keyLen != 2) {
-            throw IllegalArgumentExceptions
-                .format("Bad resource bundle key format [%s]; expected format is BundleName:KeyName.", key);
-        }
-        if (bundleName != null && keyLen != 1) {
-            throw IllegalArgumentExceptions.format("Bad resource bundle key format [%s]; expected format is KeyName.",
-                key);
-        }
-        final String keyBundleName = anyBundle ? keys[0] : bundleName;
-        final String bundleKey = anyBundle ? keys[1] : keys[0];
-        try {
-            return getString(keyBundleName, bundleKey);
-        } catch (final MissingResourceException e) {
-            // The key is missing, return null such that an interpolator can supply a default value.
-            return null;
-        } catch (final Exception e) {
-            // Should only be a ClassCastException
-            throw IllegalArgumentExceptions.format(e, "Error looking up resource bundle [%s] and key [%s].",
-                keyBundleName, bundleKey);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return super.toString() + " [bundleName=" + bundleName + "]";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

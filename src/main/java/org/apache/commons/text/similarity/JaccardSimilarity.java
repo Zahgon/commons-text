@@ -53,7 +53,7 @@ public class JaccardSimilarity implements SimilarityScore<Double> {
      */
     @Override
     public Double apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -67,28 +67,6 @@ public class JaccardSimilarity implements SimilarityScore<Double> {
      * @since 1.13.0
      */
     public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("Input cannot be null");
-        }
-        final int leftLength = left.length();
-        final int rightLength = right.length();
-        if (leftLength == 0 && rightLength == 0) {
-            return 1d;
-        }
-        if (leftLength == 0 || rightLength == 0) {
-            return 0d;
-        }
-        final Set<E> leftSet = new HashSet<>();
-        for (int i = 0; i < leftLength; i++) {
-            leftSet.add(left.at(i));
-        }
-        final Set<E> rightSet = new HashSet<>();
-        for (int i = 0; i < rightLength; i++) {
-            rightSet.add(right.at(i));
-        }
-        final Set<E> unionSet = new HashSet<>(leftSet);
-        unionSet.addAll(rightSet);
-        final int intersectionSize = leftSet.size() + rightSet.size() - unionSet.size();
-        return 1.0d * intersectionSize / unionSet.size();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

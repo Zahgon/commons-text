@@ -85,7 +85,7 @@ public class JaroWinklerDistance implements EditDistance<Double> {
      */
     @Override
     public Double apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -123,9 +123,6 @@ public class JaroWinklerDistance implements EditDistance<Double> {
      * @since 1.13.0
      */
     public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("CharSequences must not be null");
-        }
-        return 1 - JaroWinklerSimilarity.INSTANCE.apply(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

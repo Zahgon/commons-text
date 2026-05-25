@@ -45,7 +45,7 @@ public class JaccardDistance implements EditDistance<Double> {
      */
     @Override
     public Double apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -58,7 +58,6 @@ public class JaccardDistance implements EditDistance<Double> {
      * @throws IllegalArgumentException if either String input {@code null}.
      */
     public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        return 1.0 - JaccardSimilarity.INSTANCE.apply(left, right).doubleValue();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

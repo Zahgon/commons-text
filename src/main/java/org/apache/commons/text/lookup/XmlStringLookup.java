@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.io.InputStream;
@@ -24,11 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathFactory;
-
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 
@@ -62,6 +59,7 @@ final class XmlStringLookup extends AbstractPathFencedLookup {
      * Defines default XML factory features.
      */
     static final Map<String, Boolean> DEFAULT_XML_FEATURES;
+
     static {
         DEFAULT_XPATH_FEATURES = new HashMap<>(1);
         DEFAULT_XPATH_FEATURES.put(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
@@ -118,31 +116,6 @@ final class XmlStringLookup extends AbstractPathFencedLookup {
      */
     @Override
     public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String[] keys = key.split(SPLIT_STR);
-        final int keyLen = keys.length;
-        if (keyLen != KEY_PARTS_LEN) {
-            throw IllegalArgumentExceptions.format("Bad XML key format '%s'; the expected format is 'DocumentPath:XPath'.", key);
-        }
-        final String documentPath = keys[0];
-        final String xpath = StringUtils.substringAfterLast(key, SPLIT_CH);
-        final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        try {
-            for (final Entry<String, Boolean> p : xmlFactoryFeatures.entrySet()) {
-                dbFactory.setFeature(p.getKey(), p.getValue());
-            }
-            try (InputStream inputStream = Files.newInputStream(getPath(documentPath))) {
-                final Document doc = dbFactory.newDocumentBuilder().parse(inputStream);
-                final XPathFactory xpFactory = XPathFactory.newInstance();
-                for (final Entry<String, Boolean> p : xPathFactoryFeatures.entrySet()) {
-                    xpFactory.setFeature(p.getKey(), p.getValue());
-                }
-                return xpFactory.newXPath().evaluate(xpath, doc);
-            }
-        } catch (final Exception e) {
-            throw new IllegalArgumentException(e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

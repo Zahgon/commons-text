@@ -57,13 +57,19 @@ public class StringsComparator {
      */
     private static final class Snake {
 
-        /** Start index. */
+        /**
+         * Start index.
+         */
         private final int start;
 
-        /** End index. */
+        /**
+         * End index.
+         */
         private final int end;
 
-        /** Diagonal number. */
+        /**
+         * Diagonal number.
+         */
         private final int diag;
 
         /**
@@ -75,8 +81,8 @@ public class StringsComparator {
          */
         Snake(final int start, final int end, final int diag) {
             this.start = start;
-            this.end   = end;
-            this.diag  = diag;
+            this.end = end;
+            this.diag = diag;
         }
 
         /**
@@ -85,7 +91,7 @@ public class StringsComparator {
          * @return diagonal number of the snake.
          */
         public int getDiag() {
-            return diag;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -94,7 +100,7 @@ public class StringsComparator {
          * @return end index of the snake.
          */
         public int getEnd() {
-            return end;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -103,7 +109,7 @@ public class StringsComparator {
          * @return start index of the snake.
          */
         public int getStart() {
-            return start;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -141,10 +147,9 @@ public class StringsComparator {
     public StringsComparator(final String left, final String right) {
         this.left = left;
         this.right = right;
-
         final int size = left.length() + right.length() + 2;
         vDown = new int[size];
-        vUp   = new int[size];
+        vUp = new int[size];
     }
 
     /**
@@ -156,14 +161,9 @@ public class StringsComparator {
      * @param end2   the end of the second sequence to be compared.
      * @param script the edited script.
      */
-    private void buildScript(final int start1, final int end1, final int start2, final int end2,
-            final EditScript<Character> script) {
+    private void buildScript(final int start1, final int end1, final int start2, final int end2, final EditScript<Character> script) {
         final Snake middle = getMiddleSnake(start1, end1, start2, end2);
-
-        if (middle == null
-                || middle.getStart() == end1 && middle.getDiag() == end1 - end2
-                || middle.getEnd() == start1 && middle.getDiag() == start1 - start2) {
-
+        if (middle == null || middle.getStart() == end1 && middle.getDiag() == end1 - end2 || middle.getEnd() == start1 && middle.getDiag() == start1 - start2) {
             int i = start1;
             int j = start2;
             while (i < end1 || j < end2) {
@@ -179,18 +179,12 @@ public class StringsComparator {
                     ++j;
                 }
             }
-
         } else {
-
-            buildScript(start1, middle.getStart(),
-                        start2, middle.getStart() - middle.getDiag(),
-                        script);
+            buildScript(start1, middle.getStart(), start2, middle.getStart() - middle.getDiag(), script);
             for (int i = middle.getStart(); i < middle.getEnd(); ++i) {
                 script.append(new KeepCommand<>(left.charAt(i)));
             }
-            buildScript(middle.getEnd(), end1,
-                        middle.getEnd() - middle.getDiag(), end2,
-                        script);
+            buildScript(middle.getEnd(), end1, middle.getEnd() - middle.getDiag(), end2, script);
         }
     }
 
@@ -205,9 +199,7 @@ public class StringsComparator {
      */
     private Snake buildSnake(final int start, final int diag, final int end1, final int end2) {
         int end = start;
-        while (end - diag < end2
-                && end < end1
-                && left.charAt(end) == right.charAt(end - diag)) {
+        while (end - diag < end2 && end < end1 && left.charAt(end) == right.charAt(end - diag)) {
             ++end;
         }
         return new Snake(start, end, diag);
@@ -234,63 +226,55 @@ public class StringsComparator {
         if (m == 0 || n == 0) {
             return null;
         }
-
-        final int delta  = m - n;
-        final int sum    = n + m;
+        final int delta = m - n;
+        final int sum = n + m;
         final int offset = (sum % 2 == 0 ? sum : sum + 1) / 2;
         vDown[1 + offset] = start1;
-        vUp[1 + offset]   = end1 + 1;
-
+        vUp[1 + offset] = end1 + 1;
         for (int d = 0; d <= offset; ++d) {
             // Down
             for (int k = -d; k <= d; k += 2) {
                 // First step
-
                 final int i = k + offset;
                 if (k == -d || k != d && vDown[i - 1] < vDown[i + 1]) {
                     vDown[i] = vDown[i + 1];
                 } else {
                     vDown[i] = vDown[i - 1] + 1;
                 }
-
                 int x = vDown[i];
                 int y = x - start1 + start2 - k;
-
                 while (x < end1 && y < end2 && left.charAt(x) == right.charAt(y)) {
                     vDown[i] = ++x;
                     ++y;
                 }
                 // Second step
-                if (delta % 2 != 0 && delta - d <= k && k <= delta + d && vUp[i - delta] <= vDown[i]) { // NOPMD
+                if (delta % 2 != 0 && delta - d <= k && k <= delta + d && vUp[i - delta] <= vDown[i]) {
+                    // NOPMD
                     return buildSnake(vUp[i - delta], k + start1 - start2, end1, end2);
                 }
             }
-
             // Up
             for (int k = delta - d; k <= delta + d; k += 2) {
                 // First step
                 final int i = k + offset - delta;
-                if (k == delta - d
-                        || k != delta + d && vUp[i + 1] <= vUp[i - 1]) {
+                if (k == delta - d || k != delta + d && vUp[i + 1] <= vUp[i - 1]) {
                     vUp[i] = vUp[i + 1] - 1;
                 } else {
                     vUp[i] = vUp[i - 1];
                 }
-
                 int x = vUp[i] - 1;
                 int y = x - start1 + start2 - k;
-                while (x >= start1 && y >= start2
-                        && left.charAt(x) == right.charAt(y)) {
+                while (x >= start1 && y >= start2 && left.charAt(x) == right.charAt(y)) {
                     vUp[i] = x--;
                     y--;
                 }
                 // Second step
-                if (delta % 2 == 0 && -d <= k && k <= d && vUp[i] <= vDown[i + delta]) { // NOPMD
+                if (delta % 2 == 0 && -d <= k && k <= d && vUp[i] <= vDown[i + delta]) {
+                    // NOPMD
                     return buildSnake(vUp[i], k + start1 - start2, end1, end2);
                 }
             }
         }
-
         // this should not happen
         throw new IllegalStateException("Internal Error");
     }
@@ -306,9 +290,6 @@ public class StringsComparator {
      * @return The edit script resulting from the comparison of the two sequences.
      */
     public EditScript<Character> getScript() {
-        final EditScript<Character> script = new EditScript<>();
-        buildScript(0, left.length(), 0, right.length(), script);
-        return script;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

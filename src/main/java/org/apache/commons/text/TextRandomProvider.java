@@ -53,7 +53,7 @@ public interface TextRandomProvider extends IntUnaryOperator {
      */
     @Override
     default int applyAsInt(final int max) {
-        return nextInt(max);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

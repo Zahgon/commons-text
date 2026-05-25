@@ -18,7 +18,6 @@ package org.apache.commons.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
-
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
@@ -48,15 +47,7 @@ public final class CsvTranslators {
 
         @Override
         void translateWhole(final CharSequence input, final Writer writer) throws IOException {
-            final String inputString = input.toString();
-            if (StringUtils.containsNone(inputString, CSV_SEARCH_CHARS)) {
-                writer.write(inputString);
-            } else {
-                // input needs quoting
-                writer.write(CSV_QUOTE);
-                writer.write(Strings.CS.replace(inputString, CSV_QUOTE_STR, CSV_ESCAPED_QUOTE_STR));
-                writer.write(CSV_QUOTE);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -74,40 +65,38 @@ public final class CsvTranslators {
 
         @Override
         void translateWhole(final CharSequence input, final Writer writer) throws IOException {
-            // is input not quoted?
-            if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
-                writer.write(input.toString());
-                return;
-            }
-
-            // strip quotes
-            final String quoteless = input.subSequence(1, input.length() - 1).toString();
-
-            if (StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS)) {
-                // deal with escaped quotes; ie) ""
-                writer.write(Strings.CS.replace(quoteless, CSV_ESCAPED_QUOTE_STR, CSV_QUOTE_STR));
-            } else {
-                writer.write(quoteless);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /** Comma character. */
+    /**
+     * Comma character.
+     */
     private static final char CSV_DELIMITER = ',';
 
-    /** Quote character. */
+    /**
+     * Quote character.
+     */
     private static final char CSV_QUOTE = '"';
 
-    /** Quote character converted to string. */
+    /**
+     * Quote character converted to string.
+     */
     private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
 
-    /** Escaped quote string. */
+    /**
+     * Escaped quote string.
+     */
     private static final String CSV_ESCAPED_QUOTE_STR = CSV_QUOTE_STR + CSV_QUOTE_STR;
 
-    /** CSV key characters in an array. */
+    /**
+     * CSV key characters in an array.
+     */
     private static final char[] CSV_SEARCH_CHARS = { CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF };
 
-    /** Hidden constructor. */
+    /**
+     * Hidden constructor.
+     */
     private CsvTranslators() {
         // empty
     }

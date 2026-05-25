@@ -51,7 +51,7 @@ public class JaroWinklerSimilarity implements SimilarityScore<Double> {
      * @return mtp array containing: matches, half transpositions, and prefix.
      */
     protected static int[] matches(final CharSequence first, final CharSequence second) {
-        return matches(SimilarityInput.input(first), SimilarityInput.input(second));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -64,59 +64,7 @@ public class JaroWinklerSimilarity implements SimilarityScore<Double> {
      * @since 1.13.0
      */
     protected static <E> int[] matches(final SimilarityInput<E> first, final SimilarityInput<E> second) {
-        final SimilarityInput<E> max;
-        final SimilarityInput<E> min;
-        if (first.length() > second.length()) {
-            max = first;
-            min = second;
-        } else {
-            max = second;
-            min = first;
-        }
-        final int range = Math.max(max.length() / 2 - 1, 0);
-        final int[] matchIndexes = new int[min.length()];
-        Arrays.fill(matchIndexes, -1);
-        final boolean[] matchFlags = new boolean[max.length()];
-        int matches = 0;
-        for (int mi = 0; mi < min.length(); mi++) {
-            final E c1 = min.at(mi);
-            for (int xi = Math.max(mi - range, 0), xn = Math.min(mi + range + 1, max.length()); xi < xn; xi++) {
-                if (!matchFlags[xi] && c1.equals(max.at(xi))) {
-                    matchIndexes[mi] = xi;
-                    matchFlags[xi] = true;
-                    matches++;
-                    break;
-                }
-            }
-        }
-        final Object[] ms1 = new Object[matches];
-        final Object[] ms2 = new Object[matches];
-        for (int i = 0, si = 0; i < min.length(); i++) {
-            if (matchIndexes[i] != -1) {
-                ms1[si] = min.at(i);
-                si++;
-            }
-        }
-        for (int i = 0, si = 0; i < max.length(); i++) {
-            if (matchFlags[i]) {
-                ms2[si] = max.at(i);
-                si++;
-            }
-        }
-        int halfTranspositions = 0;
-        for (int mi = 0; mi < ms1.length; mi++) {
-            if (!ms1[mi].equals(ms2[mi])) {
-                halfTranspositions++;
-            }
-        }
-        int prefix = 0;
-        for (int mi = 0; mi < Math.min(4, min.length()); mi++) {
-            if (!first.at(mi).equals(second.at(mi))) {
-                break;
-            }
-            prefix++;
-        }
-        return new int[] { matches, halfTranspositions, prefix };
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -160,7 +108,7 @@ public class JaroWinklerSimilarity implements SimilarityScore<Double> {
      */
     @Override
     public Double apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -198,20 +146,6 @@ public class JaroWinklerSimilarity implements SimilarityScore<Double> {
      * @since 1.13.0
      */
     public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        final double defaultScalingFactor = 0.1;
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("CharSequences must not be null");
-        }
-        if (Objects.equals(left, right)) {
-            return 1d;
-        }
-        final int[] mtp = matches(left, right);
-        final double m = mtp[0];
-        if (m == 0) {
-            return 0d;
-        }
-        final double j = (m / left.length() + m / right.length() + (m - (double) mtp[1] / 2) / m) / 3;
-        return j < 0.7d ? j : j + defaultScalingFactor * mtp[2] * (1d - j);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

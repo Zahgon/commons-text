@@ -71,14 +71,7 @@ public class IntersectionResult {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final IntersectionResult result = (IntersectionResult) o;
-        return sizeA == result.sizeA && sizeB == result.sizeB && intersection == result.intersection;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -87,7 +80,7 @@ public class IntersectionResult {
      * @return {@code |A &#8745; B|}
      */
     public int getIntersection() {
-        return intersection;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -96,7 +89,7 @@ public class IntersectionResult {
      * @return {@code |A|}
      */
     public int getSizeA() {
-        return sizeA;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -105,16 +98,16 @@ public class IntersectionResult {
      * @return {@code |B|}
      */
     public int getSizeB() {
-        return sizeB;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sizeA, sizeB, intersection);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return "Size A: " + sizeA + ", Size B: " + sizeB + ", Intersection: " + intersection;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

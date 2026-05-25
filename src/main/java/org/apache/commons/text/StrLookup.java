@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
 import org.apache.commons.text.lookup.StringLookup;
 import org.apache.commons.text.lookup.StringLookupFactory;
 
@@ -53,7 +52,9 @@ public abstract class StrLookup<V> implements StringLookup {
      */
     private static final class MapStrLookup<V> extends StrLookup<V> {
 
-        /** Map keys are variable names and value. */
+        /**
+         * Map keys are variable names and value.
+         */
         private final Map<String, V> map;
 
         /**
@@ -76,12 +77,12 @@ public abstract class StrLookup<V> implements StringLookup {
          */
         @Override
         public String lookup(final String key) {
-            return Objects.toString(map.get(key), null);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return super.toString() + " [map=" + map + "]";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -90,7 +91,9 @@ public abstract class StrLookup<V> implements StringLookup {
      */
     private static final class ResourceBundleLookup extends StrLookup<String> {
 
-        /** ResourceBundle keys are variable names and value. */
+        /**
+         * ResourceBundle keys are variable names and value.
+         */
         private final ResourceBundle resourceBundle;
 
         /**
@@ -104,17 +107,13 @@ public abstract class StrLookup<V> implements StringLookup {
 
         @Override
         public String lookup(final String key) {
-            if (resourceBundle == null || key == null || !resourceBundle.containsKey(key)) {
-                return null;
-            }
-            return resourceBundle.getString(key);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return super.toString() + " [resourceBundle=" + resourceBundle + "]";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -134,14 +133,7 @@ public abstract class StrLookup<V> implements StringLookup {
          */
         @Override
         public String lookup(final String key) {
-            if (!key.isEmpty()) {
-                try {
-                    return System.getProperty(key);
-                } catch (final SecurityException ignored) {
-                    // Noop: All lookup(String) will return null.
-                }
-            }
-            return null;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -167,7 +159,7 @@ public abstract class StrLookup<V> implements StringLookup {
      * @return a lookup using the map, not null.
      */
     public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {
-        return new MapStrLookup<>(map);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -176,7 +168,7 @@ public abstract class StrLookup<V> implements StringLookup {
      * @return a lookup that always returns null, not null.
      */
     public static StrLookup<?> noneLookup() {
-        return NONE_LOOKUP;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -191,7 +183,7 @@ public abstract class StrLookup<V> implements StringLookup {
      * @see StringLookupFactory#resourceBundleStringLookup(String)
      */
     public static StrLookup<String> resourceBundleLookup(final ResourceBundle resourceBundle) {
-        return new ResourceBundleLookup(resourceBundle);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -206,7 +198,7 @@ public abstract class StrLookup<V> implements StringLookup {
      * @return a lookup using system properties, not null.
      */
     public static StrLookup<String> systemPropertiesLookup() {
-        return SYSTEM_PROPERTIES_LOOKUP;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

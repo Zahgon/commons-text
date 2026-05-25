@@ -47,7 +47,7 @@ public class LevenshteinDistance implements EditDistance<Integer> {
      * @return The default instance.
      */
     public static LevenshteinDistance getDefaultInstance() {
-        return INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -77,11 +77,11 @@ public class LevenshteinDistance implements EditDistance<Integer> {
      * @param threshold the target threshold, must not be negative.
      * @return result distance, or -1
      */
-    private static <E> int limitedCompare(SimilarityInput<E> left, SimilarityInput<E> right, final int threshold) { // NOPMD
+    private static <E> int limitedCompare(SimilarityInput<E> left, SimilarityInput<E> right, final int threshold) {
+        // NOPMD
         if (left == null || right == null) {
             throw new IllegalArgumentException("CharSequences must not be null");
         }
-
         /*
          * This implementation only computes the distance if it's less than or equal to the threshold value, returning -1 if it's greater. The advantage is
          * performance: unbounded distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only computing a diagonal stripe of width 2k + 1
@@ -108,10 +108,10 @@ public class LevenshteinDistance implements EditDistance<Integer> {
          *
          * See Algorithms on Strings, Trees and Sequences by Dan Gusfield for some discussion.
          */
-
-        int n = left.length(); // length of left
-        int m = right.length(); // length of right
-
+        // length of left
+        int n = left.length();
+        // length of right
+        int m = right.length();
         // if one string is empty, the edit distance is necessarily the length
         // of the other
         if (n == 0) {
@@ -120,7 +120,6 @@ public class LevenshteinDistance implements EditDistance<Integer> {
         if (m == 0) {
             return n <= threshold ? n : -1;
         }
-
         if (n > m) {
             // swap the two strings to consume less memory
             final SimilarityInput<E> tmp = left;
@@ -129,16 +128,16 @@ public class LevenshteinDistance implements EditDistance<Integer> {
             n = m;
             m = right.length();
         }
-
         // the edit distance cannot be less than the length difference
         if (m - n > threshold) {
             return -1;
         }
-
-        int[] p = new int[n + 1]; // 'previous' cost array, horizontally
-        int[] d = new int[n + 1]; // cost array, horizontally
-        int[] tempD; // placeholder to assist in swapping p and d
-
+        // 'previous' cost array, horizontally
+        int[] p = new int[n + 1];
+        // cost array, horizontally
+        int[] d = new int[n + 1];
+        // placeholder to assist in swapping p and d
+        int[] tempD;
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
         for (int i = 0; i < boundary; i++) {
@@ -148,21 +147,18 @@ public class LevenshteinDistance implements EditDistance<Integer> {
         // stripe will be ignored in following loop iterations
         Arrays.fill(p, boundary, p.length, Integer.MAX_VALUE);
         Arrays.fill(d, Integer.MAX_VALUE);
-
         // iterates through t
         for (int j = 1; j <= m; j++) {
-            final E rightJ = right.at(j - 1); // jth character of right
+            // jth character of right
+            final E rightJ = right.at(j - 1);
             d[0] = j;
-
             // compute stripe indices, constrain to array size
             final int min = Math.max(1, j - threshold);
             final int max = j > Integer.MAX_VALUE - threshold ? n : Math.min(n, j + threshold);
-
             // ignore entry left of leftmost
             if (min > 1) {
                 d[min - 1] = Integer.MAX_VALUE;
             }
-
             int lowerBound = Integer.MAX_VALUE;
             // iterates through [min, max] in s
             for (int i = min; i <= max; i++) {
@@ -180,13 +176,11 @@ public class LevenshteinDistance implements EditDistance<Integer> {
             if (lowerBound > threshold) {
                 return -1;
             }
-
             // copy current distance counts to 'previous row' distance counts
             tempD = p;
             p = d;
             d = tempD;
         }
-
         // if p[n] is greater than the threshold, there's no guarantee on it
         // being the correct
         // distance
@@ -233,9 +227,10 @@ public class LevenshteinDistance implements EditDistance<Integer> {
         /*
          * This implementation use two variable to record the previous cost counts, So this implementation use less memory than previous impl.
          */
-        int n = left.length(); // length of left
-        int m = right.length(); // length of right
-
+        // length of left
+        int n = left.length();
+        // length of right
+        int m = right.length();
         if (n == 0) {
             return m;
         }
@@ -252,12 +247,16 @@ public class LevenshteinDistance implements EditDistance<Integer> {
         }
         final int[] p = new int[n + 1];
         // indexes into strings left and right
-        int i; // iterates through left
-        int j; // iterates through right
+        // iterates through left
+        int i;
+        // iterates through right
+        int j;
         int upperLeft;
         int upper;
-        E rightJ; // jth character of right
-        int cost; // cost
+        // jth character of right
+        E rightJ;
+        // cost
+        int cost;
         for (i = 0; i <= n; i++) {
             p[i] = i;
         }
@@ -265,7 +264,6 @@ public class LevenshteinDistance implements EditDistance<Integer> {
             upperLeft = p[0];
             rightJ = right.at(j - 1);
             p[0] = j;
-
             for (i = 1; i <= n; i++) {
                 upper = p[i];
                 cost = left.at(i - 1).equals(rightJ) ? 0 : 1;
@@ -339,7 +337,7 @@ public class LevenshteinDistance implements EditDistance<Integer> {
      */
     @Override
     public Integer apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -371,10 +369,7 @@ public class LevenshteinDistance implements EditDistance<Integer> {
      * @since 1.13.0
      */
     public <E> Integer apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        if (threshold != null) {
-            return limitedCompare(left, right, threshold);
-        }
-        return unlimitedCompare(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -383,7 +378,6 @@ public class LevenshteinDistance implements EditDistance<Integer> {
      * @return The distance threshold.
      */
     public Integer getThreshold() {
-        return threshold;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

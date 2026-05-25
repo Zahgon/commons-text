@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -156,7 +155,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public static <V> String replace(final Object source, final Map<String, V> valueMap) {
-        return new StrSubstitutor(valueMap).replace(source);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -172,11 +171,8 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public static <V> String replace(final Object source,
-                                     final Map<String, V> valueMap,
-                                     final String prefix,
-                                     final String suffix) {
-        return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
+    public static <V> String replace(final Object source, final Map<String, V> valueMap, final String prefix, final String suffix) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -188,10 +184,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public static String replace(final Object source, final Properties valueProperties) {
-        if (valueProperties == null) {
-            return source.toString();
-        }
-        return replace(source, valueProperties.stringPropertyNames().stream().collect(Collectors.toMap(Function.identity(), valueProperties::getProperty)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -202,7 +195,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public static String replaceSystemProperties(final Object source) {
-        return new StrSubstitutor(StrLookup.systemPropertiesLookup()).replace(source);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -287,8 +280,7 @@ public class StrSubstitutor {
      * @param escape  the escape character.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix,
-                              final char escape) {
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape);
     }
 
@@ -303,8 +295,7 @@ public class StrSubstitutor {
      * @param valueDelimiter  the variable default value delimiter, may be null.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix,
-                              final char escape, final String valueDelimiter) {
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape, valueDelimiter);
     }
 
@@ -326,8 +317,7 @@ public class StrSubstitutor {
      * @param escape  the escape character.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix,
-                          final char escape) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape) {
         setVariableResolver(variableResolver);
         setVariablePrefix(prefix);
         setVariableSuffix(suffix);
@@ -345,8 +335,7 @@ public class StrSubstitutor {
      * @param valueDelimiter  the variable default value delimiter string, may be null.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix,
-                          final char escape, final String valueDelimiter) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
         setVariableResolver(variableResolver);
         setVariablePrefix(prefix);
         setVariableSuffix(suffix);
@@ -363,9 +352,7 @@ public class StrSubstitutor {
      * @param escape  the escape character.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public StrSubstitutor(
-            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher,
-            final char escape) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape) {
         this(variableResolver, prefixMatcher, suffixMatcher, escape, DEFAULT_VALUE_DELIMITER);
     }
 
@@ -379,9 +366,7 @@ public class StrSubstitutor {
      * @param valueDelimiterMatcher  the variable default value delimiter matcher, may be null.
      * @throws IllegalArgumentException if the prefix or suffix is null.
      */
-    public StrSubstitutor(
-            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher,
-            final char escape, final StrMatcher valueDelimiterMatcher) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape, final StrMatcher valueDelimiterMatcher) {
         setVariableResolver(variableResolver);
         setVariablePrefixMatcher(prefixMatcher);
         setVariableSuffixMatcher(suffixMatcher);
@@ -413,7 +398,7 @@ public class StrSubstitutor {
      * @return The character used for escaping variable references.
      */
     public char getEscapeChar() {
-        return this.escapeChar;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -429,7 +414,7 @@ public class StrSubstitutor {
      * @return The variable default value delimiter matcher in use, may be null.
      */
     public StrMatcher getValueDelimiterMatcher() {
-        return valueDelimiterMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -442,7 +427,7 @@ public class StrSubstitutor {
      * @return The prefix matcher in use.
      */
     public StrMatcher getVariablePrefixMatcher() {
-        return prefixMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -451,7 +436,7 @@ public class StrSubstitutor {
      * @return The VariableResolver.
      */
     public StrLookup<?> getVariableResolver() {
-        return this.variableResolver;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -464,7 +449,7 @@ public class StrSubstitutor {
      * @return The suffix matcher in use.
      */
     public StrMatcher getVariableSuffixMatcher() {
-        return suffixMatcher;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -490,7 +475,7 @@ public class StrSubstitutor {
      * @since 1.2
      */
     public boolean isDisableSubstitutionInValues() {
-        return disableSubstitutionInValues;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -499,7 +484,7 @@ public class StrSubstitutor {
      * @return The substitution in variable names flag.
      */
     public boolean isEnableSubstitutionInVariables() {
-        return enableSubstitutionInVariables;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -508,7 +493,7 @@ public class StrSubstitutor {
      * @return The preserve escape flag.
      */
     public boolean isPreserveEscapes() {
-        return preserveEscapes;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -519,12 +504,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final char[] source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length).append(source);
-        substitute(buf, 0, source.length);
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -540,12 +520,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final char[] source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        substitute(buf, 0, length);
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -556,10 +531,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final CharSequence source) {
-        if (source == null) {
-            return null;
-        }
-        return replace(source, 0, source.length());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -575,12 +547,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final CharSequence source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        substitute(buf, 0, length);
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -591,12 +558,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final Object source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder().append(source);
-        substitute(buf, 0, buf.length());
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -607,12 +569,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final StrBuilder source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
-        substitute(buf, 0, buf.length());
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -628,12 +585,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final StrBuilder source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        substitute(buf, 0, length);
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -643,14 +595,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final String source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source);
-        if (!substitute(buf, 0, source.length())) {
-            return source;
-        }
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -665,14 +610,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final String source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (!substitute(buf, 0, length)) {
-            return source.substring(offset, offset + length);
-        }
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -683,12 +621,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final StringBuffer source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
-        substitute(buf, 0, buf.length());
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -704,12 +637,7 @@ public class StrSubstitutor {
      * @return The result of the replace operation.
      */
     public String replace(final StringBuffer source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        substitute(buf, 0, length);
-        return buf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -719,10 +647,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     public boolean replaceIn(final StrBuilder source) {
-        if (source == null) {
-            return false;
-        }
-        return substitute(source, 0, source.length());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -737,10 +662,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     public boolean replaceIn(final StrBuilder source, final int offset, final int length) {
-        if (source == null) {
-            return false;
-        }
-        return substitute(source, offset, length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -751,10 +673,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     public boolean replaceIn(final StringBuffer source) {
-        if (source == null) {
-            return false;
-        }
-        return replaceIn(source, 0, source.length());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -770,15 +689,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     public boolean replaceIn(final StringBuffer source, final int offset, final int length) {
-        if (source == null) {
-            return false;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (!substitute(buf, 0, length)) {
-            return false;
-        }
-        source.replace(offset, offset + length, buf.toString());
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -789,10 +700,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     public boolean replaceIn(final StringBuilder source) {
-        if (source == null) {
-            return false;
-        }
-        return replaceIn(source, 0, source.length());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -808,15 +716,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     public boolean replaceIn(final StringBuilder source, final int offset, final int length) {
-        if (source == null) {
-            return false;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (!substitute(buf, 0, length)) {
-            return false;
-        }
-        source.replace(offset, offset + length, buf.toString());
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -835,15 +735,8 @@ public class StrSubstitutor {
      * @param endPos       the end position of the variable including the suffix, valid.
      * @return The variable's value or {@code null} if the variable is unknown.
      */
-    protected String resolveVariable(final String variableName,
-                                     final StrBuilder buf,
-                                     final int startPos,
-                                     final int endPos) {
-        final StrLookup<?> resolver = getVariableResolver();
-        if (resolver == null) {
-            return null;
-        }
-        return resolver.apply(variableName);
+    protected String resolveVariable(final String variableName, final StrBuilder buf, final int startPos, final int endPos) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -853,7 +746,7 @@ public class StrSubstitutor {
      * @since 1.2
      */
     public void setDisableSubstitutionInValues(final boolean disableSubstitutionInValues) {
-        this.disableSubstitutionInValues = disableSubstitutionInValues;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -863,7 +756,7 @@ public class StrSubstitutor {
      * @param enableSubstitutionInVariables the new value of the flag.
      */
     public void setEnableSubstitutionInVariables(final boolean enableSubstitutionInVariables) {
-        this.enableSubstitutionInVariables = enableSubstitutionInVariables;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -872,7 +765,7 @@ public class StrSubstitutor {
      * @param escapeCharacter the escape character (0 for disabling escaping)
      */
     public void setEscapeChar(final char escapeCharacter) {
-        this.escapeChar = escapeCharacter;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -883,7 +776,7 @@ public class StrSubstitutor {
      * @param preserveEscapes true if escapes are to be preserved
      */
     public void setPreserveEscapes(final boolean preserveEscapes) {
-        this.preserveEscapes = preserveEscapes;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -897,7 +790,7 @@ public class StrSubstitutor {
      * @return {@code this} instance.
      */
     public StrSubstitutor setValueDelimiter(final char valueDelimiter) {
-        return setValueDelimiterMatcher(StrMatcher.charMatcher(valueDelimiter));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -914,11 +807,7 @@ public class StrSubstitutor {
      * @return {@code this} instance.
      */
     public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
-        if (valueDelimiter == null || valueDelimiter.isEmpty()) {
-            setValueDelimiterMatcher(null);
-            return this;
-        }
-        return setValueDelimiterMatcher(StrMatcher.stringMatcher(valueDelimiter));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -935,8 +824,7 @@ public class StrSubstitutor {
      * @return {@code this} instance.
      */
     public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
-        this.valueDelimiterMatcher = valueDelimiterMatcher;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -949,7 +837,7 @@ public class StrSubstitutor {
      * @return {@code this} instance.
      */
     public StrSubstitutor setVariablePrefix(final char prefix) {
-        return setVariablePrefixMatcher(StrMatcher.charMatcher(prefix));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -963,8 +851,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix is null.
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
-        Validate.isTrue(prefix != null, "Variable prefix must not be null!");
-        return setVariablePrefixMatcher(StrMatcher.stringMatcher(prefix));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -979,9 +866,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix matcher is null.
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
-        Validate.isTrue(prefixMatcher != null, "Variable prefix matcher must not be null!");
-        this.prefixMatcher = prefixMatcher;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -990,7 +875,7 @@ public class StrSubstitutor {
      * @param variableResolver the VariableResolver.
      */
     public void setVariableResolver(final StrLookup<?> variableResolver) {
-        this.variableResolver = variableResolver;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1003,7 +888,7 @@ public class StrSubstitutor {
      * @return {@code this} instance.
      */
     public StrSubstitutor setVariableSuffix(final char suffix) {
-        return setVariableSuffixMatcher(StrMatcher.charMatcher(suffix));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1017,8 +902,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the suffix is null.
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
-        Validate.isTrue(suffix != null, "Variable suffix must not be null!");
-        return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1033,9 +917,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the suffix matcher is null.
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
-        Validate.isTrue(suffixMatcher != null, "Variable suffix matcher must not be null!");
-        this.suffixMatcher = suffixMatcher;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1053,7 +935,7 @@ public class StrSubstitutor {
      * @return true if altered.
      */
     protected boolean substitute(final StrBuilder buf, final int offset, final int length) {
-        return substitute(buf, offset, length, null) > 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1073,7 +955,6 @@ public class StrSubstitutor {
         final StrMatcher valueDelimMatcher = getValueDelimiterMatcher();
         final boolean substitutionInVariablesEnabled = isEnableSubstitutionInVariables();
         final boolean substitutionInValuesDisabled = isDisableSubstitutionInValues();
-
         final boolean top = priorVariables == null;
         boolean altered = false;
         int lengthChange = 0;
@@ -1081,8 +962,7 @@ public class StrSubstitutor {
         int bufEnd = offset + length;
         int pos = offset;
         while (pos < bufEnd) {
-            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset,
-                    bufEnd);
+            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset, bufEnd);
             if (startMatchLen == 0) {
                 pos++;
             } else // found variable start marker
@@ -1093,7 +973,8 @@ public class StrSubstitutor {
                     continue;
                 }
                 buf.deleteCharAt(pos - 1);
-                chars = buf.buffer; // in case buffer was altered
+                // in case buffer was altered
+                chars = buf.buffer;
                 lengthChange--;
                 altered = true;
                 bufEnd--;
@@ -1104,27 +985,20 @@ public class StrSubstitutor {
                 int endMatchLen = 0;
                 int nestedVarCount = 0;
                 while (pos < bufEnd) {
-                    if (substitutionInVariablesEnabled
-                            && pfxMatcher.isMatch(chars,
-                                    pos, offset, bufEnd) != 0) {
+                    if (substitutionInVariablesEnabled && pfxMatcher.isMatch(chars, pos, offset, bufEnd) != 0) {
                         // found a nested variable start
-                        endMatchLen = pfxMatcher.isMatch(chars,
-                                pos, offset, bufEnd);
+                        endMatchLen = pfxMatcher.isMatch(chars, pos, offset, bufEnd);
                         nestedVarCount++;
                         pos += endMatchLen;
                         continue;
                     }
-
-                    endMatchLen = suffMatcher.isMatch(chars, pos, offset,
-                            bufEnd);
+                    endMatchLen = suffMatcher.isMatch(chars, pos, offset, bufEnd);
                     if (endMatchLen == 0) {
                         pos++;
                     } else {
                         // found variable end marker
                         if (nestedVarCount == 0) {
-                            String varNameExpr = new String(chars, startPos
-                                    + startMatchLen, pos - startPos
-                                    - startMatchLen);
+                            String varNameExpr = new String(chars, startPos + startMatchLen, pos - startPos - startMatchLen);
                             if (substitutionInVariablesEnabled) {
                                 final StrBuilder bufName = new StrBuilder(varNameExpr);
                                 substitute(bufName, 0, bufName.length());
@@ -1132,21 +1006,15 @@ public class StrSubstitutor {
                             }
                             pos += endMatchLen;
                             final int endPos = pos;
-
                             String varName = varNameExpr;
                             String varDefaultValue = null;
-
                             if (valueDelimMatcher != null) {
                                 final char[] varNameExprChars = varNameExpr.toCharArray();
                                 int valueDelimiterMatchLen = 0;
                                 for (int i = 0; i < varNameExprChars.length; i++) {
                                     // if there's any nested variable when nested variable substitution disabled,
                                     // then stop resolving name and default value.
-                                    if (!substitutionInVariablesEnabled
-                                            && pfxMatcher.isMatch(varNameExprChars,
-                                                                    i,
-                                                                    i,
-                                                                    varNameExprChars.length) != 0) {
+                                    if (!substitutionInVariablesEnabled && pfxMatcher.isMatch(varNameExprChars, i, i, varNameExprChars.length) != 0) {
                                         break;
                                     }
                                     if (valueDelimMatcher.isMatch(varNameExprChars, i) != 0) {
@@ -1157,21 +1025,16 @@ public class StrSubstitutor {
                                     }
                                 }
                             }
-
                             // on the first call initialize priorVariables
                             if (priorVariables == null) {
                                 priorVariables = new ArrayList<>();
-                                priorVariables.add(new String(chars,
-                                        offset, length));
+                                priorVariables.add(new String(chars, offset, length));
                             }
-
                             // handle cyclic substitution
                             checkCyclicSubstitution(varName, priorVariables);
                             priorVariables.add(varName);
-
                             // resolve the variable
-                            String varValue = resolveVariable(varName, buf,
-                                    startPos, endPos);
+                            String varValue = resolveVariable(varName, buf, startPos, endPos);
                             if (varValue == null) {
                                 varValue = varDefaultValue;
                             }
@@ -1180,22 +1043,20 @@ public class StrSubstitutor {
                                 buf.replace(startPos, endPos, varValue);
                                 altered = true;
                                 int change = 0;
-                                if (!substitutionInValuesDisabled) { // recursive replace
-                                    change = substitute(buf, startPos,
-                                        varLen, priorVariables);
+                                if (!substitutionInValuesDisabled) {
+                                    // recursive replace
+                                    change = substitute(buf, startPos, varLen, priorVariables);
                                 }
-                                change = change
-                                    + varLen - (endPos - startPos);
+                                change = change + varLen - (endPos - startPos);
                                 pos += change;
                                 bufEnd += change;
                                 lengthChange += change;
-                                chars = buf.buffer; // in case buffer was
-                                                    // altered
+                                // in case buffer was
+                                chars = buf.buffer;
+                                // altered
                             }
-
                             // remove variable from the cyclic stack
-                            priorVariables
-                                    .remove(priorVariables.size() - 1);
+                            priorVariables.remove(priorVariables.size() - 1);
                             break;
                         }
                         nestedVarCount--;

@@ -53,20 +53,15 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
         if (left == null || right == null) {
             throw new IllegalArgumentException("Left/right inputs must not be null");
         }
-
         // Implementation based on https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance
-
         int leftLength = left.length();
         int rightLength = right.length();
-
         if (leftLength == 0) {
             return clampDistance(rightLength, threshold);
         }
-
         if (rightLength == 0) {
             return clampDistance(leftLength, threshold);
         }
-
         // Inspired by LevenshteinDistance impl; swap the input strings to consume less memory
         if (rightLength > leftLength) {
             final SimilarityInput<E> tmp = left;
@@ -75,27 +70,23 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
             leftLength = rightLength;
             rightLength = right.length();
         }
-
         // If the difference between the lengths of the strings is greater than the threshold, we must at least do
         // threshold operations so we can return early
         if (leftLength - rightLength > threshold) {
             return -1;
         }
-
         // Use three arrays of minimum possible size to reduce memory usage. This avoids having to create a 2D
         // array of size leftLength * rightLength
         int[] curr = new int[rightLength + 1];
         int[] prev = new int[rightLength + 1];
         int[] prevPrev = new int[rightLength + 1];
-        int[] temp; // Temp variable use to shuffle arrays at the end of each iteration
-
+        // Temp variable use to shuffle arrays at the end of each iteration
+        int[] temp;
         int rightIndex, leftIndex, cost, minCost;
-
         // Changing empty sequence to [0..i] requires i insertions
         for (rightIndex = 0; rightIndex <= rightLength; rightIndex++) {
             prev[rightIndex] = rightIndex;
         }
-
         // Calculate how many operations it takes to change right[0..rightIndex] into left[0..leftIndex]
         // For each iteration
         //  - curr[i] contains the cost of changing right[0..i] into left[0..leftIndex]
@@ -107,47 +98,33 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
         for (leftIndex = 1; leftIndex <= leftLength; leftIndex++) {
             // For right[0..0] we must insert leftIndex characters, which means the cost is always leftIndex
             curr[0] = leftIndex;
-
             minCost = Integer.MAX_VALUE;
-
             for (rightIndex = 1; rightIndex <= rightLength; rightIndex++) {
                 cost = left.at(leftIndex - 1) == right.at(rightIndex - 1) ? 0 : 1;
-
                 // Select cheapest operation
-                curr[rightIndex] = Math.min(
-                        Math.min(
-                                prev[rightIndex] + 1, // Delete current character
-                                curr[rightIndex - 1] + 1 // Insert current character
-                        ),
-                        prev[rightIndex - 1] + cost // Replace (or no cost if same character)
-                );
-
+                curr[rightIndex] = Math.min(Math.min(// Delete current character
+                prev[rightIndex] + 1, // Insert current character
+                curr[rightIndex - 1] + 1), // Replace (or no cost if same character)
+                prev[rightIndex - 1] + cost);
                 // Check if adjacent characters are the same -> transpose if cheaper
-                if (leftIndex > 1
-                        && rightIndex > 1
-                        && left.at(leftIndex - 1) == right.at(rightIndex - 2)
-                        && left.at(leftIndex - 2) == right.at(rightIndex - 1)) {
+                if (leftIndex > 1 && rightIndex > 1 && left.at(leftIndex - 1) == right.at(rightIndex - 2) && left.at(leftIndex - 2) == right.at(rightIndex - 1)) {
                     // Use cost here, to properly handle two subsequent equal letters
                     curr[rightIndex] = Math.min(curr[rightIndex], prevPrev[rightIndex - 2] + cost);
                 }
-
                 minCost = Math.min(curr[rightIndex], minCost);
             }
-
             // If there was no total cost for this entire iteration to transform right to left[0..leftIndex], there
             // can not be a way to do it below threshold. This is because we have no way to reduce the overall cost
             // in later operations.
             if (minCost > threshold) {
                 return -1;
             }
-
             // Rotate arrays for next iteration
             temp = prevPrev;
             prevPrev = prev;
             prev = curr;
             curr = temp;
         }
-
         // Prev contains the value computed in the latest iteration
         return clampDistance(prev[rightLength], threshold);
     }
@@ -164,22 +141,17 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
         if (left == null || right == null) {
             throw new IllegalArgumentException("Left/right inputs must not be null");
         }
-
         /*
          * Implementation based on https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance
          */
-
         int leftLength = left.length();
         int rightLength = right.length();
-
         if (leftLength == 0) {
             return rightLength;
         }
-
         if (rightLength == 0) {
             return leftLength;
         }
-
         // Inspired by LevenshteinDistance impl; swap the input strings to consume less memory
         if (rightLength > leftLength) {
             final SimilarityInput<E> tmp = left;
@@ -188,21 +160,18 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
             leftLength = rightLength;
             rightLength = right.length();
         }
-
         // Use three arrays of minimum possible size to reduce memory usage. This avoids having to create a 2D
         // array of size leftLength * rightLength
         int[] curr = new int[rightLength + 1];
         int[] prev = new int[rightLength + 1];
         int[] prevPrev = new int[rightLength + 1];
-        int[] temp; // Temp variable use to shuffle arrays at the end of each iteration
-
+        // Temp variable use to shuffle arrays at the end of each iteration
+        int[] temp;
         int rightIndex, leftIndex, cost;
-
         // Changing empty sequence to [0..i] requires i insertions
         for (rightIndex = 0; rightIndex <= rightLength; rightIndex++) {
             prev[rightIndex] = rightIndex;
         }
-
         // Calculate how many operations it takes to change right[0..rightIndex] into left[0..leftIndex]
         // For each iteration
         //  - curr[i] contains the cost of changing right[0..i] into left[0..leftIndex]
@@ -214,36 +183,25 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
         for (leftIndex = 1; leftIndex <= leftLength; leftIndex++) {
             // For right[0..0] we must insert leftIndex characters, which means the cost is always leftIndex
             curr[0] = leftIndex;
-
             for (rightIndex = 1; rightIndex <= rightLength; rightIndex++) {
                 cost = left.at(leftIndex - 1) == right.at(rightIndex - 1) ? 0 : 1;
-
                 // Select cheapest operation
-                curr[rightIndex] = Math.min(
-                        Math.min(
-                                prev[rightIndex] + 1, // Delete current character
-                                curr[rightIndex - 1] + 1 // Insert current character
-                        ),
-                        prev[rightIndex - 1] + cost // Replace (or no cost if same character)
-                );
-
+                curr[rightIndex] = Math.min(Math.min(// Delete current character
+                prev[rightIndex] + 1, // Insert current character
+                curr[rightIndex - 1] + 1), // Replace (or no cost if same character)
+                prev[rightIndex - 1] + cost);
                 // Check if adjacent characters are the same -> transpose if cheaper
-                if (leftIndex > 1
-                        && rightIndex > 1
-                        && left.at(leftIndex - 1) == right.at(rightIndex - 2)
-                        && left.at(leftIndex - 2) == right.at(rightIndex - 1)) {
+                if (leftIndex > 1 && rightIndex > 1 && left.at(leftIndex - 1) == right.at(rightIndex - 2) && left.at(leftIndex - 2) == right.at(rightIndex - 1)) {
                     // Use cost here, to properly handle two subsequent equal letters
                     curr[rightIndex] = Math.min(curr[rightIndex], prevPrev[rightIndex - 2] + cost);
                 }
             }
-
             // Rotate arrays for next iteration
             temp = prevPrev;
             prevPrev = prev;
             prev = curr;
             curr = temp;
         }
-
         // Prev contains the value computed in the latest iteration
         return prev[rightLength];
     }
@@ -287,7 +245,7 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
      */
     @Override
     public Integer apply(final CharSequence left, final CharSequence right) {
-        return apply(SimilarityInput.input(left), SimilarityInput.input(right));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -305,10 +263,7 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
      * @since 1.13.0
      */
     public <E> Integer apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {
-        if (threshold != null) {
-            return limitedCompare(left, right, threshold);
-        }
-        return unlimitedCompare(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -317,6 +272,6 @@ public class DamerauLevenshteinDistance implements EditDistance<Integer> {
      * @return The distance threshold.
      */
     public Integer getThreshold() {
-        return threshold;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

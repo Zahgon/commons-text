@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.similarity;
 
 import java.util.Objects;
@@ -38,37 +37,26 @@ final class SimilarityCharacterInput implements SimilarityInput<Character> {
 
     @Override
     public Character at(final int index) {
-        // Character.valueOf caches character <= 127.
-        return Character.valueOf(cs.charAt(index));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SimilarityCharacterInput other = (SimilarityCharacterInput) obj;
-        return Objects.equals(cs, other.cs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int length() {
-        return cs.length();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return cs.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

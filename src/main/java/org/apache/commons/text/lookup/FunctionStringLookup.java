@@ -40,7 +40,7 @@ final class FunctionStringLookup<V> extends AbstractStringLookup {
      * @return a new instance backed by the given function.
      */
     static <R> FunctionStringLookup<R> on(final Function<String, R> function) {
-        return new FunctionStringLookup<>(function);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -51,7 +51,7 @@ final class FunctionStringLookup<V> extends AbstractStringLookup {
      * @return a new instance backed by the given map.
      */
     static <V> FunctionStringLookup<V> on(final Map<String, V> map) {
-        return on(StringLookupFactory.toMap(map)::get);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -80,23 +80,11 @@ final class FunctionStringLookup<V> extends AbstractStringLookup {
      */
     @Override
     public String lookup(final String key) {
-        if (function == null) {
-            return null;
-        }
-        final V obj;
-        try {
-            obj = function.apply(key);
-        } catch (final SecurityException | NullPointerException | IllegalArgumentException e) {
-            // Squelched. All lookup(String) will return null.
-            // Could be a ConcurrentHashMap and a null key request
-            return null;
-        }
-        return Objects.toString(obj, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return super.toString() + " [function=" + function + "]";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

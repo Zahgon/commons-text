@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -36,7 +35,9 @@ import org.apache.commons.lang3.Validate;
  */
 final class RegexTokenizer implements CharSequenceTokenizer<CharSequence> {
 
-    /** The whitespace pattern. */
+    /**
+     * The whitespace pattern.
+     */
     private static final Pattern PATTERN = Pattern.compile("(\\w)+");
 
     /**
@@ -51,13 +52,6 @@ final class RegexTokenizer implements CharSequenceTokenizer<CharSequence> {
      */
     @Override
     public CharSequence[] apply(final CharSequence text) {
-        Validate.isTrue(StringUtils.isNotBlank(text), "Invalid text");
-        final Matcher matcher = PATTERN.matcher(text);
-        final List<String> tokens = new ArrayList<>();
-        while (matcher.find()) {
-            tokens.add(matcher.group(0));
-        }
-        return tokens.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

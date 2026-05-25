@@ -32,7 +32,7 @@ abstract class SinglePassTranslator extends CharSequenceTranslator {
      */
     private String getClassName() {
         final Class<? extends SinglePassTranslator> clazz = this.getClass();
-        return clazz.isAnonymousClass() ?  clazz.getName() : clazz.getSimpleName();
+        return clazz.isAnonymousClass() ? clazz.getName() : clazz.getSimpleName();
     }
 
     /**
@@ -42,14 +42,7 @@ abstract class SinglePassTranslator extends CharSequenceTranslator {
      */
     @Override
     public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {
-        if (index != 0) {
-            throw new IllegalArgumentException(getClassName() + ".translate(final CharSequence input, final int "
-                    + "index, final Writer out) cannot handle a non-zero index.");
-        }
-
-        translateWhole(input, writer);
-
-        return Character.codePointCount(input, index, input.length());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

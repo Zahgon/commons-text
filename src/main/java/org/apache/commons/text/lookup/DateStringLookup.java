@@ -19,7 +19,6 @@ package org.apache.commons.text.lookup;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.commons.text.StringSubstitutor;
 
@@ -94,6 +93,6 @@ final class DateStringLookup extends AbstractStringLookup {
      */
     @Override
     public String lookup(final String key) {
-        return formatDate(System.currentTimeMillis(), key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

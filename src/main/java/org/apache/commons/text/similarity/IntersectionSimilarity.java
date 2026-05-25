@@ -42,10 +42,14 @@ public class IntersectionSimilarity<T> implements SimilarityScore<IntersectionRe
      */
     private static final class BagCount {
 
-        /** Private, mutable but must be used as immutable. */
+        /**
+         * Private, mutable but must be used as immutable.
+         */
         private static final BagCount ZERO = new BagCount();
 
-        /** The count. */
+        /**
+         * The count.
+         */
         private int count;
 
         private BagCount() {
@@ -56,7 +60,6 @@ public class IntersectionSimilarity<T> implements SimilarityScore<IntersectionRe
     // The following is adapted from commons-collections for a Bag.
     // A Bag is a collection that can store the count of the number
     // of copies of each element.
-
     /**
      * A minimal implementation of a Bag that can store elements and a count.
      *
@@ -67,7 +70,9 @@ public class IntersectionSimilarity<T> implements SimilarityScore<IntersectionRe
      */
     private final class TinyBag {
 
-        /** The backing map. */
+        /**
+         * The backing map.
+         */
         private final Map<T, BagCount> map;
 
         /**
@@ -137,7 +142,9 @@ public class IntersectionSimilarity<T> implements SimilarityScore<IntersectionRe
         return intersection;
     }
 
-    /** The converter used to create the elements from the characters. */
+    /**
+     * The converter used to create the elements from the characters.
+     */
     private final Function<CharSequence, Collection<T>> converter;
 
     /**
@@ -169,41 +176,7 @@ public class IntersectionSimilarity<T> implements SimilarityScore<IntersectionRe
      */
     @Override
     public IntersectionResult apply(final CharSequence left, final CharSequence right) {
-        if (left == null || right == null) {
-            throw new IllegalArgumentException("Input cannot be null");
-        }
-
-        // Create the elements from the sequences
-        final Collection<T> objectsA = converter.apply(left);
-        final Collection<T> objectsB = converter.apply(right);
-        final int sizeA = objectsA.size();
-        final int sizeB = objectsB.size();
-
-        // Short-cut if either collection is empty
-        if (Math.min(sizeA, sizeB) == 0) {
-            // No intersection
-            return new IntersectionResult(sizeA, sizeB, 0);
-        }
-
-        // Intersection = count the number of shared elements
-        final int intersection;
-        if (objectsA instanceof Set && objectsB instanceof Set) {
-            // If a Set then the elements will only have a count of 1.
-            // Iterate over the smaller set.
-            intersection = sizeA < sizeB
-                    ? getIntersection((Set<T>) objectsA, (Set<T>) objectsB)
-                    : getIntersection((Set<T>) objectsB, (Set<T>) objectsA);
-        } else  {
-            // Create a bag for each collection
-            final TinyBag bagA = toBag(objectsA);
-            final TinyBag bagB = toBag(objectsB);
-            // Iterate over the smaller number of unique elements
-            intersection = bagA.uniqueElementSize() < bagB.uniqueElementSize()
-                    ? getIntersection(bagA, bagB)
-                    : getIntersection(bagB, bagA);
-        }
-
-        return new IntersectionResult(sizeA, sizeB, intersection);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

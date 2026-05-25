@@ -33,7 +33,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static UnicodeEscaper above(final int codePoint) {
-        return outsideOf(0, codePoint);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -43,7 +43,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static UnicodeEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -54,7 +54,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static UnicodeEscaper between(final int codePointLow, final int codePointHigh) {
-        return new UnicodeEscaper(codePointLow, codePointHigh, true);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -65,16 +65,22 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return The newly created {@code UnicodeEscaper} instance.
      */
     public static UnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
-        return new UnicodeEscaper(codePointLow, codePointHigh, false);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /** The lowest code point boundary. */
+    /**
+     * The lowest code point boundary.
+     */
     private final int below;
 
-    /** The highest code point boundary. */
+    /**
+     * The highest code point boundary.
+     */
     private final int above;
 
-    /** Whether to escape between the boundaries or outside them. */
+    /**
+     * Whether to escape between the boundaries or outside them.
+     */
     private final boolean between;
 
     /**
@@ -108,7 +114,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return The hexadecimal string for the given code point.
      */
     protected String toUtf16Escape(final int codePoint) {
-        return "\\u" + hex(codePoint);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -116,23 +122,6 @@ public class UnicodeEscaper extends CodePointTranslator {
      */
     @Override
     public boolean translate(final int codePoint, final Writer writer) throws IOException {
-        if (between) {
-            if (codePoint < below || codePoint > above) {
-                return false;
-            }
-        } else if (codePoint >= below && codePoint <= above) {
-            return false;
-        }
-
-        if (codePoint > 0xffff) {
-            writer.write(toUtf16Escape(codePoint));
-        } else {
-          writer.write("\\u");
-          writer.write(HEX_DIGITS[codePoint >> 12 & 15]);
-          writer.write(HEX_DIGITS[codePoint >> 8 & 15]);
-          writer.write(HEX_DIGITS[codePoint >> 4 & 15]);
-          writer.write(HEX_DIGITS[codePoint & 15]);
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

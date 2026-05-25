@@ -40,7 +40,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#base64DecoderStringLookup()
      */
     BASE64_DECODER(StringLookupFactory.KEY_BASE64_DECODER, StringLookupFactory.INSTANCE.base64DecoderStringLookup()),
-
     /**
      * The lookup for Base64 encoding using the key {@code "base64Encoder"}.
      *
@@ -48,7 +47,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#base64EncoderStringLookup()
      */
     BASE64_ENCODER(StringLookupFactory.KEY_BASE64_ENCODER, StringLookupFactory.INSTANCE.base64EncoderStringLookup()),
-
     /**
      * The lookup for Java static class member constants using the key {@code "const"}.
      *
@@ -56,7 +54,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#constantStringLookup()
      */
     CONST(StringLookupFactory.KEY_CONST, StringLookupFactory.INSTANCE.constantStringLookup()),
-
     /**
      * The lookup for formatting the current date using the key {@code "date"}.
      *
@@ -64,7 +61,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#dateStringLookup()
      */
     DATE(StringLookupFactory.KEY_DATE, StringLookupFactory.INSTANCE.dateStringLookup()),
-
     /**
      * The lookup for DNS using the key {@code "dns"}.
      *
@@ -73,7 +69,6 @@ public enum DefaultStringLookup {
      * @since 1.8
      */
     DNS(StringLookupFactory.KEY_DNS, StringLookupFactory.INSTANCE.dnsStringLookup()),
-
     /**
      * The lookup for environment properties using the key {@code "env"}.
      *
@@ -81,7 +76,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#environmentVariableStringLookup()
      */
     ENVIRONMENT(StringLookupFactory.KEY_ENV, StringLookupFactory.INSTANCE.environmentVariableStringLookup()),
-
     /**
      * The lookup for files using the key {@code "file"}.
      *
@@ -89,7 +83,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#fileStringLookup()
      */
     FILE(StringLookupFactory.KEY_FILE, StringLookupFactory.INSTANCE.fileStringLookup()),
-
     /**
      * The lookup for Java platform information using the key {@code "java"}.
      *
@@ -97,7 +90,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#javaPlatformStringLookup()
      */
     JAVA(StringLookupFactory.KEY_JAVA, StringLookupFactory.INSTANCE.javaPlatformStringLookup()),
-
     /**
      * The lookup for local host information using the key {@code "localhost"}.
      *
@@ -105,7 +97,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#localHostStringLookup()
      */
     LOCAL_HOST(StringLookupFactory.KEY_LOCALHOST, StringLookupFactory.INSTANCE.localHostStringLookup()),
-
     /**
      * The lookup for local host information using the key {@code "loopbackAddress"}.
      *
@@ -113,7 +104,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#loopbackAddressStringLookup()
      */
     LOOPBACK_ADDRESS(StringLookupFactory.KEY_LOOPBACK_ADDRESS, StringLookupFactory.INSTANCE.loopbackAddressStringLookup()),
-
     /**
      * The lookup for properties using the key {@code "properties"}.
      *
@@ -121,7 +111,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#propertiesStringLookup()
      */
     PROPERTIES(StringLookupFactory.KEY_PROPERTIES, StringLookupFactory.INSTANCE.propertiesStringLookup()),
-
     /**
      * The lookup for resource bundles using the key {@code "resourceBundle"}.
      *
@@ -129,7 +118,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#resourceBundleStringLookup()
      */
     RESOURCE_BUNDLE(StringLookupFactory.KEY_RESOURCE_BUNDLE, StringLookupFactory.INSTANCE.resourceBundleStringLookup()),
-
     /**
      * The lookup for scripts using the key {@code "script"}.
      *
@@ -137,7 +125,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#scriptStringLookup()
      */
     SCRIPT(StringLookupFactory.KEY_SCRIPT, StringLookupFactory.INSTANCE.scriptStringLookup()),
-
     /**
      * The lookup for system properties using the key {@code "sys"}.
      *
@@ -145,7 +132,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#systemPropertyStringLookup()
      */
     SYSTEM_PROPERTIES(StringLookupFactory.KEY_SYS, StringLookupFactory.INSTANCE.systemPropertyStringLookup()),
-
     /**
      * The lookup for URLs using the key {@code "url"}.
      *
@@ -153,7 +139,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#urlStringLookup()
      */
     URL(StringLookupFactory.KEY_URL, StringLookupFactory.INSTANCE.urlStringLookup()),
-
     /**
      * The lookup for URL decoding using the key {@code "urlDecoder"}.
      *
@@ -161,7 +146,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#urlDecoderStringLookup()
      */
     URL_DECODER(StringLookupFactory.KEY_URL_DECODER, StringLookupFactory.INSTANCE.urlDecoderStringLookup()),
-
     /**
      * The lookup for URL encoding using the key {@code "urlEncoder"}.
      *
@@ -169,7 +153,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#urlEncoderStringLookup()
      */
     URL_ENCODER(StringLookupFactory.KEY_URL_ENCODER, StringLookupFactory.INSTANCE.urlEncoderStringLookup()),
-
     /**
      * The lookup for XML decoding using the key {@code "xml"}.
      *
@@ -177,7 +160,6 @@ public enum DefaultStringLookup {
      * @see StringLookupFactory#xmlStringLookup()
      */
     XML(StringLookupFactory.KEY_XML, StringLookupFactory.INSTANCE.xmlStringLookup()),
-
     /**
      * The lookup for XML decoding using the key {@code "xmlDecoder"}.
      *
@@ -186,7 +168,6 @@ public enum DefaultStringLookup {
      * @since 1.11.0
      */
     XML_DECODER(StringLookupFactory.KEY_XML_DECODER, StringLookupFactory.INSTANCE.xmlDecoderStringLookup()),
-
     /**
      * The lookup for XML encoding using the key {@code "xmlEncoder"}.
      *
@@ -196,10 +177,14 @@ public enum DefaultStringLookup {
      */
     XML_ENCODER(StringLookupFactory.KEY_XML_ENCODER, StringLookupFactory.INSTANCE.xmlEncoderStringLookup());
 
-    /** The prefix under which the associated lookup object is registered. */
+    /**
+     * The prefix under which the associated lookup object is registered.
+     */
     private final String key;
 
-    /** The associated lookup instance. */
+    /**
+     * The associated lookup instance.
+     */
     private final StringLookup lookup;
 
     /**
@@ -219,7 +204,7 @@ public enum DefaultStringLookup {
      * @return the prefix
      */
     public String getKey() {
-        return key;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -228,6 +213,6 @@ public enum DefaultStringLookup {
      * @return the associated {@link StringLookup} object
      */
     public StringLookup getStringLookup() {
-        return lookup;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.similarity;
 
 import java.util.Objects;
@@ -37,7 +36,7 @@ public interface SimilarityInput<E> {
      * @return a new input.
      */
     static SimilarityInput<Character> input(final CharSequence cs) {
-        return new SimilarityCharacterInput(cs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -50,13 +49,7 @@ public interface SimilarityInput<E> {
      */
     @SuppressWarnings("unchecked")
     static <T> SimilarityInput<T> input(final Object input) {
-        if (input instanceof SimilarityInput) {
-            return (SimilarityInput<T>) input;
-        }
-        if (input instanceof CharSequence) {
-            return (SimilarityInput<T>) input((CharSequence) input);
-        }
-        throw new IllegalArgumentException(Objects.requireNonNull(input, "input").getClass().getName());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -73,5 +66,4 @@ public interface SimilarityInput<E> {
      * @return the length of the input.
      */
     int length();
-
 }

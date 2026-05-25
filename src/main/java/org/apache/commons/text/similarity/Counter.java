@@ -41,9 +41,7 @@ final class Counter {
      * @return a map, where the elements are key, and the count the value.
      */
     public static Map<CharSequence, Integer> of(final CharSequence[] tokens) {
-        final Map<CharSequence, Integer> map = new HashMap<>();
-        Stream.of(tokens).forEach(token -> map.compute(token, (k, v) -> v != null ? v + 1 : 1));
-        return map;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -51,5 +49,4 @@ final class Counter {
      */
     private Counter() {
     }
-
 }

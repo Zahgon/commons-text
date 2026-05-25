@@ -14,12 +14,10 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.text.StringSubstitutor;
 
@@ -67,10 +65,14 @@ import org.apache.commons.text.StringSubstitutor;
  */
 class ConstantStringLookup extends AbstractStringLookup {
 
-    /** An internally used cache for already retrieved values. */
+    /**
+     * An internally used cache for already retrieved values.
+     */
     private static final ConcurrentHashMap<String, String> CONSTANT_CACHE = new ConcurrentHashMap<>();
 
-    /** Constant for the field separator. */
+    /**
+     * Constant for the field separator.
+     */
     private static final char FIELD_SEPARATOR = '.';
 
     /**
@@ -82,7 +84,7 @@ class ConstantStringLookup extends AbstractStringLookup {
      * Clears the shared cache with the so far resolved constants.
      */
     static void clear() {
-        CONSTANT_CACHE.clear();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -96,7 +98,7 @@ class ConstantStringLookup extends AbstractStringLookup {
      * @throws ClassNotFoundException if the class cannot be loaded.
      */
     protected Class<?> fetchClass(final String className) throws ClassNotFoundException {
-        return ClassUtils.getClass(className);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -110,30 +112,7 @@ class ConstantStringLookup extends AbstractStringLookup {
      */
     @Override
     public synchronized String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        String result;
-        result = CONSTANT_CACHE.get(key);
-        if (result != null) {
-            return result;
-        }
-        final int fieldPos = key.lastIndexOf(FIELD_SEPARATOR);
-        if (fieldPos < 0) {
-            return null;
-        }
-        try {
-            final Object value = resolveField(key.substring(0, fieldPos), key.substring(fieldPos + 1));
-            if (value != null) {
-                final String string = Objects.toString(value, null);
-                CONSTANT_CACHE.put(key, string);
-                result = string;
-            }
-        } catch (final Exception ex) {
-            // TODO it would be nice to log
-            return null;
-        }
-        return result;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -147,10 +126,6 @@ class ConstantStringLookup extends AbstractStringLookup {
      * @throws ReflectiveOperationException if an error occurs.
      */
     protected Object resolveField(final String className, final String fieldName) throws ReflectiveOperationException {
-        final Class<?> clazz = fetchClass(className);
-        if (clazz == null) {
-            return null;
-        }
-        return clazz.getField(fieldName).get(null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

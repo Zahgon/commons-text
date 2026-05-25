@@ -17,7 +17,6 @@
 package org.apache.commons.text.lookup;
 
 import java.util.Locale;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringSubstitutor;
 
@@ -67,22 +66,34 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      */
     static final JavaPlatformStringLookup INSTANCE = new JavaPlatformStringLookup();
 
-    /** {@code hardware} key for driving {@link JavaPlatformStringLookup#lookup(String)}. */
+    /**
+     * {@code hardware} key for driving {@link JavaPlatformStringLookup#lookup(String)}.
+     */
     private static final String KEY_HARDWARE = "hardware";
 
-    /** {@code locale} key for driving {@link JavaPlatformStringLookup#lookup(String)}. */
+    /**
+     * {@code locale} key for driving {@link JavaPlatformStringLookup#lookup(String)}.
+     */
     private static final String KEY_LOCALE = "locale";
 
-    /** {@code os} key for driving {@link JavaPlatformStringLookup#lookup(String)}. */
+    /**
+     * {@code os} key for driving {@link JavaPlatformStringLookup#lookup(String)}.
+     */
     private static final String KEY_OS = "os";
 
-    /** {@code runtime} key for driving {@link JavaPlatformStringLookup#lookup(String)}. */
+    /**
+     * {@code runtime} key for driving {@link JavaPlatformStringLookup#lookup(String)}.
+     */
     private static final String KEY_RUNTIME = "runtime";
 
-    /** {@code version} key for driving {@link JavaPlatformStringLookup#lookup(String)}. */
+    /**
+     * {@code version} key for driving {@link JavaPlatformStringLookup#lookup(String)}.
+     */
     private static final String KEY_VERSION = "version";
 
-    /** {@code vm} key for driving {@link JavaPlatformStringLookup#lookup(String)}. */
+    /**
+     * {@code vm} key for driving {@link JavaPlatformStringLookup#lookup(String)}.
+     */
     private static final String KEY_VM = "vm";
 
     /**
@@ -91,13 +102,7 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @param args the standard Java main method parameter which is unused for our running of this class.
      */
     public static void main(final String[] args) {
-        System.out.println(JavaPlatformStringLookup.class);
-        System.out.printf("%s = %s%n", KEY_VERSION, INSTANCE.lookup(KEY_VERSION));
-        System.out.printf("%s = %s%n", KEY_RUNTIME, INSTANCE.lookup(KEY_RUNTIME));
-        System.out.printf("%s = %s%n", KEY_VM, INSTANCE.lookup(KEY_VM));
-        System.out.printf("%s = %s%n", KEY_OS, INSTANCE.lookup(KEY_OS));
-        System.out.printf("%s = %s%n", KEY_HARDWARE, INSTANCE.lookup(KEY_HARDWARE));
-        System.out.printf("%s = %s%n", KEY_LOCALE, INSTANCE.lookup(KEY_LOCALE));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -113,9 +118,7 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @return hardware processor information.
      */
     String getHardware() {
-        return "processors: " + Runtime.getRuntime().availableProcessors() + ", architecture: "
-            + getSystemProperty("os.arch") + this.getSystemProperty("-", "sun.arch.data.model")
-            + this.getSystemProperty(", instruction sets: ", "sun.cpu.isalist");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -124,7 +127,7 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @return system locale and file encoding information.
      */
     String getLocale() {
-        return "default locale: " + Locale.getDefault() + ", platform encoding: " + getSystemProperty("file.encoding");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -133,9 +136,7 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @return operating system information.
      */
     String getOperatingSystem() {
-        return getSystemProperty("os.name") + " " + getSystemProperty("os.version")
-            + getSystemProperty(" ", "sun.os.patch.level") + ", architecture: " + getSystemProperty("os.arch")
-            + getSystemProperty("-", "sun.arch.data.model");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -144,8 +145,7 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @return Java Runtime Environment information.
      */
     String getRuntime() {
-        return getSystemProperty("java.runtime.name") + " (build " + getSystemProperty("java.runtime.version")
-            + ") from " + getSystemProperty("java.vendor");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -179,8 +179,7 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      * @return Java Virtual Machine information.
      */
     String getVirtualMachine() {
-        return getSystemProperty("java.vm.name") + " (build " + getSystemProperty("java.vm.version") + ", "
-            + getSystemProperty("java.vm.info") + ")";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -202,24 +201,6 @@ final class JavaPlatformStringLookup extends AbstractStringLookup {
      */
     @Override
     public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        switch (key) {
-        case KEY_VERSION:
-            return "Java version " + getSystemProperty("java.version");
-        case KEY_RUNTIME:
-            return getRuntime();
-        case KEY_VM:
-            return getVirtualMachine();
-        case KEY_OS:
-            return getOperatingSystem();
-        case KEY_HARDWARE:
-            return getHardware();
-        case KEY_LOCALE:
-            return getLocale();
-        default:
-            throw new IllegalArgumentException(key);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

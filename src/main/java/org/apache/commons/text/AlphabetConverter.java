@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -123,99 +122,8 @@ public final class AlphabetConverter {
      * @return The AlphabetConverter.
      * @throws IllegalArgumentException if an AlphabetConverter cannot be constructed.
      */
-    public static AlphabetConverter createConverter(
-            final Integer[] original,
-            final Integer[] encoding,
-            final Integer[] doNotEncode) {
-        final Set<Integer> originalCopy = new LinkedHashSet<>(Arrays.asList(original));
-        final Set<Integer> encodingCopy = new LinkedHashSet<>(Arrays.asList(encoding));
-        final Set<Integer> doNotEncodeCopy = new LinkedHashSet<>(Arrays.asList(doNotEncode));
-
-        final Map<Integer, String> originalToEncoded = new LinkedHashMap<>();
-        final Map<String, String> encodedToOriginal = new LinkedHashMap<>();
-        final Map<Integer, String> doNotEncodeMap = new HashMap<>();
-
-        final int encodedLetterLength;
-
-        for (final int i : doNotEncodeCopy) {
-            if (!originalCopy.contains(i)) {
-                throw new IllegalArgumentException(
-                        "Can not use 'do not encode' list because original "
-                                + "alphabet does not contain '"
-                                + codePointToString(i) + "'");
-            }
-
-            if (!encodingCopy.contains(i)) {
-                throw new IllegalArgumentException(
-                        "Can not use 'do not encode' list because encoding alphabet does not contain '"
-                                + codePointToString(i) + "'");
-            }
-
-            doNotEncodeMap.put(i, codePointToString(i));
-        }
-
-        if (encodingCopy.size() >= originalCopy.size()) {
-            encodedLetterLength = 1;
-
-            final Iterator<Integer> it = encodingCopy.iterator();
-
-            for (final int originalLetter : originalCopy) {
-                final String originalLetterAsString = codePointToString(originalLetter);
-
-                if (doNotEncodeMap.containsKey(originalLetter)) {
-                    originalToEncoded.put(originalLetter, originalLetterAsString);
-                    encodedToOriginal.put(originalLetterAsString, originalLetterAsString);
-                } else {
-                    Integer next = it.next();
-
-                    while (doNotEncodeCopy.contains(next)) {
-                        next = it.next();
-                    }
-
-                    final String encodedLetter = codePointToString(next);
-
-                    originalToEncoded.put(originalLetter, encodedLetter);
-                    encodedToOriginal.put(encodedLetter, originalLetterAsString);
-                }
-            }
-
-            return new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);
-
-        }
-        if (encodingCopy.size() - doNotEncodeCopy.size() < 2) {
-            throw new IllegalArgumentException(
-                    "Must have at least two encoding characters (excluding "
-                            + "those in the 'do not encode' list), but has "
-                            + (encodingCopy.size() - doNotEncodeCopy.size()));
-        }
-        // we start with one which is our minimum, and because we do the
-        // first division outside the loop
-        int lettersSoFar = 1;
-
-        // the first division takes into account that the doNotEncode
-        // letters can't be in the leftmost place
-        int lettersLeft = (originalCopy.size() - doNotEncodeCopy.size())
-                / (encodingCopy.size() - doNotEncodeCopy.size());
-
-        while (lettersLeft / encodingCopy.size() >= 1) {
-            lettersLeft /= encodingCopy.size();
-            lettersSoFar++;
-        }
-
-        encodedLetterLength = lettersSoFar + 1;
-
-        final AlphabetConverter ac =
-                new AlphabetConverter(originalToEncoded,
-                        encodedToOriginal,
-                        encodedLetterLength);
-
-        ac.addSingleEncoding(encodedLetterLength,
-                StringUtils.EMPTY,
-                encodingCopy,
-                originalCopy.iterator(),
-                doNotEncodeMap);
-
-        return ac;
+    public static AlphabetConverter createConverter(final Integer[] original, final Integer[] encoding, final Integer[] doNotEncode) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -235,14 +143,8 @@ public final class AlphabetConverter {
      * @throws IllegalArgumentException if an AlphabetConverter cannot be
      *                                  constructed
      */
-    public static AlphabetConverter createConverterFromChars(
-            final Character[] original,
-            final Character[] encoding,
-            final Character[] doNotEncode) {
-        return createConverter(
-                convertCharsToIntegers(original),
-                convertCharsToIntegers(encoding),
-                convertCharsToIntegers(doNotEncode));
+    public static AlphabetConverter createConverterFromChars(final Character[] original, final Character[] encoding, final Character[] doNotEncode) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -253,20 +155,7 @@ public final class AlphabetConverter {
      * @see AlphabetConverter#getOriginalToEncoded()
      */
     public static AlphabetConverter createConverterFromMap(final Map<Integer, String> originalToEncoded) {
-        final Map<Integer, String> unmodifiableOriginalToEncoded = Collections.unmodifiableMap(originalToEncoded);
-        final Map<String, String> encodedToOriginal = new LinkedHashMap<>();
-
-        int encodedLetterLength = 1;
-
-        for (final Entry<Integer, String> e : unmodifiableOriginalToEncoded.entrySet()) {
-            encodedToOriginal.put(e.getValue(), codePointToString(e.getKey()));
-
-            if (e.getValue().length() > encodedLetterLength) {
-                encodedLetterLength = e.getValue().length();
-            }
-        }
-
-        return new AlphabetConverter(unmodifiableOriginalToEncoded, encodedToOriginal, encodedLetterLength);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -291,10 +180,7 @@ public final class AlphabetConverter {
      * @param encodedToOriginal encoding alphabet.
      * @param encodedLetterLength length of the encoded letter.
      */
-    private AlphabetConverter(final Map<Integer, String> originalToEncoded,
-                              final Map<String, String> encodedToOriginal,
-                              final int encodedLetterLength) {
-
+    private AlphabetConverter(final Map<Integer, String> originalToEncoded, final Map<String, String> encodedToOriginal, final int encodedLetterLength) {
         this.originalToEncoded = originalToEncoded;
         this.encodedToOriginal = encodedToOriginal;
         this.encodedLetterLength = encodedLetterLength;
@@ -309,49 +195,31 @@ public final class AlphabetConverter {
      * @param originals original values.
      * @param doNotEncodeMap map of values that should not be encoded.
      */
-    private void addSingleEncoding(final int level,
-                                   final String currentEncoding,
-                                   final Collection<Integer> encoding,
-                                   final Iterator<Integer> originals,
-                                   final Map<Integer, String> doNotEncodeMap) {
-
+    private void addSingleEncoding(final int level, final String currentEncoding, final Collection<Integer> encoding, final Iterator<Integer> originals, final Map<Integer, String> doNotEncodeMap) {
         if (level > 0) {
             for (final int encodingLetter : encoding) {
                 if (!originals.hasNext()) {
-                    return; // done encoding all the original alphabet
+                    // done encoding all the original alphabet
+                    return;
                 }
                 // this skips the doNotEncode chars if they are in the
                 // leftmost place
-                if (level != encodedLetterLength
-                        || !doNotEncodeMap.containsKey(encodingLetter)) {
-                    addSingleEncoding(level - 1,
-                            currentEncoding
-                                    + codePointToString(encodingLetter),
-                            encoding,
-                            originals,
-                            doNotEncodeMap
-                    );
+                if (level != encodedLetterLength || !doNotEncodeMap.containsKey(encodingLetter)) {
+                    addSingleEncoding(level - 1, currentEncoding + codePointToString(encodingLetter), encoding, originals, doNotEncodeMap);
                 }
             }
         } else {
             Integer next = originals.next();
-
             while (doNotEncodeMap.containsKey(next)) {
                 final String originalLetterAsString = codePointToString(next);
-
                 originalToEncoded.put(next, originalLetterAsString);
-                encodedToOriginal.put(originalLetterAsString,
-                        originalLetterAsString);
-
+                encodedToOriginal.put(originalLetterAsString, originalLetterAsString);
                 if (!originals.hasNext()) {
                     return;
                 }
-
                 next = originals.next();
             }
-
             final String originalLetterAsString = codePointToString(next);
-
             originalToEncoded.put(next, currentEncoding);
             encodedToOriginal.put(currentEncoding, originalLetterAsString);
         }
@@ -364,41 +232,8 @@ public final class AlphabetConverter {
      * @return The decoded string, {@code null} if the given string is null.
      * @throws UnsupportedEncodingException if unexpected characters that cannot be handled are encountered.
      */
-    public String decode(final String encoded)
-            throws UnsupportedEncodingException {
-        if (encoded == null) {
-            return null;
-        }
-
-        final StringBuilder result = new StringBuilder();
-
-        for (int j = 0; j < encoded.length();) {
-            final int i = encoded.codePointAt(j);
-            final String s = codePointToString(i);
-
-            if (s.equals(originalToEncoded.get(i))) {
-                result.append(s);
-                j++; // because we do not encode in Unicode extended the
-                     // length of each encoded char is 1
-            } else {
-                if (j + encodedLetterLength > encoded.length()) {
-                    throw new UnsupportedEncodingException("Unexpected end "
-                            + "of string while decoding " + encoded);
-                }
-                final String nextGroup = encoded.substring(j,
-                        j + encodedLetterLength);
-                final String next = encodedToOriginal.get(nextGroup);
-                if (next == null) {
-                    throw new UnsupportedEncodingException(
-                            "Unexpected string without decoding ("
-                                    + nextGroup + ") in " + encoded);
-                }
-                result.append(next);
-                j += encodedLetterLength;
-            }
-        }
-
-        return result.toString();
+    public String decode(final String encoded) throws UnsupportedEncodingException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -408,51 +243,13 @@ public final class AlphabetConverter {
      * @return The encoded string, {@code null} if the given string is null.
      * @throws UnsupportedEncodingException if chars that are not supported are encountered.
      */
-    public String encode(final String original)
-            throws UnsupportedEncodingException {
-        if (original == null) {
-            return null;
-        }
-
-        final StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < original.length();) {
-            final int codePoint = original.codePointAt(i);
-
-            final String nextLetter = originalToEncoded.get(codePoint);
-
-            if (nextLetter == null) {
-                throw new UnsupportedEncodingException(
-                        "Couldn't find encoding for '"
-                                + codePointToString(codePoint)
-                                + "' in "
-                                + original
-                );
-            }
-
-            sb.append(nextLetter);
-
-            i += Character.charCount(codePoint);
-        }
-
-        return sb.toString();
+    public String encode(final String original) throws UnsupportedEncodingException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AlphabetConverter)) {
-            return false;
-        }
-        final AlphabetConverter other = (AlphabetConverter) obj;
-        return originalToEncoded.equals(other.originalToEncoded)
-                && encodedToOriginal.equals(other.encodedToOriginal)
-                && encodedLetterLength == other.encodedLetterLength;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -461,7 +258,7 @@ public final class AlphabetConverter {
      * @return The length of the encoded char.
      */
     public int getEncodedCharLength() {
-        return encodedLetterLength;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -470,26 +267,16 @@ public final class AlphabetConverter {
      * @return The original map.
      */
     public Map<Integer, String> getOriginalToEncoded() {
-        return Collections.unmodifiableMap(originalToEncoded);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(originalToEncoded,
-                encodedToOriginal,
-                encodedLetterLength);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        // @formatter:off
-        originalToEncoded.forEach((k, v) ->
-            sb.append(codePointToString(k))
-              .append(ARROW)
-              .append(k)
-              .append(System.lineSeparator()));
-        // @formatter:on
-        return sb.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

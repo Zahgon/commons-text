@@ -66,7 +66,9 @@ public class ReplacementsFinder<T> implements CommandVisitor<T> {
      */
     private int skipped;
 
-    /** Handler to call when synchronized sequences are found. */
+    /**
+     * Handler to call when synchronized sequences are found.
+     */
     private final ReplacementsHandler<T> handler;
 
     /**
@@ -88,7 +90,7 @@ public class ReplacementsFinder<T> implements CommandVisitor<T> {
      */
     @Override
     public void visitDeleteCommand(final T object) {
-        pendingDeletions.add(object);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -98,7 +100,7 @@ public class ReplacementsFinder<T> implements CommandVisitor<T> {
      */
     @Override
     public void visitInsertCommand(final T object) {
-        pendingInsertions.add(object);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -111,14 +113,6 @@ public class ReplacementsFinder<T> implements CommandVisitor<T> {
      */
     @Override
     public void visitKeepCommand(final T object) {
-        if (pendingDeletions.isEmpty() && pendingInsertions.isEmpty()) {
-            ++skipped;
-        } else {
-            handler.handleReplacement(skipped, pendingDeletions, pendingInsertions);
-            pendingDeletions.clear();
-            pendingInsertions.clear();
-            skipped = 1;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

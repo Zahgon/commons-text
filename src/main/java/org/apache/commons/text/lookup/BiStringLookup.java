@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.util.function.BiFunction;
@@ -68,7 +67,6 @@ public interface BiStringLookup<U> extends StringLookup {
      * @return The matching value, null if no match.
      */
     default String lookup(final String key, final U object) {
-        return apply(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

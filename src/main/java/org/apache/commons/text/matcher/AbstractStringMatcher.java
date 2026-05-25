@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.matcher;
 
 import java.util.Arrays;
@@ -53,47 +52,17 @@ abstract class AbstractStringMatcher implements StringMatcher {
 
         @Override
         public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            int total = 0;
-            int curStart = start;
-            for (final StringMatcher stringMatcher : stringMatchers) {
-                if (stringMatcher != null) {
-                    final int len = stringMatcher.isMatch(buffer, curStart, bufferStart, bufferEnd);
-                    if (len == 0) {
-                        return 0;
-                    }
-                    total += len;
-                    curStart += len;
-                }
-            }
-            return total;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            int total = 0;
-            int curStart = start;
-            for (final StringMatcher stringMatcher : stringMatchers) {
-                if (stringMatcher != null) {
-                    final int len = stringMatcher.isMatch(buffer, curStart, bufferStart, bufferEnd);
-                    if (len == 0) {
-                        return 0;
-                    }
-                    total += len;
-                    curStart += len;
-                }
-            }
-            return total;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public int size() {
-            int total = 0;
-            for (final StringMatcher stringMatcher : stringMatchers) {
-                if (stringMatcher != null) {
-                    total += stringMatcher.size();
-                }
-            }
-            return total;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -105,10 +74,14 @@ abstract class AbstractStringMatcher implements StringMatcher {
      */
     static final class CharArrayMatcher extends AbstractStringMatcher {
 
-        /** The string to match, as a character array, implementation treats as immutable. */
+        /**
+         * The string to match, as a character array, implementation treats as immutable.
+         */
         private final char[] chars;
 
-        /** The string to match. */
+        /**
+         * The string to match.
+         */
         private final String string;
 
         /**
@@ -132,17 +105,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            final int len = size();
-            if (start + len > bufferEnd) {
-                return 0;
-            }
-            int j = start;
-            for (int i = 0; i < len; i++, j++) {
-                if (chars[i] != buffer[j]) {
-                    return 0;
-                }
-            }
-            return len;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -156,17 +119,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            final int len = size();
-            if (start + len > bufferEnd) {
-                return 0;
-            }
-            int j = start;
-            for (int i = 0; i < len; i++, j++) {
-                if (chars[i] != buffer.charAt(j)) {
-                    return 0;
-                }
-            }
-            return len;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -176,14 +129,13 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int size() {
-            return chars.length;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return super.toString() + "[\"" + string + "\"]";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -194,7 +146,9 @@ abstract class AbstractStringMatcher implements StringMatcher {
      */
     static final class CharMatcher extends AbstractStringMatcher {
 
-        /** The character to match. */
+        /**
+         * The character to match.
+         */
         private final char ch;
 
         /**
@@ -217,7 +171,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return ch == buffer[start] ? 1 : 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -231,7 +185,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return ch == buffer.charAt(start) ? 1 : 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -241,12 +195,12 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int size() {
-            return 1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return super.toString() + "['" + ch + "']";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -258,7 +212,9 @@ abstract class AbstractStringMatcher implements StringMatcher {
      */
     static final class CharSetMatcher extends AbstractStringMatcher {
 
-        /** The set of characters to match. */
+        /**
+         * The set of characters to match.
+         */
         private final char[] chars;
 
         /**
@@ -282,7 +238,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return Arrays.binarySearch(chars, buffer[start]) >= 0 ? 1 : 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -296,7 +252,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return Arrays.binarySearch(chars, buffer.charAt(start)) >= 0 ? 1 : 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -306,14 +262,13 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int size() {
-            return 1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return super.toString() + Arrays.toString(chars);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -341,7 +296,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -355,7 +310,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -365,9 +320,8 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int size() {
-            return 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -400,7 +354,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return buffer[start] <= SPACE_INT ? 1 : 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -414,7 +368,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            return buffer.charAt(start) <= SPACE_INT ? 1 : 0;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -424,7 +378,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
          */
         @Override
         public int size() {
-            return 1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -433,19 +387,17 @@ abstract class AbstractStringMatcher implements StringMatcher {
      */
     protected AbstractStringMatcher() {
     }
-
-//    /**
-//     * Validates indices for {@code bufferStart <= start < bufferEnd}.
-//     *
-//     * @param start the starting position for the match, valid in {@code buffer}.
-//     * @param bufferStart the first active index in the buffer, valid in {@code buffer}.
-//     * @param bufferEnd the end index (exclusive) of the active buffer, valid in {@code buffer}.
-//     */
-//    void validate(final int start, final int bufferStart, final int bufferEnd) {
-//        if (((bufferStart > start) || (start >= bufferEnd))) {
-//            throw new IndexOutOfBoundsException(
-//                String.format("bufferStart(%,d) <= start(%,d) < bufferEnd(%,d)", bufferStart, start, bufferEnd));
-//        }
-//    }
-
+    //    /**
+    //     * Validates indices for {@code bufferStart <= start < bufferEnd}.
+    //     *
+    //     * @param start the starting position for the match, valid in {@code buffer}.
+    //     * @param bufferStart the first active index in the buffer, valid in {@code buffer}.
+    //     * @param bufferEnd the end index (exclusive) of the active buffer, valid in {@code buffer}.
+    //     */
+    //    void validate(final int start, final int bufferStart, final int bufferEnd) {
+    //        if (((bufferStart > start) || (start >= bufferEnd))) {
+    //            throw new IndexOutOfBoundsException(
+    //                String.format("bufferStart(%,d) <= start(%,d) < bufferEnd(%,d)", bufferStart, start, bufferEnd));
+    //        }
+    //    }
 }

@@ -81,7 +81,7 @@ public class SimilarityScoreFrom<R> {
      * @return The similarity score between two CharSequences.
      */
     public R apply(final CharSequence right) {
-        return similarityScore.apply(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -90,7 +90,7 @@ public class SimilarityScoreFrom<R> {
      * @return The left parameter.
      */
     public CharSequence getLeft() {
-        return left;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -99,7 +99,6 @@ public class SimilarityScoreFrom<R> {
      * @return The edit distance.
      */
     public SimilarityScore<R> getSimilarityScore() {
-        return similarityScore;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

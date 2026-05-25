@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 import java.nio.file.Path;
@@ -37,7 +36,9 @@ final class PathFence {
      */
     static final class Builder implements Supplier<PathFence> {
 
-        /** The empty Path array. */
+        /**
+         * The empty Path array.
+         */
         private static final Path[] EMPTY = {};
 
         /**
@@ -47,7 +48,7 @@ final class PathFence {
 
         @Override
         public PathFence get() {
-            return new PathFence(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -57,8 +58,7 @@ final class PathFence {
          * @return {@code this} instance.
          */
         Builder setRoots(final Path... paths) {
-            this.roots = paths != null ? paths.clone() : EMPTY;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -68,7 +68,7 @@ final class PathFence {
      * @return a new builder.
      */
     static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -93,16 +93,6 @@ final class PathFence {
      * @throws IllegalArgumentException if the file name is not without our fence.
      */
     Path apply(final String fileName) {
-        final Path path = Paths.get(fileName);
-        if (roots.isEmpty()) {
-            return path;
-        }
-        final Path pathAbs = path.normalize().toAbsolutePath();
-        final Optional<Path> first = roots.stream().filter(pathAbs::startsWith).findFirst();
-        if (first.isPresent()) {
-            return path;
-        }
-        throw new IllegalArgumentException(String.format("[%s] -> [%s] not in the fence %s", fileName, pathAbs, roots));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

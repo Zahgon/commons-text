@@ -52,7 +52,9 @@ package org.apache.commons.text.diff;
  */
 public abstract class EditCommand<T> {
 
-    /** Object on which the command should be applied. */
+    /**
+     * Object on which the command should be applied.
+     */
     private final T object;
 
     /**
@@ -80,7 +82,6 @@ public abstract class EditCommand<T> {
      * @return The object on which the command is applied.
      */
     protected T getObject() {
-        return object;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

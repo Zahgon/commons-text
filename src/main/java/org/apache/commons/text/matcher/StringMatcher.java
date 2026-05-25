@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.text.matcher;
 
 import org.apache.commons.lang3.CharSequenceUtils;
@@ -34,7 +33,7 @@ public interface StringMatcher {
      * @since 1.9
      */
     default StringMatcher andThen(final StringMatcher stringMatcher) {
-        return StringMatcherFactory.INSTANCE.andMatcher(this, stringMatcher);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -59,7 +58,7 @@ public interface StringMatcher {
      * @since 1.9
      */
     default int isMatch(final char[] buffer, final int pos) {
-        return isMatch(buffer, pos, 0, buffer.length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -112,7 +111,7 @@ public interface StringMatcher {
      * @since 1.9
      */
     default int isMatch(final CharSequence buffer, final int pos) {
-        return isMatch(buffer, pos, 0, buffer.length());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -143,7 +142,7 @@ public interface StringMatcher {
      * @since 1.9
      */
     default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-        return isMatch(CharSequenceUtils.toCharArray(buffer), start, bufferEnd, bufferEnd);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -153,7 +152,6 @@ public interface StringMatcher {
      * @since 1.9
      */
     default int size() {
-        return 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

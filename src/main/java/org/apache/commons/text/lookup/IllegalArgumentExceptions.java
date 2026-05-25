@@ -14,7 +14,6 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-
 package org.apache.commons.text.lookup;
 
 /**
@@ -33,7 +32,7 @@ final class IllegalArgumentExceptions {
      * @return an {@link IllegalArgumentException} with a message formatted with {@link String#format(String,Object...)}.
      */
     static IllegalArgumentException format(final String format, final Object... args) {
-        return new IllegalArgumentException(String.format(format, args));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -46,7 +45,7 @@ final class IllegalArgumentExceptions {
      * @return an {@link IllegalArgumentException} with a message formatted with {@link String#format(String,Object...)}.
      */
     static IllegalArgumentException format(final Throwable t, final String format, final Object... args) {
-        return new IllegalArgumentException(String.format(format, args), t);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
